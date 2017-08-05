@@ -4,7 +4,7 @@ import Logo from 'images/nss_alumni_logo.png'
 
 const sheet = {
   logo: {
-    'width': '10%',
+    'width': '5rem',
   },
 }
 const Header = ({ classes }) => (

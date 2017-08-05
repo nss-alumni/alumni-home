@@ -6,7 +6,7 @@ import injectSheet from 'react-jss'
 const sheet = {
   app: {
     'text-align': 'left',
-    'margin': '0 5% 0 5%',
+    'margin': '0 2.5rem',
   },
 
 }
