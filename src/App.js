@@ -1,4 +1,6 @@
+import Events from 'components/Events'
 import React from 'react'
+import Tile from 'components/Tile'
 import injectSheet from 'react-jss'
 
 const sheet = {
@@ -9,7 +11,9 @@ const sheet = {
 
 const App = ({ classes }) => (
   <div className={classes.app}>
-    <h1>NSS Alumni</h1>
+    <Tile>
+      <h1>NSS Alumni</h1>
+    </Tile>
   </div>
 )
 
