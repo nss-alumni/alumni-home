@@ -13,7 +13,7 @@ const sheet = {
 
 const App = ({ classes }) => (
   <div className={classes.app}>
-    <Header></Header>
+    <Header/>
     <Tile>
       <h1>NSS Alumni</h1>
     </Tile>
