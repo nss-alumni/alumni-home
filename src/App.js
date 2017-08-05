@@ -2,7 +2,7 @@ import React from 'react'
 import injectSheet from 'react-jss'
 import logo from './logo.svg'
 
-const styles = {
+const sheet = {
   app: {
     'text-align': 'center',
   },
@@ -33,4 +33,4 @@ const App = ({ classes }) => (
   </div>
 )
 
-export default injectSheet(styles)(App)
+export default injectSheet(sheet)(App)
