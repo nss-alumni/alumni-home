@@ -1,7 +1,9 @@
+import EventList from 'components/EventList'
+import Header from 'components/Header'
 import React from 'react'
 import Tile from 'components/Tile'
-import Header from 'components/Header'
 import Donate from 'components/Donate'
+import events from 'eventList'
 import injectSheet from 'react-jss'
 
 const sheet = {
@@ -16,7 +18,10 @@ const App = ({ classes }) => (
   <div className={classes.app}>
     <Header />
     <Tile>
-      <Donate/>
+      <EventList list={events} />
+    </Tile>
+    <Tile>
+      <Donate />
     </Tile>
   </div>
 )
