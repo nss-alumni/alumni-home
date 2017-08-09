@@ -1,6 +1,7 @@
 import React from 'react'
 import Tile from 'components/Tile'
 import Header from 'components/Header'
+import Donate from 'components/Donate'
 import injectSheet from 'react-jss'
 
 const sheet = {
@@ -14,6 +15,9 @@ const sheet = {
 const App = ({ classes }) => (
   <div className={classes.app}>
     <Header />
+    <Tile>
+      <Donate/>
+    </Tile>
   </div>
 )
 

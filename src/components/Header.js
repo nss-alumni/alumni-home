@@ -4,12 +4,16 @@ import logo from 'images/nss_alumni_logo.png'
 
 const sheet = {
   logo: {
-    'width': '5rem',
+    'width': '8rem',
   },
+
+  centerDiv: {
+    'text-align': 'center',
+  }
 }
 const Header = ({ classes }) => (
-  <div>
-    <img src={logo} className={classes.logo} alt='nss_alumni_logo'/>
+  <div className={ classes.centerDiv }>
+    <img src={logo} className={ classes.logo } alt='nss_alumni_logo'/>
   </div>
 )
 export default injectSheet(sheet)(Header)
