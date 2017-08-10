@@ -21,7 +21,7 @@ const App = ({ classes }) => (
   <div className={classes.app}>
     <Header />
     <div className={classes.tileContainer}>
-      <Tile>
+      <Tile title='Upcoming Events'>
         <EventList list={events} />
       </Tile>
     </div>
