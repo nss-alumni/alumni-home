@@ -1,19 +1,23 @@
 import LinkButton from 'components/LinkButton'
 import React from 'react'
-import injectSheet from 'react-jss'
 import { colors } from 'theme'
+import injectSheet from 'react-jss'
 
 const sheet = {
   date: {
     'color': colors.faintText,
     'margin': 0,
   },
+  description: {
+    'text-size': '1.1rem',
+  },
   event: {
-    'margin-top': '0.5rem',
-    'margin-bottom': '0.5rem',
+    'margin-bottom': '1.5rem',
+    'margin-top': '1rem',
   },
   name: {
-    'text-size': '1.5rem',
+    'font-weight': 600,
+    'font-size': '1.6rem',
     'margin-bottom': '.25rem',
   },
 }
@@ -28,9 +32,9 @@ const Event = ({
   name,
 }) => (
   <div className={classes.event}>
-    <h2 className={classes.name}>{name}</h2>
+    <p className={classes.name}>{name}</p>
     <p className={classes.date}>{date.format(dateFormat)}</p>
-    <p>{description}</p>
+    <p className={classes.description}>{description}</p>
     <LinkButton url={link}>MORE INFO</LinkButton>
   </div>
 )

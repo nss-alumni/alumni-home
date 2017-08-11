@@ -8,9 +8,9 @@ import injectSheet from 'react-jss'
 
 const sheet = {
   app: {
-    'text-align': 'left',
-    'margin': '0 2.5rem',
     'color': colors.text,
+    'margin': '0 2.5rem',
+    'text-align': 'left',
   },
   tileContainer: {
     'display': 'flex',
