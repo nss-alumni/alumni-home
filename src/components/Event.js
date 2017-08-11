@@ -1,3 +1,4 @@
+import LinkButton from 'components/LinkButton'
 import React from 'react'
 import injectSheet from 'react-jss'
 import { colors } from 'theme'
@@ -30,7 +31,7 @@ const Event = ({
     <h2 className={classes.name}>{name}</h2>
     <p className={classes.date}>{date.format(dateFormat)}</p>
     <p>{description}</p>
-    <a href={link}>More Info</a>
+    <LinkButton url={link}>MORE INFO</LinkButton>
   </div>
 )
 
