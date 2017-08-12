@@ -2,23 +2,29 @@ import EventList from 'components/EventList'
 import Header from 'components/Header'
 import React from 'react'
 import Tile from 'components/Tile'
+import { colors } from 'theme'
 import events from 'eventList'
 import injectSheet from 'react-jss'
 
 const sheet = {
   app: {
-    'text-align': 'left',
+    'color': colors.text,
     'margin': '0 2.5rem',
+    'text-align': 'left',
   },
-
+  tileContainer: {
+    'display': 'flex',
+  },
 }
 
 const App = ({ classes }) => (
   <div className={classes.app}>
     <Header />
-    <Tile>
-      <EventList list={events} />
-    </Tile>
+    <div className={classes.tileContainer}>
+      <Tile title='Upcoming Events'>
+        <EventList list={events} />
+      </Tile>
+    </div>
   </div>
 )
 

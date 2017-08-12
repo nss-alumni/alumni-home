@@ -4,7 +4,7 @@ import React from 'react'
 import moment from 'moment'
 
 const dividerStyle = {
-  margin: '1rem 0.5rem',
+  'margin': '1rem 0.5rem',
 }
 
 const dateSort = (e1, e2) => e1.date.isAfter(e2.date)
