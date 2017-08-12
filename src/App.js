@@ -16,6 +16,9 @@ const sheet = {
   tileContainer: {
     'display': 'flex',
   },
+  tile: {
+    height: '100%',
+  }
 }
 
 const App = ({ classes }) => (
@@ -24,6 +27,9 @@ const App = ({ classes }) => (
     <div className={classes.tileContainer}>
       <Tile title='Upcoming Events'>
         <EventList list={events} />
+      </Tile>
+      <Tile title='Donations'>
+        <Donate />
       </Tile>
     </div>
   </div>
