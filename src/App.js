@@ -16,9 +16,6 @@ const sheet = {
   tileContainer: {
     'display': 'flex',
   },
-  tile: {
-    height: '100%',
-  }
 }
 
 const App = ({ classes }) => (
