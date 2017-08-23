@@ -9,6 +9,7 @@ const sheet = {
     'flex': 1,
     'margin': '1rem',
     'padding': '1.75rem',
+    'height': '100%',
   },
   title: {
     'border-bottom': `3px solid ${colors.accent}`,
