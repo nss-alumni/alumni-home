@@ -1,20 +1,23 @@
+import Logo from './Logo'
 import PropTypes from 'prop-types'
 import React from 'react'
 import injectSheet from 'react-jss'
-import logo from 'images/nss_alumni_logo.png'
 
 const sheet = {
+  logoContainer: {
+    'display': 'flex',
+    'justify-content': 'center',
+  },
   logo: {
     'width': '8rem',
-  },
-  centerDiv: {
-    'text-align': 'center',
   },
 }
 
 const Header = ({ classes }) => (
-  <div className={classes.centerDiv}>
-    <img alt='nss_alumni_logo' className={classes.logo} src={logo} />
+  <div className={classes.logoContainer}>
+    <div className={classes.logo}>
+      <Logo />
+    </div>
   </div>
 )
 
