@@ -22,7 +22,7 @@ const LinkButton = ({
 )
 
 LinkButton.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired,
 }

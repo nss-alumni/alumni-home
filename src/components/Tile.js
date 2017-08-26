@@ -36,7 +36,7 @@ const Tile = ({
 Tile.propTypes = {
   children: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
-  title: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 export default injectSheet(sheet)(Tile)
