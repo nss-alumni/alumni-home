@@ -1,5 +1,6 @@
 import Divider from 'material-ui/Divider'
 import Event from 'components/Event'
+import PropTypes from 'prop-types'
 import React from 'react'
 import moment from 'moment'
 
@@ -9,6 +10,8 @@ const dividerStyle = {
 
 const dateSort = (e1, e2) => e1.date.isAfter(e2.date)
 
+// NOTE(adam): the indent rule is a bit silly sometimes
+/* eslint-disable indent */
 const EventList = ({ list }) => (
   <div>
     {list
@@ -17,9 +20,9 @@ const EventList = ({ list }) => (
       .reduce((resultList, event, i, initalList) =>
         [...resultList,
           <Event
-            key={`event-${i}`}
             date={event.date}
             description={event.description}
+            key={`${event.date.format()}-${event.name}`}
             link={event.link}
             name={event.name}
           />,
@@ -29,5 +32,9 @@ const EventList = ({ list }) => (
     }
   </div>
 )
+
+EventList.propTypes = {
+  list: PropTypes.array.isRequired,
+}
 
 export default EventList

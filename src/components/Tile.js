@@ -1,4 +1,5 @@
 import Paper from 'material-ui/Paper'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { colors } from 'theme'
 import injectSheet from 'react-jss'
@@ -24,12 +25,18 @@ const sheet = {
 const Tile = ({
   children,
   classes,
-  title
+  title,
 }) => (
   <Paper className={classes.tile}>
     <span className={classes.title}>{title && title.toUpperCase()}</span>
     {children}
   </Paper>
 )
+
+Tile.propTypes = {
+  children: PropTypes.element.isRequired,
+  classes: PropTypes.object.isRequired,
+  title: PropTypes.object.isRequired,
+}
 
 export default injectSheet(sheet)(Tile)
