@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { colors } from 'theme'
 import injectSheet from 'react-jss'
@@ -9,7 +10,7 @@ const sheet = {
     'color': colors.white,
     'padding': '.5rem .75rem',
     'text-decoration': 'none',
-  }
+  },
 }
 
 const LinkButton = ({
@@ -19,5 +20,11 @@ const LinkButton = ({
 }) => (
   <a className={classes.anchor} href={url}>{children}</a>
 )
+
+LinkButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
+  url: PropTypes.string.isRequired,
+}
 
 export default injectSheet(sheet)(LinkButton)
