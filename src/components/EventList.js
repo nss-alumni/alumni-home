@@ -32,6 +32,7 @@ const EventList = ({ list }) => (
     }
   </div>
 )
+/* eslint-enable indent */
 
 EventList.propTypes = {
   list: PropTypes.array.isRequired,
