@@ -1,8 +1,9 @@
+import Donate from 'components/Donate'
 import EventList from 'components/EventList'
 import Header from 'components/Header'
+import PropTypes from 'prop-types'
 import React from 'react'
 import Tile from 'components/Tile'
-import Donate from 'components/Donate'
 import { colors } from 'theme'
 import events from 'eventList'
 import injectSheet from 'react-jss'
@@ -31,5 +32,9 @@ const App = ({ classes }) => (
     </div>
   </div>
 )
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
 
 export default injectSheet(sheet)(App)

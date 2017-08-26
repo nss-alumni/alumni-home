@@ -1,7 +1,9 @@
 import LinkButton from 'components/LinkButton'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { colors } from 'theme'
 import injectSheet from 'react-jss'
+import moment from 'moment'
 
 const sheet = {
   date: {
@@ -38,5 +40,13 @@ const Event = ({
     <LinkButton url={link}>MORE INFO</LinkButton>
   </div>
 )
+
+Event.propTypes = {
+  classes: PropTypes.object.isRequired,
+  date: PropTypes.instanceOf(moment).isRequired,
+  description: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+}
 
 export default injectSheet(sheet)(Event)
