@@ -9,11 +9,11 @@ const sheet = {
   },
 }
 
-const VenmoLink = ({ classes }) => (
+const VenmoLink = injectSheet(sheet)(({ classes }) => (
   <a href={'https://venmo.com/NSS-Alumni'}>
     <img alt='venmo' className={classes.venmoLogo} src={venmoLogo} />
   </a>
-)
+))
 
 VenmoLink.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -32,4 +32,4 @@ const Donate = () => (
 )
 /* eslint-enable react/no-unescaped-entities */
 
-export default injectSheet(sheet)(Donate)
+export default Donate
