@@ -24,6 +24,6 @@
     "push-deploy": "git push origin `git subtree split --prefix=build`:gh-pages --force",
     "delete-deploy-branch": "npm run checkout-master-branch && git branch -D deploy",
 
-    "deploy": "npm run checkout-master-branch && npm run create-deploy-branch && npm run create-build && npm run push-deploy && npm run delete-deploy-branch"
+    "deploy": "npm run checkout-master-branch && git pull && npm run create-deploy-branch && npm run create-build && npm run push-deploy && npm run delete-deploy-branch"
   }
 }
