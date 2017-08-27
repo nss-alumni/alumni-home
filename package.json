@@ -1,5 +1,5 @@
 {
-  "name": "nss-alumni-website",
+  "name": "alumni-home",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +9,7 @@
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.10"
   },
+  "homepage": "https://nss-alumni.github.io/alumni-home",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
