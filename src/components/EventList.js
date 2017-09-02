@@ -8,21 +8,21 @@ const dividerStyle = {
   'margin': '1rem 0.5rem',
 }
 
-const dateSort = (e1, e2) => e1.date.isAfter(e2.date)
+const dateSort = (e1, e2) => e1.startDate.isAfter(e2.startDate)
 
 // NOTE(adam): the indent rule is a bit silly sometimes
 /* eslint-disable indent */
 const EventList = ({ list }) => (
   <div>
     {list
-      .map(event => ({ ...event, date: moment(event.date) }))
+      .map(event => ({ ...event, startDate: moment(event.startDate) }))
       .sort(dateSort)
       .reduce((resultList, event, i, initalList) =>
         [...resultList,
           <Event
-            date={event.date}
+            startDate={event.startDate}
             description={event.description}
-            key={`${event.date.format()}-${event.name}`}
+            key={`${event.startDate.format()}-${event.name}`}
             link={event.link}
             name={event.name}
           />,

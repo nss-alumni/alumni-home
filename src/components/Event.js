@@ -28,14 +28,14 @@ const dateFormat = 'MMMM Do YYYY'
 
 const Event = ({
   classes,
-  date,
+  startDate,
   description,
   link,
   name,
 }) => (
   <div className={classes.event}>
     <p className={classes.name}>{name}</p>
-    <p className={classes.date}>{date.format(dateFormat)}</p>
+    <p className={classes.date}>{startDate.format(dateFormat)}</p>
     <p className={classes.description}>{description}</p>
     <LinkButton url={link}>MORE INFO</LinkButton>
   </div>
