@@ -12,8 +12,9 @@ const dateSort = (e1, e2) => e1.startDate.isAfter(e2.startDate)
 
 // NOTE(adam): the indent rule is a bit silly sometimes
 /* eslint-disable indent */
-const EventList = ({ list }) => (
+const EventList = ({ list, status }) => (
   <div>
+    <p>{status}</p>
     {list
       .map(event => ({ ...event, startDate: moment(event.startDate) }))
       .sort(dateSort)
@@ -36,6 +37,11 @@ const EventList = ({ list }) => (
 
 EventList.propTypes = {
   list: PropTypes.array.isRequired,
+  status: PropTypes.string,
+}
+
+EventList.defaultProps = {
+  status: '',
 }
 
 export default EventList
