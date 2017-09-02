@@ -26,12 +26,18 @@ class EventPage extends PureComponent {
 
     this.state = {
       events: [],
+      fetchStatus: '',
     }
   }
 
-  componentWillMount = () => fetch(request)
-    .then(response => response.json())
-    .then(events => this.setState((state) => ({ events })))
+  componentWillMount = () =>{
+    this.setState((state) => ({ fetchStatus: 'Fetching events' }))
+    fetch(request)
+      .then(response => response.json())
+      .then(events => this.setState((state) => ({ events, fetchStatus: events.length  ? '' : 'No events found' })))
+      .catch(error => console.error(error) || error)
+      .catch(error => this.setState((state) => ({ fetchStatus: 'Could not get events' })))
+  }
 
   render = () => {
     const { classes } = this.props
@@ -41,7 +47,10 @@ class EventPage extends PureComponent {
         <Header />
         <div className={classes.tileContainer}>
           <Tile title='Upcoming Events'>
-            <EventList list={this.state.events} />
+            <EventList
+              list={this.state.events}
+              status={this.state.fetchStatus}
+            />
           </Tile>
           <Tile title='Donations'>
             <Donate />
