@@ -18,45 +18,20 @@ const sheet = {
   },
 }
 
+const request = new Request('https://nss-alumni.herokuapp.com/api/events')
+
 class EventPage extends PureComponent {
   constructor(props) {
     super(props)
 
     this.state = {
-      events: [
-        {
-          startDate: '2017-8-5',
-          description: 'The description of the event',
-          link: 'http://google.com',
-          name: 'Event name',
-        },
-        {
-          startDate: '2017-8-6',
-          description: 'The description of the event',
-          link: 'http://google.com',
-          name: 'Event name 2',
-        },
-        {
-          startDate: '2017-8-7',
-          description: 'The description of the event',
-          link: 'http://google.com',
-          name: 'Event name 3',
-        },
-        {
-          startDate: '2017-8-8',
-          description: 'The description of the event',
-          link: 'http://google.com',
-          name: 'Event name 4',
-        },
-        {
-          startDate: '2017-8-9',
-          description: 'The description of the event',
-          link: 'http://google.com',
-          name: 'Event name 5',
-        },
-      ],
+      events: [],
     }
   }
+
+  componentWillMount = () => fetch(request)
+    .then(response => response.json())
+    .then(events => this.setState((state) => ({ events })))
 
   render = () => {
     const { classes } = this.props

@@ -20,11 +20,11 @@ const EventList = ({ list }) => (
       .reduce((resultList, event, i, initalList) =>
         [...resultList,
           <Event
-            startDate={event.startDate}
             description={event.description}
             key={`${event.startDate.format()}-${event.name}`}
             link={event.link}
             name={event.name}
+            startDate={event.startDate}
           />,
         ].concat(i < initalList.length - 1 ? <Divider key={`div-${i}`} style={dividerStyle} /> : ''),
         []
