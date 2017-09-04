@@ -11,7 +11,7 @@ const sheet = {
     'margin': 0,
   },
   description: {
-    'text-size': '1.1rem',
+    'font-size': '1.1rem',
   },
   event: {
     'margin-bottom': '1.5rem',
@@ -28,14 +28,14 @@ const dateFormat = 'MMMM Do YYYY'
 
 const Event = ({
   classes,
-  date,
+  startDate,
   description,
   link,
   name,
 }) => (
   <div className={classes.event}>
     <p className={classes.name}>{name}</p>
-    <p className={classes.date}>{date.format(dateFormat)}</p>
+    <p className={classes.date}>{startDate.format(dateFormat)}</p>
     <p className={classes.description}>{description}</p>
     <LinkButton url={link}>MORE INFO</LinkButton>
   </div>
@@ -43,10 +43,14 @@ const Event = ({
 
 Event.propTypes = {
   classes: PropTypes.object.isRequired,
-  date: PropTypes.instanceOf(moment).isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   link: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  startDate: PropTypes.instanceOf(moment).isRequired,
+}
+
+Event.defaultProps = {
+  description: '',
 }
 
 export default injectSheet(sheet)(Event)
