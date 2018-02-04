@@ -1,0 +1,85 @@
+{
+  "plugins": [
+    "prettier",
+    "react"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "react-app",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    // Best Practices
+    "block-scoped-var": "error",
+    "complexity": ["warn", 10],
+    "eqeqeq": "error",
+    "no-eq-null": "warn",
+    "no-floating-decimal": "error",
+    "no-magic-numbers": ["error", {"ignore": [-1, 0, 1, 2]}],
+    "no-new": "error",
+    "no-param-reassign": "error",
+    "no-return-await": "error",
+    "no-unmodified-loop-condition": "error",
+    // Variables
+    "no-shadow": "error",
+    "no-undef-init": "warn",
+    // Node.js and CommonJS
+    "no-mixed-requires": "warn",
+    "no-new-require": "error",
+    "no-path-concat": "warn",
+    "no-process-exit": "error",
+    // Stylistic Issues
+    "camelcase": "warn",
+    "eol-last": "error",
+    "linebreak-style": "error",
+    "max-depth": "warn",
+    "new-cap": "warn",
+    "no-multiple-empty-lines": ["warn", {
+      "max": 2,
+      "maxBOF": 1
+    }],
+    "no-negated-condition": "warn",
+    "no-nested-ternary": "warn",
+    "no-unneeded-ternary": "warn",
+    "one-var": ["error", "never"],
+    "spaced-comment": "warn",
+    // ECMAScript 6
+    "arrow-body-style": "error",
+    "no-duplicate-imports": "error",
+    "no-var": "error",
+    "object-shorthand": ["warn", "always", {
+      "avoidQuotes": true,
+      "ignoreConstructors": true
+    }],
+    "prefer-const": "error",
+    "prefer-arrow-callback": "warn",
+    "prefer-rest-params": "warn",
+    "prefer-spread": "warn",
+    "prefer-template": "warn",
+    "sort-imports": "warn",
+    "symbol-description": "error",
+    // React
+    "react/default-props-match-prop-types": "error",
+    "react/no-array-index-key": "warn",
+    "react/no-did-mount-set-state": ["error", "disallow-in-func"],
+    "react/no-did-update-set-state": ["error", "disallow-in-func"],
+    "react/no-redundant-should-component-update": "warn",
+    "react/no-typos": "warn",
+    "react/no-unused-prop-types": "warn",
+    "react/no-will-update-set-state": ["error", "disallow-in-func"],
+    "react/prefer-es6-class": "warn",
+    "react/prefer-stateless-function": "warn",
+    "react/require-default-props": "warn",
+    "react/self-closing-comp": "warn",
+    "react/sort-comp": "warn",
+    "react/sort-prop-types": "warn",
+    "react/void-dom-elements-no-children": "error",
+    // jsx
+    "react/jsx-boolean-value": "warn",
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-bind": "error",
+    "react/jsx-pascal-case": "error",
+    "react/jsx-sort-props": "warn"
+  }
+}
