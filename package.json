@@ -31,6 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix .",
     "checkout-master-branch": "git checkout master",
     "create-deploy-branch": "git checkout -b deploy",
     "add-build-directory": "sed -i '' 's|/build|#/build|' .gitignore",
