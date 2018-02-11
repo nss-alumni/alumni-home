@@ -5,35 +5,35 @@ import React from 'react'
 import moment from 'moment'
 
 const dividerStyle = {
-  'margin': '1rem 0.5rem',
+  margin: '1rem 0.5rem',
 }
 
 const dateSort = (e1, e2) => e1.startDate.isAfter(e2.startDate)
 
-// NOTE(adam): the indent rule is a bit silly sometimes
-/* eslint-disable indent */
 const EventList = ({ list, status }) => (
   <div>
     <p>{status}</p>
     {list
       .map(event => ({ ...event, startDate: moment(event.startDate) }))
       .sort(dateSort)
-      .reduce((resultList, event, i, initalList) =>
-        [...resultList,
-          <Event
-            description={event.description}
-            key={`${event.startDate.format()}-${event.name}`}
-            link={event.link}
-            name={event.name}
-            startDate={event.startDate}
-          />,
-        ].concat(i < initalList.length - 1 ? <Divider key={`div-${i}`} style={dividerStyle} /> : ''),
-        []
-      )
-    }
+      .reduce(
+        (resultList, event, i, initalList) =>
+          [
+            ...resultList,
+            <Event
+              description={event.description}
+              key={`${event.startDate.format()}-${event.name}`}
+              link={event.link}
+              name={event.name}
+              startDate={event.startDate}
+            />,
+          ].concat(
+            i < initalList.length - 1 ? <Divider style={dividerStyle} /> : null,
+          ),
+        [],
+      )}
   </div>
 )
-/* eslint-enable indent */
 
 EventList.propTypes = {
   list: PropTypes.array.isRequired,

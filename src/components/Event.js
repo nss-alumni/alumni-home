@@ -7,32 +7,26 @@ import moment from 'moment'
 
 const sheet = {
   date: {
-    'color': colors.faintText,
-    'margin': 0,
+    color: colors.faintText,
+    margin: 0,
   },
   description: {
-    'font-size': '1.1rem',
+    fontSize: '1.1rem',
   },
   event: {
-    'margin-bottom': '1.5rem',
-    'margin-top': '1rem',
+    marginBottom: '1.5rem',
+    marginTop: '1rem',
   },
   name: {
-    'font-weight': 600,
-    'font-size': '1.6rem',
-    'margin-bottom': '.25rem',
+    fontWeight: 600,
+    fontSize: '1.6rem',
+    marginBottom: '.25rem',
   },
 }
 
 const dateFormat = 'MMMM Do YYYY'
 
-const Event = ({
-  classes,
-  startDate,
-  description,
-  link,
-  name,
-}) => (
+const Event = ({ classes, startDate, description, link, name }) => (
   <div className={classes.event}>
     <p className={classes.name}>{name}</p>
     <p className={classes.date}>{startDate.format(dateFormat)}</p>
