@@ -5,20 +5,18 @@ import injectSheet from 'react-jss'
 
 const sheet = {
   anchor: {
-    'background-color': colors.accent,
-    'border-radius': '.15rem',
-    'color': colors.white,
-    'padding': '.5rem .75rem',
-    'text-decoration': 'none',
+    backgroundColor: colors.accent,
+    borderRadius: '.15rem',
+    color: colors.white,
+    padding: '.5rem .75rem',
+    textDecoration: 'none',
   },
 }
 
-const LinkButton = ({
-  children,
-  classes,
-  url,
-}) => (
-  <a className={classes.anchor} href={url}>{children}</a>
+const LinkButton = ({ children, classes, url }) => (
+  <a className={classes.anchor} href={url}>
+    {children}
+  </a>
 )
 
 LinkButton.propTypes = {

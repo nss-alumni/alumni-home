@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+
 import * as palette from 'material-ui/colors'
 
 const colors = {
@@ -9,6 +11,4 @@ const colors = {
   white: palette.blueGrey[50],
 }
 
-export {
-  colors,
-}
+export { colors }

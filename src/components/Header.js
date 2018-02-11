@@ -5,11 +5,11 @@ import injectSheet from 'react-jss'
 
 const sheet = {
   logoContainer: {
-    'display': 'flex',
-    'justify-content': 'center',
+    display: 'flex',
+    justifyContent: 'center',
   },
   logo: {
-    'width': '8rem',
+    width: '8rem',
   },
 }
 

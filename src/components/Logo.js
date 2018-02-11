@@ -1,7 +1,7 @@
 import React from 'react'
 
-/* eslint-disable max-len */
-/* eslint-disable react/jsx-sort-props */
+/* eslint-disable */
+// NOTE(adam): This is pulled from the svg. It should be cleaned up.
 
 const Logo = () => (
   <svg id='Layer_1' data-name='Layer 1' viewBox='0 0 114.19 113.25'>
