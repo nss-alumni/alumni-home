@@ -1,6 +1,6 @@
+import { colors } from 'theme'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { colors } from 'theme'
 import injectSheet from 'react-jss'
 
 const sheet = {

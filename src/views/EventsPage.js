@@ -1,10 +1,10 @@
+import { colors } from 'theme'
 import Donate from 'components/Donate'
 import EventList from 'components/EventList'
 import Header from 'components/Header'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Tile from 'components/Tile'
-import { colors } from 'theme'
 import injectSheet from 'react-jss'
 
 const sheet = {

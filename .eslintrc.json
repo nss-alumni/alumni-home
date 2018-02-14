@@ -1,7 +1,8 @@
 {
   "plugins": [
     "prettier",
-    "react"
+    "react",
+    "sort-imports-es6-autofix"
   ],
   "extends": [
     "eslint:recommended",
@@ -57,7 +58,6 @@
     "prefer-rest-params": "warn",
     "prefer-spread": "warn",
     "prefer-template": "warn",
-    "sort-imports": "warn",
     "symbol-description": "error",
     // React
     "react/default-props-match-prop-types": "error",
@@ -80,6 +80,8 @@
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "react/jsx-no-bind": "error",
     "react/jsx-pascal-case": "error",
-    "react/jsx-sort-props": "warn"
+    "react/jsx-sort-props": "warn",
+    // autofix sort imports
+    "sort-imports-es6-autofix/sort-imports-es6": "error"
   }
 }
