@@ -2,6 +2,7 @@ import { MuiThemeProvider } from 'material-ui/styles'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import EventsPage from 'views/EventsPage'
 import React from 'react'
+import Reboot from 'material-ui/Reboot'
 import injectSheet, { ThemeProvider } from 'react-jss'
 import theme from './theme'
 
@@ -14,7 +15,7 @@ const styles = ({ palette }) => ({
 })
 
 // NOTE(adam): want to keep props in specific order for router
-/* eslint-disable react/jsx-sort-props */
+/* eslint-disable react/prop-types, react/jsx-sort-props */
 const RoutedApp = ({ classes }) => (
   <div className={classes.body}>
     <Router basename="/alumni-home">
@@ -27,11 +28,14 @@ const RoutedApp = ({ classes }) => (
 const StyledApp = injectSheet(styles)(RoutedApp)
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <MuiThemeProvider theme={theme}>
-      <StyledApp />
-    </MuiThemeProvider>
-  </ThemeProvider>
+  <div>
+    <Reboot />
+    <ThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
+        <StyledApp />
+      </MuiThemeProvider>
+    </ThemeProvider>
+  </div>
 )
 
 export default App

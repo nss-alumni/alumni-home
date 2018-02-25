@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import injectSheet from 'react-jss'
 
-const sheet = {
+/* eslint-disable no-magic-numbers */
+const sheet = ({ spacing: { unit } }) => ({
   logoContainer: {
     display: 'flex',
     justifyContent: 'center',
   },
   logo: {
-    width: '8rem',
+    width: 12 * unit,
   },
-}
+})
+/* eslint-enable no-magic-numbers */
 
 const Header = ({ classes }) => (
   <div className={classes.logoContainer}>

@@ -1,37 +1,29 @@
-import { colors } from 'theme'
-import LinkButton from 'components/LinkButton'
+import Button from 'material-ui/Button'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Typography from 'material-ui/Typography'
 import injectSheet from 'react-jss'
 import moment from 'moment'
 
-const sheet = {
-  date: {
-    color: colors.faintText,
-    margin: 0,
-  },
-  description: {
-    fontSize: '1.1rem',
-  },
+/* eslint-disable no-magic-numbers */
+const sheet = ({ spacing: { unit } }) => ({
   event: {
-    marginBottom: '1.5rem',
-    marginTop: '1rem',
+    marginBottom: 1.5 * unit,
+    marginTop: 1 * unit,
   },
-  name: {
-    fontWeight: 600,
-    fontSize: '1.6rem',
-    marginBottom: '.25rem',
-  },
-}
+})
+/* eslint-enable no-magic-numbers */
 
 const dateFormat = 'MMMM Do YYYY'
 
 const Event = ({ classes, startDate, description, link, name }) => (
   <div className={classes.event}>
-    <p className={classes.name}>{name}</p>
-    <p className={classes.date}>{startDate.format(dateFormat)}</p>
-    <p className={classes.description}>{description}</p>
-    <LinkButton url={link}>MORE INFO</LinkButton>
+    <Typography variant="title">{name}</Typography>
+    <Typography variant="caption">{startDate.format(dateFormat)}</Typography>
+    <Typography>{description}</Typography>
+    <Button color="primary" href={link}>
+      More Info
+    </Button>
   </div>
 )
 

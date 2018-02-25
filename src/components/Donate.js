@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Typography from 'material-ui/Typography'
 import injectSheet from 'react-jss'
 import venmoLogo from 'images/venmo.png'
 
-const sheet = {
+const sheet = ({ spacing: { unit } }) => ({
   venmoLogo: {
-    width: '5rem',
+    width: 5 * unit, // eslint-disable-line no-magic-numbers
   },
-}
+})
 
 const VenmoLink = ({ classes }) => (
   <a href={'https://venmo.com/NSS-Alumni'}>
@@ -24,14 +25,14 @@ const VenmoLinkStyled = injectSheet(sheet)(VenmoLink)
 /* eslint-disable react/no-unescaped-entities */
 const Donate = () => (
   <div>
-    <p>
+    <Typography>
       Our mission is to bring together past students of NSS through awesome
       events. However, we can't do that without your help! All donations go
       towards NSS Alumni events, food, drinks. Any amount is helpful!
-    </p>
-    <p>
+    </Typography>
+    <Typography>
       Visit our <VenmoLinkStyled /> page!
-    </p>
+    </Typography>
   </div>
 )
 /* eslint-enable react/no-unescaped-entities */
