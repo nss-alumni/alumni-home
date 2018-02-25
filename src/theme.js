@@ -1,8 +1,7 @@
-/* eslint-disable no-magic-numbers */
-
 import * as palette from 'material-ui/colors'
+import { createMuiTheme } from 'material-ui/styles'
 
-const colors = {
+export const colors = {
   accent: palette.blueGrey[700],
   faintText: palette.grey[600],
   neutral: palette.grey[200],
@@ -11,4 +10,8 @@ const colors = {
   white: palette.blueGrey[50],
 }
 
-export { colors }
+export default createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+})
