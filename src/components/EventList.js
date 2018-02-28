@@ -2,17 +2,23 @@ import Divider from 'material-ui/Divider'
 import Event from 'components/Event'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Typography from 'material-ui/Typography'
+import injectSheet from 'react-jss'
 import moment from 'moment'
 
-const dividerStyle = {
-  margin: '1rem 0.5rem',
-}
+/* eslint-disable no-magic-numbers */
+const sheet = ({ spacing: { unit } }) => ({
+  divider: {
+    margin: `${1 * unit} ${0.5 * unit}`,
+  },
+})
+/* eslint-enable no-magic-numbers */
 
 const dateSort = (e1, e2) => e1.startDate.isAfter(e2.startDate)
 
-const EventList = ({ list, status }) => (
+const EventList = ({ classes, list, status }) => (
   <div>
-    <p>{status}</p>
+    <Typography>{status}</Typography>
     {list
       .map(event => ({ ...event, startDate: moment(event.startDate) }))
       .sort(dateSort)
@@ -28,7 +34,12 @@ const EventList = ({ list, status }) => (
               startDate={event.startDate}
             />,
           ].concat(
-            i < initalList.length - 1 ? <Divider style={dividerStyle} /> : null,
+            i < initalList.length - 1 ? (
+              <Divider
+                className={classes.divider}
+                key={`${event.startDate.format()}-${event.name}-divider`}
+              />
+            ) : null,
           ),
         [],
       )}
@@ -36,6 +47,7 @@ const EventList = ({ list, status }) => (
 )
 
 EventList.propTypes = {
+  classes: PropTypes.object.isRequired,
   list: PropTypes.array.isRequired,
   status: PropTypes.string,
 }
@@ -44,4 +56,4 @@ EventList.defaultProps = {
   status: '',
 }
 
-export default EventList
+export default injectSheet(sheet)(EventList)
