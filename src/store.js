@@ -4,7 +4,7 @@ import events from 'data/events'
 import fsaLinter from 'middleware/fsaLinter'
 
 const reducer = combineReducers({
-  // TODO(adam): individual reducers added here
+  events,
 })
 
 // NOTE(adam): if the redux extension exists, attach it to the store
