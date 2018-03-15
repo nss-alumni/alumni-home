@@ -1,5 +1,5 @@
+import { Event as EventRecord, fetchEvents, getEvents } from 'data/events'
 import { connect } from 'react-redux'
-import { fetchEvents, getEvents } from 'data/events'
 import EventList from 'components/EventList'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
@@ -21,7 +21,7 @@ class EventListWithFetch extends React.Component {
     if (isFetching) {
       return <Typography variant="title">Fetching Events</Typography>
     }
-    if (!events.length) {
+    if (!events.size) {
       return <Typography variant="title">No Events Found</Typography>
     }
 
@@ -30,12 +30,8 @@ class EventListWithFetch extends React.Component {
 }
 
 EventListWithFetch.propTypes = {
-  events: PropTypes.array,
+  events: PropTypes.listOf(PropTypes.instanceOf(EventRecord)).isRequired,
   fetchEvents: PropTypes.func.isRequired,
-}
-
-EventListWithFetch.defaultProps = {
-  events: [],
 }
 
 const mapStateToProps = state => ({

@@ -39,7 +39,6 @@
     "eol-last": "error",
     "linebreak-style": "error",
     "max-depth": "warn",
-    "new-cap": "warn",
     "no-multiple-empty-lines": ["warn", {
       "max": 2,
       "maxBOF": 1

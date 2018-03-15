@@ -1,8 +1,9 @@
+import { Event as EventRecord } from 'data/events'
+import { List } from 'immutable'
 import Divider from 'material-ui/Divider'
 import Event from 'components/Event'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import Typography from 'material-ui/Typography'
 import injectSheet from 'react-jss'
 import moment from 'moment'
 
@@ -16,28 +17,21 @@ const sheet = ({ spacing: { unit } }) => ({
 
 const dateSort = (e1, e2) => e1.startDate.isAfter(e2.startDate)
 
-const EventList = ({ classes, events, status }) => (
+const EventList = ({ classes, events }) => (
   <div>
-    <Typography>{status}</Typography>
     {events
-      .map(event => ({ ...event, startDate: moment(event.startDate) }))
+      .map(event => event.set('startDate', moment(event.startDate)))
       .sort(dateSort)
       .reduce(
         (resultList, event, i, initalList) =>
           [
             ...resultList,
-            <Event
-              description={event.description}
-              key={`${event.startDate.format()}-${event.name}`}
-              link={event.link}
-              name={event.name}
-              startDate={event.startDate}
-            />,
+            <Event event={event} key={`${event.startDate}-${event.name}`} />,
           ].concat(
-            i < initalList.length - 1 ? (
+            i < initalList.size - 1 ? (
               <Divider
                 className={classes.divider}
-                key={`${event.startDate.format()}-${event.name}-divider`}
+                key={`${event.startDate}-${event.name}-divider`}
               />
             ) : null,
           ),
@@ -48,13 +42,11 @@ const EventList = ({ classes, events, status }) => (
 
 EventList.propTypes = {
   classes: PropTypes.object.isRequired,
-  events: PropTypes.array,
-  status: PropTypes.string,
+  events: PropTypes.listOf(PropTypes.instanceOf(EventRecord)),
 }
 
 EventList.defaultProps = {
-  events: [],
-  status: '',
+  events: List(),
 }
 
 export default injectSheet(sheet)(EventList)
