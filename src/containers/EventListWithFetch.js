@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { fetchEvents, getEvents } from 'data/events'
 import EventList from 'components/EventList'
-import PropTypes from 'prop-types'
+import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from 'material-ui/Typography'
 

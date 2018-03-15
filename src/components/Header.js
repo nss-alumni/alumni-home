@@ -1,5 +1,5 @@
 import Logo from './Logo'
-import PropTypes from 'prop-types'
+import PropTypes from 'utils/propTypes'
 import React from 'react'
 import injectSheet from 'react-jss'
 
