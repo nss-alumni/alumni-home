@@ -16,10 +16,10 @@ const sheet = ({ spacing: { unit } }) => ({
 
 const dateSort = (e1, e2) => e1.startDate.isAfter(e2.startDate)
 
-const EventList = ({ classes, list, status }) => (
+const EventList = ({ classes, events, status }) => (
   <div>
     <Typography>{status}</Typography>
-    {list
+    {events
       .map(event => ({ ...event, startDate: moment(event.startDate) }))
       .sort(dateSort)
       .reduce(
@@ -48,11 +48,12 @@ const EventList = ({ classes, list, status }) => (
 
 EventList.propTypes = {
   classes: PropTypes.object.isRequired,
-  list: PropTypes.array.isRequired,
+  events: PropTypes.array,
   status: PropTypes.string,
 }
 
 EventList.defaultProps = {
+  events: [],
   status: '',
 }
 

@@ -1,9 +1,11 @@
 import { MuiThemeProvider } from 'material-ui/styles'
+import { Provider as ReduxProvider } from 'react-redux'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import EventsPage from 'views/EventsPage'
 import React from 'react'
 import Reboot from 'material-ui/Reboot'
 import injectSheet, { ThemeProvider } from 'react-jss'
+import store from 'store'
 import theme from './theme'
 
 const styles = ({ palette }) => ({
@@ -32,7 +34,9 @@ const App = () => (
     <Reboot />
     <ThemeProvider theme={theme}>
       <MuiThemeProvider theme={theme}>
-        <StyledApp />
+        <ReduxProvider store={store}>
+          <StyledApp />
+        </ReduxProvider>
       </MuiThemeProvider>
     </ThemeProvider>
   </div>
