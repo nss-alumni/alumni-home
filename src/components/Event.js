@@ -1,3 +1,4 @@
+import { Event as EventRecord } from 'data/events'
 import Button from 'material-ui/Button'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
@@ -16,12 +17,14 @@ const sheet = ({ spacing: { unit } }) => ({
 
 const dateFormat = 'MMMM Do YYYY'
 
-const Event = ({ classes, startDate, description, link, name }) => (
+const Event = ({ classes, event }) => (
   <div className={classes.event}>
-    <Typography variant="title">{name}</Typography>
-    <Typography variant="caption">{startDate.format(dateFormat)}</Typography>
-    <Typography>{description}</Typography>
-    <Button color="primary" href={link}>
+    <Typography variant="title">{event.name}</Typography>
+    <Typography variant="caption">
+      {moment(event.startDate).format(dateFormat)}
+    </Typography>
+    <Typography>{event.description}</Typography>
+    <Button color="primary" href={event.link}>
       More Info
     </Button>
   </div>
@@ -29,14 +32,7 @@ const Event = ({ classes, startDate, description, link, name }) => (
 
 Event.propTypes = {
   classes: PropTypes.object.isRequired,
-  description: PropTypes.string,
-  link: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  startDate: PropTypes.instanceOf(moment).isRequired,
-}
-
-Event.defaultProps = {
-  description: '',
+  event: PropTypes.instanceOf(EventRecord).isRequired,
 }
 
 export default injectSheet(sheet)(Event)

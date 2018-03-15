@@ -1,4 +1,13 @@
+import { List, Record } from 'immutable'
 import createReducer from 'utils/createReducer'
+
+// RECORD
+export const Event = Record({
+  name: null,
+  description: null,
+  link: null,
+  startDate: null,
+})
 
 // ACTIONS
 export const FETCH_EVENTS_SUCCEEDED = 'events/FETCH_EVENTS_SUCCEEDED'
@@ -16,12 +25,14 @@ export const fetchEventsFailed = error => ({
 })
 
 // REDUCER
-export default createReducer([], {
+export default createReducer(List(), {
   [FETCH_EVENTS_SUCCEEDED]: (_state, { payload: events }) => events,
 })
 
 // SELECTORS
 export const getEvents = state => state.get('events')
+
+const mapData = data => List(data.map(Event))
 
 // API
 export const fetchEvents = () =>
@@ -42,5 +53,6 @@ export const fetchEvents = () =>
         startDate: '2018-03-01',
       },
     ])
+    .then(mapData)
     .then(fetchEventsSucceeded)
     .catch(fetchEventsFailed)
