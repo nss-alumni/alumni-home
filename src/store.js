@@ -1,4 +1,5 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
+import { applyMiddleware, compose, createStore } from 'redux'
+import { combineReducers } from 'redux-immutable'
 import errorLogger from 'middleware/errorLogger'
 import events from 'data/events'
 import fsaLinter from 'middleware/fsaLinter'

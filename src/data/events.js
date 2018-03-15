@@ -21,7 +21,7 @@ export default createReducer([], {
 })
 
 // SELECTORS
-export const getEvents = state => state.events
+export const getEvents = state => state.get('events')
 
 // API
 export const fetchEvents = () =>
