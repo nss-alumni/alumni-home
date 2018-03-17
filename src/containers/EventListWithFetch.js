@@ -1,22 +1,18 @@
 import { Event as EventRecord, fetchEvents, getEvents } from 'data/events'
 import { connect } from 'react-redux'
+import { isFetchingEvents } from 'data/isFetchingEvents'
 import EventList from 'components/EventList'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from 'material-ui/Typography'
 
 class EventListWithFetch extends React.Component {
-  state = {
-    isFetching: true,
-  }
-
   componentWillMount() {
-    this.props.fetchEvents().then(() => this.setState({ isFetching: false }))
+    this.props.init()
   }
 
   render() {
-    const { events } = this.props
-    const { isFetching } = this.state
+    const { isFetching, events } = this.props
 
     if (isFetching) {
       return <Typography variant="title">Fetching Events</Typography>
@@ -31,15 +27,17 @@ class EventListWithFetch extends React.Component {
 
 EventListWithFetch.propTypes = {
   events: PropTypes.listOf(PropTypes.instanceOf(EventRecord)).isRequired,
-  fetchEvents: PropTypes.func.isRequired,
+  init: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
   events: getEvents(state),
+  isFetching: isFetchingEvents(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchEvents: () => fetchEvents().then(dispatch),
-})
+const mapDispatchToProps = {
+  init: fetchEvents,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventListWithFetch)
