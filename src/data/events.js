@@ -1,4 +1,5 @@
 import { List, Record } from 'immutable'
+import { Observable } from 'rxjs/Rx'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -10,10 +11,12 @@ export const Event = Record({
 })
 
 // ACTIONS
+export const FETCH_EVENTS = 'events/FETCH_EVENTS'
 export const FETCH_EVENTS_SUCCEEDED = 'events/FETCH_EVENTS_SUCCEEDED'
 export const FETCH_EVENTS_FAILED = 'events/FETCH_EVENTS_FAILED'
 
 // ACTION CREATORS
+export const fetchEvents = () => ({ type: FETCH_EVENTS })
 export const fetchEventsSucceeded = events => ({
   type: FETCH_EVENTS_SUCCEEDED,
   payload: events,
@@ -35,7 +38,7 @@ export const getEvents = state => state.get('events')
 const mapData = data => List(data.map(Event))
 
 // API
-export const fetchEvents = () =>
+const apiFetchEvents = () =>
   // TODO(adam): request / resource module
   fetch(new Request('https://nss-alumni.herokuapp.com/api/events'))
     .then(response => response.json())
@@ -56,3 +59,9 @@ export const fetchEvents = () =>
     .then(mapData)
     .then(fetchEventsSucceeded)
     .catch(fetchEventsFailed)
+
+// EPICS
+export const fetchEventsEpic = action$ =>
+  action$
+    .ofType(FETCH_EVENTS)
+    .mergeMap(() => Observable.fromPromise(apiFetchEvents()))
