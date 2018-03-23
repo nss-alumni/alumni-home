@@ -1,5 +1,6 @@
 import { List, Record } from 'immutable'
 import { Observable } from 'rxjs/Rx'
+import Events from 'resources/Events'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -39,9 +40,7 @@ const mapData = data => List(data.map(Event))
 
 // API
 const apiFetchEvents = () =>
-  // TODO(adam): request / resource module
-  fetch(new Request('https://nss-alumni.herokuapp.com/api/events'))
-    .then(response => response.json())
+  Events.getAll()
     .then(() => [
       {
         name: 'Event Name',
