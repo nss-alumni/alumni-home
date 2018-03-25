@@ -1,7 +1,7 @@
 import { MuiThemeProvider } from 'material-ui/styles'
 import { Provider as ReduxProvider } from 'react-redux'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
-import EventsPage from 'pages/EventsPage'
+import UpcomingEventsPage from 'pages/UpcomingEvents'
 import React from 'react'
 import Reboot from 'material-ui/Reboot'
 import injectSheet, { ThemeProvider } from 'react-jss'
@@ -21,7 +21,7 @@ const styles = ({ palette }) => ({
 const RoutedApp = ({ classes }) => (
   <div className={classes.body}>
     <Router basename="/alumni-home">
-      <Route path="/" component={EventsPage} />
+      <Route path="/" component={UpcomingEventsPage} />
     </Router>
   </div>
 )
