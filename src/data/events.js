@@ -26,6 +26,9 @@ export const fetchEventsFailed = error => ({
   type: FETCH_EVENTS_FAILED,
   payload: error,
   error: true,
+  meta: {
+    message: 'Could not get events.',
+  },
 })
 
 // REDUCER

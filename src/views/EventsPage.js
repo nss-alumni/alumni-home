@@ -1,4 +1,5 @@
 import Donate from 'components/Donate'
+import ErrorSnackbar from 'containers/ErrorSnackbar'
 import EventList from 'containers/EventListWithFetch'
 import Header from 'components/Header'
 import PropTypes from 'utils/propTypes'
@@ -27,6 +28,7 @@ const EventPage = ({ classes }) => (
         <Donate />
       </Tile>
     </div>
+    <ErrorSnackbar />
   </div>
 )
 
