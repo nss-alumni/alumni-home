@@ -26,6 +26,7 @@
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-observable": "^0.18.0",
+    "reselect": "^3.0.1",
     "rxjs": "^5.5.7"
   },
   "homepage": "https://nss-alumni.github.io/alumni-home",
