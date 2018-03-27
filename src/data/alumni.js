@@ -1,5 +1,6 @@
 import { Map, Record } from 'immutable'
 import { Observable } from 'rxjs/Rx'
+import { createSelector } from 'reselect'
 import AlumniResource from 'resources/Alumni'
 import createReducer from 'utils/createReducer'
 
@@ -42,6 +43,9 @@ export default createReducer(Map(), {
 
 // SELECTORS
 export const getAllAlumni = state => state.get('alumni')
+export const getBoardMembers = createSelector([getAllAlumni], alumni =>
+  alumni.filter(a => a.isBoardMember),
+)
 
 const mapData = data =>
   Map(Object.entries(data).map(([k, v]) => [k, Alumni(v)]))
