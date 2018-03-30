@@ -3,8 +3,8 @@ import React from 'react'
 /* eslint-disable */
 // NOTE(adam): This is pulled from the svg. It should be cleaned up.
 
-const Logo = () => (
-  <svg id='Layer_1' data-name='Layer 1' viewBox='0 0 114.19 113.25'>
+const Logo = ({ style }) => (
+  <svg id='Layer_1' data-name='Layer 1' viewBox='0 0 114.19 113.25' width='auto' height='100%' style={style}>
     <defs>
       <linearGradient id='New_Gradient_Swatch_1' x1='-988.5' y1='272.28' x2='-1090.15' y2='230.17' gradientTransform='translate(1098.09 -193.58)' gradientUnits='userSpaceOnUse'>
         <stop offset='0' stopColor='#f7941d' />
