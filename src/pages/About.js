@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import BoardListing from 'containers/BoardListingFromState'
 import MissionStatement from 'components/MissionStatement'
 import PropTypes from 'utils/propTypes'
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Typography from 'material-ui/Typography'
 import injectSheet from 'react-jss'
 
@@ -30,13 +30,13 @@ class AboutPage extends Component {
     const { classes } = this.props
 
     return (
-      <div>
+      <Fragment>
         <MissionStatement className={classes.statement} />
         <Typography className={classes.meetBar} variant="title">
           MEET THE BOARD
         </Typography>
         <BoardListing />
-      </div>
+      </Fragment>
     )
   }
 }
