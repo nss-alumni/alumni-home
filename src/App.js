@@ -31,7 +31,7 @@ const NavButtons = ({ location }) => (
     <NavButton location={location} to="/">
       about
     </NavButton>
-    <NavButton location={location} target="_blank" to={nssUrl}>
+    <NavButton href={nssUrl} target="_blank">
       NSS home
     </NavButton>
   </Fragment>
