@@ -5,6 +5,7 @@ import React from 'react'
 import Toolbar from 'material-ui/Toolbar'
 import injectSheet from 'react-jss'
 
+/* eslint-disable no-magic-numbers */
 const styles = ({ spacing, palette }) => ({
   appbar: {
     borderBottom: {
@@ -19,14 +20,16 @@ const styles = ({ spacing, palette }) => ({
   buttonContainer: {
     display: 'flex',
   },
+  logo: {
+    width: spacing.unit * 6,
+  },
 })
-
-const logoSizing = { maxHeight: '50px' }
+/* eslint-enable no-magic-numbers */
 
 const NavBar = ({ classes, children }) => (
   <AppBar className={classes.appbar} color="default">
     <Toolbar className={classes.toolbar}>
-      <Logo style={logoSizing} />
+      <Logo className={classes.logo} />
       <span className={classes.buttonContainer}>{children}</span>
     </Toolbar>
   </AppBar>
