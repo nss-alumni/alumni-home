@@ -1,5 +1,5 @@
 import { Map, Record } from 'immutable'
-import { Observable } from 'rxjs/Rx'
+import { Observable } from 'rxjs'
 import { createSelector } from 'reselect'
 import AlumniResource from 'resources/Alumni'
 import createReducer from 'utils/createReducer'
@@ -53,8 +53,8 @@ const mapData = data =>
 // EPICS
 export const fetchAlumniEpic = action$ =>
   action$.ofType(FETCH_ALUMNI).mergeMap(() =>
-    Observable.fromPromise(AlumniResource.getAll())
+    AlumniResource.getAll()
       .map(mapData)
       .map(fetchAlumniSucceeded)
-      .catch(fetchAlumniFailed),
+      .catch(e => Observable.of(fetchAlumniFailed(e))),
   )

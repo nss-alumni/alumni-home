@@ -1,4 +1,5 @@
 import { Record } from 'immutable'
+import { ajax } from 'rxjs/observable/dom/ajax'
 
 export const Conn = Record({
   service: null,
@@ -11,7 +12,7 @@ export const buildConnection = params => (conn = Conn()) =>
 
 const buildRequest = conn => {
   const { service, resource, ...connParams } = conn.toJS()
-  return new Request(`${service.url}${resource.url}`, { ...connParams })
+  return ajax({ ...connParams, url: `${service.url}${resource.url}` })
 }
 
 const keepIfNotNull = (a, b) => (b ? b : a)
@@ -28,5 +29,5 @@ export default connOrBuilder => {
       }. Only ${conn.resource.allowedMethods.toJS().join()} are allowed.`,
     )
 
-  return fetch(buildRequest(conn)).then(response => response.json())
+  return buildRequest(conn).map(({ response }) => response)
 }
