@@ -1,5 +1,6 @@
 import { List, Record } from 'immutable'
 import { Observable } from 'rxjs'
+import { action, creator, errorCreator, get, replace } from 'utils/data'
 import Events from 'resources/Events'
 import createReducer from 'utils/createReducer'
 
@@ -11,33 +12,29 @@ export const Event = Record({
   startDate: null,
 })
 
+// KEY
+export const key = 'events'
+
 // ACTIONS
-export const FETCH_EVENTS = 'events/FETCH_EVENTS'
-export const FETCH_EVENTS_SUCCEEDED = 'events/FETCH_EVENTS_SUCCEEDED'
-export const FETCH_EVENTS_FAILED = 'events/FETCH_EVENTS_FAILED'
+export const FETCH_EVENTS = action(key, 'FETCH_EVENTS')
+export const FETCH_EVENTS_SUCCEEDED = action(key, 'FETCH_EVENTS_SUCCEEDED')
+export const FETCH_EVENTS_FAILED = action(key, 'FETCH_EVENTS_FAILED')
 
 // ACTION CREATORS
-export const fetchEvents = () => ({ type: FETCH_EVENTS })
-export const fetchEventsSucceeded = events => ({
-  type: FETCH_EVENTS_SUCCEEDED,
-  payload: events,
-})
-export const fetchEventsFailed = error => ({
-  type: FETCH_EVENTS_FAILED,
-  payload: error,
-  error: true,
-  meta: {
-    message: 'Could not get events.',
-  },
-})
+export const fetchEvents = creator(FETCH_EVENTS)
+export const fetchEventsSucceeded = creator(FETCH_EVENTS_SUCCEEDED, 'events')
+export const fetchEventsFailed = errorCreator(
+  FETCH_EVENTS_FAILED,
+  'Could not get events.',
+)
 
 // REDUCER
 export default createReducer(List(), {
-  [FETCH_EVENTS_SUCCEEDED]: (_state, { payload: events }) => events,
+  [FETCH_EVENTS_SUCCEEDED]: replace('events'),
 })
 
 // SELECTORS
-export const getEvents = state => state.get('events')
+export const getEvents = get('events')
 
 const mapData = data => List(data.map(Event))
 

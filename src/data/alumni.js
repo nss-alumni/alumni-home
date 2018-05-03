@@ -1,5 +1,6 @@
 import { Map, Record } from 'immutable'
 import { Observable } from 'rxjs'
+import { action, creator, errorCreator, get, replace } from 'utils/data'
 import { createSelector } from 'reselect'
 import AlumniResource from 'resources/Alumni'
 import createReducer from 'utils/createReducer'
@@ -16,33 +17,29 @@ export const Alumni = Record({
   isBoardMember: false,
 })
 
+// KEY
+export const key = 'alumni'
+
 // ACTIONS
-export const FETCH_ALUMNI = 'alumni/FETCH_ALUMNI'
-export const FETCH_ALUMNI_SUCCEEDED = 'alumni/FETCH_ALUMNI_SUCCEEDED'
-export const FETCH_ALUMNI_FAILED = 'alumni/FETCH_ALUMNI_FAILED'
+export const FETCH_ALUMNI = action(key, 'FETCH_ALUMNI')
+export const FETCH_ALUMNI_SUCCEEDED = action(key, 'FETCH_ALUMNI_SUCCEEDED')
+export const FETCH_ALUMNI_FAILED = action(key, 'FETCH_ALUMNI_FAILED')
 
 // ACTION CREATORS
-export const fetchAlumni = () => ({ type: FETCH_ALUMNI })
-export const fetchAlumniSucceeded = alumni => ({
-  type: FETCH_ALUMNI_SUCCEEDED,
-  payload: alumni,
-})
-export const fetchAlumniFailed = error => ({
-  type: FETCH_ALUMNI_FAILED,
-  payload: error,
-  error: true,
-  meta: {
-    message: 'Could not get alumni.',
-  },
-})
+export const fetchAlumni = creator(FETCH_ALUMNI)
+export const fetchAlumniSucceeded = creator(FETCH_ALUMNI_SUCCEEDED, 'alumni')
+export const fetchAlumniFailed = errorCreator(
+  FETCH_ALUMNI_FAILED,
+  'Could not get alumni.',
+)
 
 // REDUCER
 export default createReducer(Map(), {
-  [FETCH_ALUMNI_SUCCEEDED]: (_state, { payload: alumni }) => alumni,
+  [FETCH_ALUMNI_SUCCEEDED]: replace('alumni'),
 })
 
 // SELECTORS
-export const getAllAlumni = state => state.get('alumni')
+export const getAllAlumni = get('alumni')
 export const getBoardMembers = createSelector([getAllAlumni], alumni =>
   alumni.filter(a => a.isBoardMember),
 )
