@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-restricted-globals */
 
 // In production, we register a service worker to serve assets from local cache.
 
@@ -34,6 +34,11 @@ function registerValidSW(swUrl) {
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
               console.log('New content is available; please refresh.')
+              if (
+                confirm('A new version of this site is available. Load it?')
+              ) {
+                window.location.reload()
+              }
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
