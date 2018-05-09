@@ -13,7 +13,7 @@ const styles = _theme => ({
 const NavButton = ({ active, href, location, to, classes, ...props }) => (
   <Button
     classes={{ label: classes.buttonText }}
-    color={location && location.pathname.includes(to) ? 'primary' : 'inherit'}
+    color={location && location.pathname === to ? 'primary' : 'inherit'}
     component={href ? undefined : Link}
     href={href}
     location={location}
