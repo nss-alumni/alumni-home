@@ -5,11 +5,13 @@ import errorSnackbar from 'epics/errorSnackbar'
 import events, { fetchEventsEpic } from 'data/events'
 import isFetchingEvents from 'data/isFetchingEvents'
 import navigation from 'epics/navigation'
+import newsletters, { fetchNewslettersEpic } from 'data/newsletters'
 import snackbarErrorMessage from 'data/snackbarErrorMessage'
 
 export const rootEpic = combineEpics(
   fetchAlumniEpic,
   fetchEventsEpic,
+  fetchNewslettersEpic,
   navigation,
   errorSnackbar,
 )
@@ -18,5 +20,6 @@ export const rootReducer = combineReducers({
   alumni,
   events,
   isFetchingEvents,
+  newsletters,
   snackbarErrorMessage,
 })
