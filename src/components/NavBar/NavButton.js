@@ -28,7 +28,7 @@ NavButton.propTypes = {
   classes: PropTypes.object.isRequired,
   href: PropTypes.string,
   location: PropTypes.object,
-  to: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+  to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 }
 
 NavButton.defaultProps = {
