@@ -1,6 +1,7 @@
 import { Map, Record } from 'immutable'
 import { Observable } from 'rxjs'
 import { action, creator, errorCreator, get, replace } from 'utils/data'
+import { createSelector } from 'reselect'
 import NewslettersResource from 'resources/Newsletters'
 import createReducer from 'utils/createReducer'
 
@@ -40,6 +41,14 @@ export default createReducer(Map(), {
 
 // SELECTORS
 export const getAllNewsletters = get('newsletters')
+export const getLatestNewsletter = createSelector(
+  [getAllNewsletters],
+  newsletters =>
+    newsletters
+      .valueSeq()
+      .sort((n1, n2) => n2.sentDate.localecompare(n1.sentDate))
+      .first(),
+)
 
 const mapData = data =>
   Map(Object.values(data).map(n => [n.sentDate, Newsletter(n)]))
