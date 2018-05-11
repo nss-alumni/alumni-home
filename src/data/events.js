@@ -1,7 +1,7 @@
 import { List, Record } from 'immutable'
 import { Observable } from 'rxjs'
 import { action, creator, errorCreator, get, replace } from 'utils/data'
-import Events from 'resources/Events'
+import EventsResource from 'resources/Events'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -56,7 +56,7 @@ const dummyData = [
 // EPICS
 export const fetchEventsEpic = action$ =>
   action$.ofType(FETCH_EVENTS).mergeMap(() =>
-    Events.getAll()
+    EventsResource.getAll()
       .map(() => dummyData)
       .map(mapData)
       .map(fetchEventsSucceeded)
