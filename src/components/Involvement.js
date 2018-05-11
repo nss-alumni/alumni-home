@@ -7,7 +7,7 @@ const Involvement = ({ className, involvement }) => (
   <div className={className}>
     <Typography variant="title">{involvement.title}</Typography>
     <Typography>{involvement.description}</Typography>
-    <Typography variant="subheading">{involvement.contact}</Typography>
+    <Typography variant="subheading">Contact: {involvement.contact}</Typography>
   </div>
 )
 
