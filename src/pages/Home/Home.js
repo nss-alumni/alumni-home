@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { homePageNavigated } from 'data/navigation'
+import InvolvementTile from './InvolvementTile'
 import NewsletterTile from './NewsletterTile'
 import PropTypes from 'utils/propTypes'
 import React, { Component, Fragment } from 'react'
@@ -23,6 +24,7 @@ class AboutPage extends Component {
 
     return (
       <Fragment>
+        <InvolvementTile className={classes.tile} />
         <NewsletterTile className={classes.tile} />
       </Fragment>
     )

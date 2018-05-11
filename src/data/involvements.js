@@ -43,7 +43,7 @@ export default createReducer(Map(), {
 })
 
 // SELECTORS
-export const getInvolvements = get('involvements')
+export const getAllInvolvements = get('involvements')
 
 const mapData = data =>
   Map(Object.entries(data).map(([, v]) => [v.id, Involvement(v)]))
