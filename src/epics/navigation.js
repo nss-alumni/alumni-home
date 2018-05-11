@@ -6,6 +6,7 @@ import {
 import { combineEpics } from 'redux-observable'
 import { fetchAlumni } from 'data/alumni'
 import { fetchEvents } from 'data/events'
+import { fetchInvolvements } from 'data/involvements'
 import { fetchNewsletters } from 'data/newsletters'
 
 const eventsNavigation = action$ =>
@@ -24,6 +25,6 @@ const homeNavigation = action$ =>
   action$
     .ofType(HOME_PAGE_NAVIGATED)
     .first()
-    .mapTo(fetchNewsletters())
+    .mergeMap(() => [fetchInvolvements(), fetchNewsletters()])
 
 export default combineEpics(aboutNavigation, eventsNavigation, homeNavigation)
