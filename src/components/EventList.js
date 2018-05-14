@@ -15,12 +15,12 @@ const sheet = ({ spacing: { unit } }) => ({
 })
 /* eslint-enable no-magic-numbers */
 
-const dateSort = (e1, e2) => e1.startDate.isAfter(e2.startDate)
+const dateSort = (e1, e2) => e1.startTime.isAfter(e2.startTime)
 
 const EventList = ({ classes, events }) => (
   <div>
     {events
-      .map(event => event.set('startDate', moment(event.startDate)))
+      .map(event => event.set('startTime', moment(event.startTime)))
       .sort(dateSort)
       .reduce(
         (resultList, event, i, initalList) =>

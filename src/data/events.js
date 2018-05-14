@@ -9,7 +9,8 @@ export const Event = Record({
   name: null,
   description: null,
   link: null,
-  startDate: null,
+  startTime: null,
+  endTime: null,
 })
 
 // KEY
@@ -43,13 +44,15 @@ const dummyData = [
     name: 'Event Name',
     description: 'Testing Things',
     link: 'google.com',
-    startDate: '2018-03-01',
+    startTime: '2018-03-01',
+    endTime: '2018-03-01',
   },
   {
     name: 'Event 2',
     description: 'Testing more things',
     link: 'google.com',
-    startDate: '2018-03-01',
+    startTime: '2018-03-01',
+    endTime: '2018-03-01',
   },
 ]
 
