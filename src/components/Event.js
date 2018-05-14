@@ -15,13 +15,13 @@ const sheet = ({ spacing: { unit } }) => ({
 })
 /* eslint-enable no-magic-numbers */
 
-const dateFormat = 'MMMM Do YYYY'
+const dateFormat = 'MMMM Do YYYY h:mm a'
 
 const Event = ({ classes, event }) => (
   <div className={classes.event}>
     <Typography variant="title">{event.name}</Typography>
     <Typography variant="caption">
-      {moment(event.startDate).format(dateFormat)}
+      {moment(event.startTime).format(dateFormat)}
     </Typography>
     <Typography>{event.description}</Typography>
     <Button color="primary" href={event.link}>
