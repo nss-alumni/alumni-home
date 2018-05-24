@@ -12,12 +12,18 @@ const styles = ({ spacing }) => ({
   container: {
     display: 'flex',
   },
+  group: {
+    flex: 2,
+    display: 'flex',
+    flexDirection: 'column',
+  },
   sideGroup: {
     flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
   },
   tile: {
     margin: spacing.unit * 2,
-    flex: 2,
   },
   sideTile: {
     margin: spacing.unit * 2,
@@ -35,8 +41,12 @@ class AboutPage extends Component {
 
     return (
       <div className={classes.container}>
-        <InvolvementTile className={classes.tile} />
-        <NewsletterTile className={classes.tile} />
+        <div className={classes.group}>
+          <InvolvementTile className={classes.tile} />
+        </div>
+        <div className={classes.group}>
+          <NewsletterTile className={classes.tile} />
+        </div>
         <div className={classes.sideGroup}>
           <EventsTile className={classes.sideTile} />
         </div>
