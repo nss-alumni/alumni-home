@@ -6,28 +6,19 @@ import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from 'material-ui/Typography'
 
-class EventListWithFetch extends React.Component {
-  componentWillMount() {
-    this.props.init()
+const EventListFromState = ({ isFetching, events }) => {
+  if (isFetching) {
+    return <Typography variant="title">Fetching Events</Typography>
+  }
+  if (!events.size) {
+    return <Typography variant="title">No Events Found</Typography>
   }
 
-  render() {
-    const { isFetching, events } = this.props
-
-    if (isFetching) {
-      return <Typography variant="title">Fetching Events</Typography>
-    }
-    if (!events.size) {
-      return <Typography variant="title">No Events Found</Typography>
-    }
-
-    return <EventList events={events} />
-  }
+  return <EventList events={events} />
 }
 
-EventListWithFetch.propTypes = {
+EventListFromState.propTypes = {
   events: PropTypes.listOf(PropTypes.instanceOf(EventRecord)).isRequired,
-  init: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
 }
 
@@ -40,4 +31,4 @@ const mapDispatchToProps = {
   init: fetchEvents,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventListWithFetch)
+export default connect(mapStateToProps, mapDispatchToProps)(EventListFromState)

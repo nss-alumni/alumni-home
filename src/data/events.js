@@ -39,28 +39,10 @@ export const getEvents = get('events')
 
 const mapData = data => List(data.map(Event))
 
-const dummyData = [
-  {
-    name: 'Event Name',
-    description: 'Testing Things',
-    link: 'google.com',
-    startTime: '2018-03-01',
-    endTime: '2018-03-01',
-  },
-  {
-    name: 'Event 2',
-    description: 'Testing more things',
-    link: 'google.com',
-    startTime: '2018-03-01',
-    endTime: '2018-03-01',
-  },
-]
-
 // EPICS
 export const fetchEventsEpic = action$ =>
   action$.ofType(FETCH_EVENTS).mergeMap(() =>
     EventsResource.getAll()
-      .map(() => dummyData)
       .map(mapData)
       .map(fetchEventsSucceeded)
       .catch(e => Observable.of(fetchEventsFailed(e))),
