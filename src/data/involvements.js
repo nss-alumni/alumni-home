@@ -1,6 +1,6 @@
 import { Map, Record } from 'immutable'
 import { Observable } from 'rxjs'
-import { action, creator, errorCreator, get, replace } from 'utils/data'
+import { creator, errorCreator, get, replace, type } from 'utils/data'
 import InvolvementsResource from 'resources/Involvements'
 import createReducer from 'utils/createReducer'
 
@@ -16,12 +16,12 @@ export const Involvement = Record({
 export const key = 'involvements'
 
 // ACTIONS
-export const FETCH_INVOLVEMENTS = action(key, 'FETCH_INVOLVEMENTS')
-export const FETCH_INVOLVEMENTS_SUCCEEDED = action(
+export const FETCH_INVOLVEMENTS = type(key, 'FETCH_INVOLVEMENTS')
+export const FETCH_INVOLVEMENTS_SUCCEEDED = type(
   key,
   'FETCH_INVOLVEMENTS_SUCCEEDED',
 )
-export const FETCH_INVOLVEMENTS_FAILED = action(
+export const FETCH_INVOLVEMENTS_FAILED = type(
   key,
   'FETCH_INVOLVEMENTS_FAILED',
 )
