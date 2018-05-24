@@ -1,6 +1,6 @@
 import { List, Record } from 'immutable'
 import { Observable } from 'rxjs'
-import { action, creator, errorCreator, get, replace } from 'utils/data'
+import { creator, errorCreator, get, replace, type } from 'utils/data'
 import EventsResource from 'resources/Events'
 import createReducer from 'utils/createReducer'
 
@@ -17,9 +17,9 @@ export const Event = Record({
 export const key = 'events'
 
 // ACTIONS
-export const FETCH_EVENTS = action(key, 'FETCH_EVENTS')
-export const FETCH_EVENTS_SUCCEEDED = action(key, 'FETCH_EVENTS_SUCCEEDED')
-export const FETCH_EVENTS_FAILED = action(key, 'FETCH_EVENTS_FAILED')
+export const FETCH_EVENTS = type(key, 'FETCH_EVENTS')
+export const FETCH_EVENTS_SUCCEEDED = type(key, 'FETCH_EVENTS_SUCCEEDED')
+export const FETCH_EVENTS_FAILED = type(key, 'FETCH_EVENTS_FAILED')
 
 // ACTION CREATORS
 export const fetchEvents = creator(FETCH_EVENTS)

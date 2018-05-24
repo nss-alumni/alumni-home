@@ -1,6 +1,6 @@
 import { Map, Record } from 'immutable'
 import { Observable } from 'rxjs'
-import { action, creator, errorCreator, get, replace } from 'utils/data'
+import { creator, errorCreator, get, replace, type } from 'utils/data'
 import { createSelector } from 'reselect'
 import NewslettersResource from 'resources/Newsletters'
 import createReducer from 'utils/createReducer'
@@ -16,12 +16,12 @@ export const Newsletter = Record({
 export const key = 'newsletters'
 
 // ACTIONS
-export const FETCH_NEWSLETTERS = action(key, 'FETCH_NEWSLETTERS')
-export const FETCH_NEWSLETTERS_SUCCEEDED = action(
+export const FETCH_NEWSLETTERS = type(key, 'FETCH_NEWSLETTERS')
+export const FETCH_NEWSLETTERS_SUCCEEDED = type(
   key,
   'FETCH_NEWSLETTERS_SUCCEEDED',
 )
-export const FETCH_NEWSLETTERS_FAILED = action(key, 'FETCH_NEWSLETTERS_FAILED')
+export const FETCH_NEWSLETTERS_FAILED = type(key, 'FETCH_NEWSLETTERS_FAILED')
 
 // ACTION CREATORS
 export const fetchNewsletters = creator(FETCH_NEWSLETTERS)

@@ -1,7 +1,7 @@
 import { Map, Record } from 'immutable'
 import { Observable } from 'rxjs'
-import { action, creator, errorCreator, get, replace } from 'utils/data'
 import { createSelector } from 'reselect'
+import { creator, errorCreator, get, replace, type } from 'utils/data'
 import AlumniResource from 'resources/Alumni'
 import createReducer from 'utils/createReducer'
 
@@ -21,9 +21,9 @@ export const Alumni = Record({
 export const key = 'alumni'
 
 // ACTIONS
-export const FETCH_ALUMNI = action(key, 'FETCH_ALUMNI')
-export const FETCH_ALUMNI_SUCCEEDED = action(key, 'FETCH_ALUMNI_SUCCEEDED')
-export const FETCH_ALUMNI_FAILED = action(key, 'FETCH_ALUMNI_FAILED')
+export const FETCH_ALUMNI = type(key, 'FETCH_ALUMNI')
+export const FETCH_ALUMNI_SUCCEEDED = type(key, 'FETCH_ALUMNI_SUCCEEDED')
+export const FETCH_ALUMNI_FAILED = type(key, 'FETCH_ALUMNI_FAILED')
 
 // ACTION CREATORS
 export const fetchAlumni = creator(FETCH_ALUMNI)

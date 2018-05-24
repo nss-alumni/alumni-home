@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+
 /**
  * A simple function for creating action strings.
  *
@@ -5,7 +7,7 @@
  * @param {string} name - the action name
  * @returns {string} the formatted action string
  */
-export const action = (key, name) => `${key}/${name}`
+export const type = (key, name) => `${key}/${name}`
 
 /**
  * A function that creates an action
