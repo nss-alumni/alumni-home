@@ -9,7 +9,7 @@ const sheet = ({ palette, spacing: { unit } }) => ({
   tile: {
     background: palette.background.paper,
     flex: 1,
-    margin: 1 * unit,
+    margin: unit,
     padding: 1.75 * unit,
     height: '100%',
   },

@@ -4,7 +4,6 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import AboutPage from 'pages/About'
 import ErrorSnackbar from 'containers/ErrorSnackbar'
-import EventsPage from 'pages/UpcomingEvents'
 import HomePage from 'pages/Home'
 import React, { Fragment } from 'react'
 import Reboot from 'material-ui/Reboot'
@@ -63,7 +62,6 @@ const App = () => (
           <Router basename={basename}>
             <StyledSite navButtons={<RoutedNavButtons />}>
               <Switch>
-                <Route component={EventsPage} path="/events" />
                 <Route component={AboutPage} path="/about" />
                 <Route component={HomePage} path="/" />
               </Switch>
