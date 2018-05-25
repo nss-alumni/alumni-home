@@ -1,7 +1,8 @@
 import { Map, Record } from 'immutable'
 import { Observable } from 'rxjs'
 import { createSelector } from 'reselect'
-import { creator, errorCreator, get, replace, type } from 'utils/data'
+import { creator, errorCreator, get, replace, type, withMeta } from 'utils/data'
+import { pipe } from 'utils/functional'
 import AlumniResource from 'resources/Alumni'
 import createReducer from 'utils/createReducer'
 
@@ -19,6 +20,49 @@ export const Alumni = Record({
 
 // KEY
 export const key = 'alumni'
+
+const apiBuilder = ({
+  moduleKey,
+  actionBase,
+  requestParams,
+  responseParams,
+  error400,
+  error500,
+
+  apiCall = () => {},
+  responseMapFn = r => r,
+}) => {
+  const types = {
+    REQUESTED: type(moduleKey, `${actionBase}_REQUESTED`),
+    SUCCEEDED: type(moduleKey, `${actionBase}_SUCCEEDED`),
+    FAILED: type(moduleKey, `${actionBase}_FAILED`),
+  }
+
+  const apiRequestKey = type(moduleKey, actionBase)
+  const api = withMeta({ apiRequestKey })
+  const apiCreator = pipe(api, creator)
+  const apiErrorCreator = pipe(api, errorCreator)
+
+  const creators = {
+    requested: apiCreator(types.REQUESTED, ...requestParams),
+    succeeded: apiCreator(types.SUCCEEDED, ...responseParams),
+    failed: apiErrorCreator(types.FAILED, error400, error500),
+  }
+
+  const epic = action$ =>
+    action$.ofType(types.REQUESTED).mergeMap(() =>
+      apiCall()
+        .map(responseMapFn)
+        .map(creators.succeeded)
+        .catch(pipe(creators.failed, Observable.of)),
+    )
+
+  return {
+    ...types,
+    ...creators,
+    epic,
+  }
+}
 
 // ACTIONS
 export const FETCH_ALUMNI = type(key, 'FETCH_ALUMNI')
