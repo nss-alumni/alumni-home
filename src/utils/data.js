@@ -17,6 +17,20 @@ export const type = (key, name) => `${key}/${name}`
  */
 
 /**
+ * A higher order function that adds meta information to an action creator
+ *
+ * @param {Object} - a meta object
+ * @returns {ActionCreator} the contextualized action creator
+ */
+export const withMeta = extraMeta => fn => (...args) => {
+  const { meta, ...actionDetails } = fn(...args)
+  return {
+    ...actionDetails,
+    meta: { ...meta, ...extraMeta },
+  }
+}
+
+/**
  * Constructs an action creator
  *
  * @param {string} type - an action type
