@@ -17,11 +17,14 @@ const sheet = ({ spacing: { unit } }) => ({
 
 const dateSort = (e1, e2) => e1.startTime.isAfter(e2.startTime)
 
+const eventCount = 5
+
 const EventList = ({ classes, events }) => (
   <div>
     {events
       .map(event => event.set('startTime', moment(event.startTime)))
       .sort(dateSort)
+      .take(eventCount)
       .reduce(
         (resultList, event, i, initalList) =>
           [
