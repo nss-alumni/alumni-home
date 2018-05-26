@@ -23,13 +23,6 @@ const Event = ({ classes, event }) => (
     <Typography variant="caption">
       {moment(event.startTime).format(dateFormat)}
     </Typography>
-    <Typography
-      dangerouslySetInnerHTML={{
-        __html:
-          event.description &&
-          event.description.replace(/(<? *script)/gi, 'illegalscript'),
-      }}
-    />
     <Button color="primary" href={event.link}>
       More Info
     </Button>
