@@ -1,7 +1,7 @@
 import { List, Record } from 'immutable'
-import { Observable } from 'rxjs'
-import { creator, errorCreator, get, replace, type } from 'utils/data'
+import { get, replace } from 'utils/data'
 import EventsResource from 'resources/Events'
+import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -16,34 +16,32 @@ export const Event = Record({
 // KEY
 export const key = 'events'
 
+export const fetchRequest = apiRequestBuilder({
+  moduleKey: key,
+  actionBase: 'FETCH_EVENTS',
+  responseParams: ['events'],
+  error400: 'Could not get events',
+  apiFn: EventsResource.getAll,
+  mapResponseDataFn: data => List(data.map(Event)),
+})
+
 // ACTIONS
-export const FETCH_EVENTS = type(key, 'FETCH_EVENTS')
-export const FETCH_EVENTS_SUCCEEDED = type(key, 'FETCH_EVENTS_SUCCEEDED')
-export const FETCH_EVENTS_FAILED = type(key, 'FETCH_EVENTS_FAILED')
+export const FETCH_EVENTS = fetchRequest.REQUEST
+export const FETCH_EVENTS_SUCCEEDED = fetchRequest.SUCCEEDED
+export const FETCH_EVENTS_FAILED = fetchRequest.FAILED
 
 // ACTION CREATORS
-export const fetchEvents = creator(FETCH_EVENTS)
-export const fetchEventsSucceeded = creator(FETCH_EVENTS_SUCCEEDED, 'events')
-export const fetchEventsFailed = errorCreator(
-  FETCH_EVENTS_FAILED,
-  'Could not get events.',
-)
+export const fetchEvents = fetchRequest.request
+export const fetchEventsSucceeded = fetchRequest.succeeded
+export const fetchEventsFailed = fetchRequest.failed
 
 // REDUCER
 export default createReducer(List(), {
-  [FETCH_EVENTS_SUCCEEDED]: replace('events'),
+  [fetchRequest.SUCCEEDED]: replace('events'),
 })
 
 // SELECTORS
-export const getEvents = get('events')
-
-const mapData = data => List(data.map(Event))
+export const getEvents = get(key)
 
 // EPICS
-export const fetchEventsEpic = action$ =>
-  action$.ofType(FETCH_EVENTS).mergeMap(() =>
-    EventsResource.getAll()
-      .map(mapData)
-      .map(fetchEventsSucceeded)
-      .catch(e => Observable.of(fetchEventsFailed(e))),
-  )
+export const fetchEventsEpic = fetchRequest.epic
