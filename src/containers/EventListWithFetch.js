@@ -1,9 +1,4 @@
-import {
-  Event as EventRecord,
-  fetchEvents,
-  fetchRequest,
-  getEvents,
-} from 'data/events'
+import { Event as EventRecord, fetchEvents, getEvents } from 'data/events'
 import { connect } from 'react-redux'
 import { isInProgress } from 'data/requestStatus'
 import EventList from 'components/EventList'
@@ -29,11 +24,11 @@ EventListFromState.propTypes = {
 
 const mapStateToProps = state => ({
   events: getEvents(state),
-  isFetching: isInProgress(fetchRequest)(state),
+  isFetching: isInProgress(fetchEvents)(state),
 })
 
 const mapDispatchToProps = {
-  init: fetchEvents,
+  init: fetchEvents.request,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventListFromState)

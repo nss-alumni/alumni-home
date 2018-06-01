@@ -1,7 +1,7 @@
 import { Map, Record } from 'immutable'
-import { Observable } from 'rxjs'
-import { creator, errorCreator, get, replace, type } from 'utils/data'
+import { get, replace } from 'utils/data'
 import InvolvementsResource from 'resources/Involvements'
+import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -15,44 +15,20 @@ export const Involvement = Record({
 // KEY
 export const key = 'involvements'
 
-// ACTIONS
-export const FETCH_INVOLVEMENTS = type(key, 'FETCH_INVOLVEMENTS')
-export const FETCH_INVOLVEMENTS_SUCCEEDED = type(
-  key,
-  'FETCH_INVOLVEMENTS_SUCCEEDED',
-)
-export const FETCH_INVOLVEMENTS_FAILED = type(
-  key,
-  'FETCH_INVOLVEMENTS_FAILED',
-)
-
-// ACTION CREATORS
-export const fetchInvolvements = creator(FETCH_INVOLVEMENTS)
-export const fetchInvolvementsSucceeded = creator(
-  FETCH_INVOLVEMENTS_SUCCEEDED,
-  'involvements',
-)
-export const fetchInvolvementsFailed = errorCreator(
-  FETCH_INVOLVEMENTS_FAILED,
-  'Could not get involvements.',
-)
+export const fetchInvolvements = apiRequestBuilder({
+  moduleKey: key,
+  actionBase: 'FETCH_INVOLVEMENTS',
+  responseParams: ['involvements'],
+  error400: 'Could not get involvements',
+  apiFn: InvolvementsResource.getAll,
+  mapResponseDataFn: data =>
+    Map(Object.entries(data).map(([, v]) => [v.id, Involvement(v)])),
+})
 
 // REDUCER
 export default createReducer(Map(), {
-  [FETCH_INVOLVEMENTS_SUCCEEDED]: replace('involvements'),
+  [fetchInvolvements.SUCCEEDED]: replace('involvements'),
 })
 
 // SELECTORS
 export const getAllInvolvements = get('involvements')
-
-const mapData = data =>
-  Map(Object.entries(data).map(([, v]) => [v.id, Involvement(v)]))
-
-// EPICS
-export const fetchInvolvementsEpic = action$ =>
-  action$.ofType(FETCH_INVOLVEMENTS).mergeMap(() =>
-    InvolvementsResource.getAll()
-      .map(mapData)
-      .map(fetchInvolvementsSucceeded)
-      .catch(e => Observable.of(fetchInvolvementsFailed(e))),
-  )

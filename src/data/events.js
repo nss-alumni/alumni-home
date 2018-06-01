@@ -16,7 +16,7 @@ export const Event = Record({
 // KEY
 export const key = 'events'
 
-export const fetchRequest = apiRequestBuilder({
+export const fetchEvents = apiRequestBuilder({
   moduleKey: key,
   actionBase: 'FETCH_EVENTS',
   responseParams: ['events'],
@@ -25,23 +25,10 @@ export const fetchRequest = apiRequestBuilder({
   mapResponseDataFn: data => List(data.map(Event)),
 })
 
-// ACTIONS
-export const FETCH_EVENTS = fetchRequest.REQUEST
-export const FETCH_EVENTS_SUCCEEDED = fetchRequest.SUCCEEDED
-export const FETCH_EVENTS_FAILED = fetchRequest.FAILED
-
-// ACTION CREATORS
-export const fetchEvents = fetchRequest.request
-export const fetchEventsSucceeded = fetchRequest.succeeded
-export const fetchEventsFailed = fetchRequest.failed
-
 // REDUCER
 export default createReducer(List(), {
-  [fetchRequest.SUCCEEDED]: replace('events'),
+  [fetchEvents.SUCCEEDED]: replace('events'),
 })
 
 // SELECTORS
 export const getEvents = get(key)
-
-// EPICS
-export const fetchEventsEpic = fetchRequest.epic

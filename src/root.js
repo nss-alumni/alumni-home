@@ -1,19 +1,19 @@
 import { combineEpics } from 'redux-observable'
 import { combineReducers } from 'redux-immutable'
-import alumni, { fetchAlumniEpic } from 'data/alumni'
+import alumni, { fetchAlumni } from 'data/alumni'
 import errorSnackbar from 'epics/errorSnackbar'
-import events, { fetchEventsEpic } from 'data/events'
-import involvements, { fetchInvolvementsEpic } from 'data/involvements'
+import events, { fetchEvents } from 'data/events'
+import involvements, { fetchInvolvements } from 'data/involvements'
 import navigation from 'epics/navigation'
-import newsletters, { fetchNewslettersEpic } from 'data/newsletters'
+import newsletters, { fetchNewsletters } from 'data/newsletters'
 import requestStatus from 'data/requestStatus'
 import snackbarErrorMessage from 'data/snackbarErrorMessage'
 
 export const rootEpic = combineEpics(
-  fetchAlumniEpic,
-  fetchEventsEpic,
-  fetchInvolvementsEpic,
-  fetchNewslettersEpic,
+  fetchAlumni.epic,
+  fetchEvents.epic,
+  fetchInvolvements.epic,
+  fetchNewsletters.epic,
   navigation,
   errorSnackbar,
 )
