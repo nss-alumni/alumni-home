@@ -12,9 +12,12 @@ const messageTimeout = 5000
 const setErrorMesage = (action$, store) =>
   action$
     .filter(isError)
-    .filter(action => action.meta.message)
+    .filter(action => action.meta.error400 || action.meta.error500)
     .filter(_action => !getSnackbarErrorMessage(store.getState()))
-    .map(action => action.meta.message)
+    .map(
+      ({ payload: error, meta }) =>
+        error.status >= 500 ? meta.error500 : meta.error400, // eslint-disable-line no-magic-numbers
+    )
     .map(setMessage)
 
 const clearErrorMessage = action$ =>

@@ -65,8 +65,8 @@ export const creator = (type, ...argNames) => creatorBuilder(type, argNames)
  * @param {string} message - the descriptive message for the error
  * @returns {ActionCreator} the constructed action creator
  */
-export const errorCreator = (type, message) =>
-  creatorBuilder(type, [], { error: true, meta: { message } })
+export const errorCreator = (type, error400, error500) =>
+  creatorBuilder(type, [], { error: true, meta: { error400, error500 } })
 
 /**
  * A reducer function to replace reducer state with the data in the action

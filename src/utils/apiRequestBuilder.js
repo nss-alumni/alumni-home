@@ -3,6 +3,32 @@ import { creator, errorCreator, type, withMeta } from 'utils/data'
 import { payload } from 'utils/actions'
 import { pipe } from 'utils/functional'
 
+/**
+ * The generated set of api request components
+ * @typedef {Object} ApiRequest
+ * @property {string} requestKey - the key used to track the request
+ * @property {string} REQUEST - the type to begin the request
+ * @property {string} SUCCEEDED - the type for a successful request
+ * @property {string} FAILED - the type for a failed request
+ * @property {ActionCreator} request - the REQUEST action creator
+ * @property {ActionCreator} succeeded - the SUCCEEDED action creator
+ * @property {ActionCreator} failed - the FAILED action creator
+ * @property {function} epic - the generated epic
+
+/**
+ * Generate a set of types, action creators, and an epic for an api reqeuest.
+ *
+ * @param {Object} params - the set of params for the builder
+ * @param {string} params.moduleKey - the data module key for the request
+ * @param {string} params.actionBase - the base portion of the types
+ * @param {string[]=} params.requestParams - an list of param keys for the api request
+ * @param {string[]} params.responseParams - a list of param keys to handle from the respone
+ * @param {string} error400 - a message to show for a 400 error
+ * @param {string} error500 - a message to show for a 500 error
+ * @param {function(...*=):Observable=} apiFn - the request function if building an epic
+ * @param {function(*):*=} mapResponseDataFn - a function to map the response data
+ * @returns {ApiRequest} the generated api request object
+ */
 export default ({
   moduleKey,
   actionBase,
