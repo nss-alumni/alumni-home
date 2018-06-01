@@ -1,8 +1,8 @@
 import { Map, Record } from 'immutable'
-import { Observable } from 'rxjs'
-import { creator, errorCreator, get, replace, type } from 'utils/data'
 import { createSelector } from 'reselect'
+import { get, replace } from 'utils/data'
 import NewslettersResource from 'resources/Newsletters'
+import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -15,28 +15,19 @@ export const Newsletter = Record({
 // KEY
 export const key = 'newsletters'
 
-// ACTIONS
-export const FETCH_NEWSLETTERS = type(key, 'FETCH_NEWSLETTERS')
-export const FETCH_NEWSLETTERS_SUCCEEDED = type(
-  key,
-  'FETCH_NEWSLETTERS_SUCCEEDED',
-)
-export const FETCH_NEWSLETTERS_FAILED = type(key, 'FETCH_NEWSLETTERS_FAILED')
-
-// ACTION CREATORS
-export const fetchNewsletters = creator(FETCH_NEWSLETTERS)
-export const fetchNewslettersSucceeded = creator(
-  FETCH_NEWSLETTERS_SUCCEEDED,
-  'newsletters',
-)
-export const fetchNewslettersFailed = errorCreator(
-  FETCH_NEWSLETTERS_FAILED,
-  'Could not get newsletters.',
-)
+export const fetchNewsletters = apiRequestBuilder({
+  moduleKey: key,
+  actionBase: 'FETCH_NEWSLETTERS',
+  responseParams: ['newsletters'],
+  error400: 'Could not get newsletters',
+  apiFn: NewslettersResource.getAll,
+  mapResponseDataFn: data =>
+    Map(Object.entries(data).map(([k, v]) => [k, Newsletter(v)])),
+})
 
 // REDUCER
 export default createReducer(Map(), {
-  [FETCH_NEWSLETTERS_SUCCEEDED]: replace('newsletters'),
+  [fetchNewsletters.SUCCEEDED]: replace('newsletters'),
 })
 
 // SELECTORS
@@ -49,15 +40,3 @@ export const getLatestNewsletter = createSelector(
       .sort((n1, n2) => n2.sentDate.localeCompare(n1.sentDate))
       .first(),
 )
-
-const mapData = data =>
-  Map(Object.values(data).map(n => [n.sentDate, Newsletter(n)]))
-
-// EPICS
-export const fetchNewslettersEpic = action$ =>
-  action$.ofType(FETCH_NEWSLETTERS).mergeMap(() =>
-    NewslettersResource.getAll()
-      .map(mapData)
-      .map(fetchNewslettersSucceeded)
-      .catch(e => Observable.of(fetchNewslettersFailed(e))),
-  )

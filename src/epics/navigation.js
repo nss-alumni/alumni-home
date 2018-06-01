@@ -9,12 +9,16 @@ const aboutNavigation = action$ =>
   action$
     .ofType(ABOUT_PAGE_NAVIGATED)
     .first()
-    .mapTo(fetchAlumni())
+    .mapTo(fetchAlumni.request())
 
 const homeNavigation = action$ =>
   action$
     .ofType(HOME_PAGE_NAVIGATED)
     .first()
-    .mergeMap(() => [fetchEvents(), fetchInvolvements(), fetchNewsletters()])
+    .mergeMap(() => [
+      fetchEvents.request(),
+      fetchInvolvements.request(),
+      fetchNewsletters.request(),
+    ])
 
 export default combineEpics(aboutNavigation, homeNavigation)

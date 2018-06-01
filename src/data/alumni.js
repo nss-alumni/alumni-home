@@ -20,7 +20,7 @@ export const Alumni = Record({
 // KEY
 export const key = 'alumni'
 
-export const fetchRequest = apiRequestBuilder({
+export const fetchAlumni = apiRequestBuilder({
   moduleKey: key,
   actionBase: 'FETCH_ALUMNI',
   responseParams: ['alumni'],
@@ -30,19 +30,9 @@ export const fetchRequest = apiRequestBuilder({
     Map(Object.entries(data).map(([k, v]) => [k, Alumni(v)])),
 })
 
-// ACTIONS
-export const FETCH_ALUMNI = fetchRequest.REQUEST
-export const FETCH_ALUMNI_SUCCEEDED = fetchRequest.SUCCEEDED
-export const FETCH_ALUMNI_FAILED = fetchRequest.FAILED
-
-// ACTION CREATORS
-export const fetchAlumni = fetchRequest.request
-export const fetchAlumniSucceeded = fetchRequest.succeeded
-export const fetchAlumniFailed = fetchRequest.failed
-
 // REDUCER
 export default createReducer(Map(), {
-  [fetchRequest.SUCCEEDED]: replace('alumni'),
+  [fetchAlumni.SUCCEEDED]: replace('alumni'),
 })
 
 // SELECTORS
@@ -50,6 +40,3 @@ export const getAllAlumni = get(key)
 export const getBoardMembers = createSelector([getAllAlumni], alumni =>
   alumni.filter(a => a.isBoardMember),
 )
-
-// EPICS
-export const fetchAlumniEpic = fetchRequest.epic
