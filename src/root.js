@@ -7,6 +7,7 @@ import involvements, { fetchInvolvementsEpic } from 'data/involvements'
 import isFetchingEvents from 'data/isFetchingEvents'
 import navigation from 'epics/navigation'
 import newsletters, { fetchNewslettersEpic } from 'data/newsletters'
+import requestStatus from 'data/requestStatus'
 import snackbarErrorMessage from 'data/snackbarErrorMessage'
 
 export const rootEpic = combineEpics(
@@ -25,4 +26,5 @@ export const rootReducer = combineReducers({
   isFetchingEvents,
   newsletters,
   snackbarErrorMessage,
+  requestStatus,
 })
