@@ -15,7 +15,7 @@ const sheet = ({ spacing: { unit } }) => ({
 })
 /* eslint-enable no-magic-numbers */
 
-const dateSort = (e1, e2) => e1.startTime.isAfter(e2.startTime)
+const timeSort = (e1, e2) => e1.startTime.isAfter(e2.startTime)
 
 const eventCount = 5
 
@@ -23,18 +23,18 @@ const EventList = ({ classes, events }) => (
   <div>
     {events
       .map(event => event.set('startTime', moment(event.startTime)))
-      .sort(dateSort)
+      .sort(timeSort)
       .take(eventCount)
       .reduce(
         (resultList, event, i, initalList) =>
           [
             ...resultList,
-            <Event event={event} key={`${event.startDate}-${event.name}`} />,
+            <Event event={event} key={`${event.startTime}-${event.name}`} />,
           ].concat(
             i < initalList.size - 1 ? (
               <Divider
                 className={classes.divider}
-                key={`${event.startDate}-${event.name}-divider`}
+                key={`${event.startTime}-${event.name}-divider`}
               />
             ) : null,
           ),
