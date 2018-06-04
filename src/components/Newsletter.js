@@ -2,6 +2,7 @@ import { Newsletter as NewsletterRecord } from 'data/newsletters'
 import { Typography } from 'material-ui'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
 import moment from 'moment'
 
 const dateFormat = 'MMMM Do YYYY'
@@ -12,7 +13,9 @@ const Newsletter = ({ className, newsletter }) => (
     <Typography variant="caption">
       {moment(newsletter.sentDate).format(dateFormat)}
     </Typography>
-    <Typography>{newsletter.body}</Typography>
+    <Typography>
+      <ReactMarkdown source={newsletter.body} />
+    </Typography>
   </div>
 )
 
