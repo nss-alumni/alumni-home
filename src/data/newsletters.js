@@ -46,7 +46,7 @@ export const getLatestNewsletter = createSelector(
   newsletters =>
     newsletters
       .valueSeq()
-      .sort((n1, n2) => n2.sentDate.localecompare(n1.sentDate))
+      .sort((n1, n2) => n2.sentDate.localeCompare(n1.sentDate))
       .first(),
 )
 
