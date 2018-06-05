@@ -4,17 +4,13 @@ import PropTypes from 'utils/propTypes'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import injectSheet from 'react-jss'
-import moment from 'moment'
 
 const styles = _theme => ({
   heading: {
-    fontSize: '1.07rem',
     marginTop: '.5rem',
     marginBottom: '.3rem',
   },
 })
-
-const dateFormat = 'MMMM Do YYYY'
 
 /* eslint-disable react/display-name */
 const nodeRenderers = classes => ({
@@ -27,10 +23,6 @@ const nodeRenderers = classes => ({
 
 const Newsletter = ({ className, classes, newsletter }) => (
   <div className={className}>
-    <Typography variant="title">{newsletter.subject}</Typography>
-    <Typography variant="caption">
-      {moment(newsletter.sentDate).format(dateFormat)}
-    </Typography>
     <ReactMarkdown
       renderers={nodeRenderers(classes)}
       source={newsletter.body}
