@@ -39,13 +39,14 @@ export default ({
   apiFn = Observable.empty,
   mapResponseDataFn = d => d,
 }) => {
+  const modType = type(moduleKey)
   const types = {
-    REQUEST: type(moduleKey, actionBase),
-    SUCCEEDED: type(moduleKey, `${actionBase}_SUCCEEDED`),
-    FAILED: type(moduleKey, `${actionBase}_FAILED`),
+    REQUEST: modType(actionBase),
+    SUCCEEDED: modType(`${actionBase}_SUCCEEDED`),
+    FAILED: modType(`${actionBase}_FAILED`),
   }
 
-  const requestKey = type(moduleKey, actionBase)
+  const requestKey = modType(actionBase)
   const api = requestStep => withMeta({ api: { requestKey, requestStep } })
   // TODO(adam): api should be a pipable function with the creators
   // const apiCreator = pipe(creator, api)

@@ -3,11 +3,11 @@
 /**
  * A simple function for creating action strings.
  *
- * @param {string} key - the data key
- * @param {string} name - the action name
- * @returns {string} the formatted action string
+ * @param {string} key - the data module key
+ * @returns {function(string):string} a curried function expecting the action
+ * name that returns the formatted action string
  */
-export const type = (key, name) => `${key}/${name}`
+export const type = key => name => `${key}/${name}`
 
 /**
  * A function that creates an action
@@ -19,7 +19,7 @@ export const type = (key, name) => `${key}/${name}`
 /**
  * A higher order function that adds meta information to an action creator
  *
- * @param {Object} - a meta object
+ * @param {Object} extraMeta - a meta object
  * @returns {ActionCreator} the contextualized action creator
  */
 export const withMeta = extraMeta => fn => (...args) => {
@@ -62,7 +62,8 @@ export const creator = (type, ...argNames) => creatorBuilder(type, argNames)
  * Builds an error action creator
  *
  * @param {string} type - an action type
- * @param {string} message - the descriptive message for the error
+ * @param {string} error400 - an error message for a 400 error
+ * @param {string} error500 - an error message for a 500 error
  * @returns {ActionCreator} the constructed action creator
  */
 export const errorCreator = (type, error400, error500) =>

@@ -26,7 +26,7 @@
  * Checks parameters given to the create reducer function.
  *
  * @param {*} initState - the inital local state of the reducer
- * @param {Object.<string, ActionHandler} handlers - a map of the action
+ * @param {Object.<string, ActionHandler>} handlers - a map of the action
  * handling functions for the reducer
  * @returns {boolean} whether or not the operation was successful
  */
