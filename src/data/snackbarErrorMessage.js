@@ -1,16 +1,20 @@
+import { creator, replace, type } from 'utils/data'
 import createReducer from 'utils/createReducer'
 
+const key = 'snackbarErrorMessage'
+const modType = type(key)
+
 // ACTIONS
-export const SET_MESSAGE = 'snackbarErrorMessage/SET_MESSAGE'
-export const CLEAR_MESSAGE = 'snackbarErrorMessage/CLEAR_MESSAGE'
+export const SET_MESSAGE = modType('SET_MESSAGE')
+export const CLEAR_MESSAGE = modType('CLEAR_MESSAGE')
 
 // ACTION CREATORS
-export const setMessage = message => ({ type: SET_MESSAGE, payload: message })
-export const clearMessage = () => ({ type: CLEAR_MESSAGE })
+export const setMessage = creator(SET_MESSAGE, 'message')
+export const clearMessage = creator(CLEAR_MESSAGE)
 
 // REDUCER
 export default createReducer(null, {
-  [SET_MESSAGE]: (_state, { payload: message }) => message,
+  [SET_MESSAGE]: replace('message'),
   [CLEAR_MESSAGE]: _state => null,
 })
 

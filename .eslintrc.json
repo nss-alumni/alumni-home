@@ -11,6 +11,8 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
+    // Possible Errors
+    "valid-jsdoc": "warn",
     // Best Practices
     "block-scoped-var": "error",
     "complexity": ["warn", 10],
@@ -29,7 +31,7 @@
       "argsIgnorePattern": "^_",
       "ignoreRestSiblings": true
     }],
-   // Node.js and CommonJS
+    // Node.js and CommonJS
     "no-mixed-requires": "warn",
     "no-new-require": "error",
     "no-path-concat": "warn",
