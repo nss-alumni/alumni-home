@@ -4,7 +4,7 @@ import { isInProgress } from 'data/requestStatus'
 import EventList from 'components/EventList'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import Typography from 'material-ui/Typography'
+import Typography from '@material-ui/core/Typography'
 
 const EventListFromState = ({ isFetching, events }) => {
   if (isFetching) {

@@ -1,7 +1,7 @@
 import { Involvement as InvolvementRecord } from 'data/involvements'
-import { Typography } from 'material-ui'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
+import Typography from '@material-ui/core/Typography'
 
 const Involvement = ({ className, involvement }) => (
   <div className={className}>

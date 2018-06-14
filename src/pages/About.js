@@ -4,7 +4,7 @@ import BoardListing from 'containers/BoardListingFromState'
 import MissionStatement from 'components/MissionStatement'
 import PropTypes from 'utils/propTypes'
 import React, { Component, Fragment } from 'react'
-import Typography from 'material-ui/Typography'
+import Typography from '@material-ui/core/Typography'
 import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */

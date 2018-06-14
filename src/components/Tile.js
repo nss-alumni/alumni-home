@@ -1,7 +1,7 @@
-import Paper from 'material-ui/Paper'
+import Paper from '@material-ui/core/Paper'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import Typography from 'material-ui/Typography'
+import Typography from '@material-ui/core/Typography'
 import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */

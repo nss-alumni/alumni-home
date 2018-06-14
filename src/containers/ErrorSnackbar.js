@@ -3,7 +3,7 @@ import {
   getSnackbarErrorMessage,
 } from 'data/snackbarErrorMessage'
 import { connect } from 'react-redux'
-import Snackbar from 'material-ui/Snackbar'
+import Snackbar from '@material-ui/core/Snackbar'
 import injectSheet from 'react-jss'
 
 const styles = ({ palette }) => ({
@@ -24,7 +24,8 @@ const mapDispatchToProps = {
 }
 
 // NOTE(adam): must connect first for classes to exist in mapStateToProps
-const ErrorConnectedSnackbar = connect(mapStateToProps, mapDispatchToProps)(
-  Snackbar,
-)
+const ErrorConnectedSnackbar = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Snackbar)
 export default injectSheet(styles)(ErrorConnectedSnackbar)
