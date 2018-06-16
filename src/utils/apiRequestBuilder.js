@@ -70,7 +70,12 @@ export default ({
         return apiFn(...requestParamValues)
           .map(mapResponseDataFn)
           .map(creators.succeeded)
-          .catch(pipe(creators.failed, Observable.of))
+          .catch(
+            pipe(
+              creators.failed,
+              Observable.of,
+            ),
+          )
       })
 
   return {
