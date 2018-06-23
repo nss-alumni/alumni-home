@@ -21,4 +21,7 @@ export default (state = Set(), action) => {
 
 export const getRequestStatus = get('requestStatus')
 export const isInProgress = ({ requestKey }) =>
-  pipe(getRequestStatus, state => state.has(requestKey))
+  pipe(
+    getRequestStatus,
+    state => state.has(requestKey),
+  )

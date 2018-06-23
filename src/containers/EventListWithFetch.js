@@ -31,4 +31,7 @@ const mapDispatchToProps = {
   init: fetchEvents.request,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventListFromState)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EventListFromState)

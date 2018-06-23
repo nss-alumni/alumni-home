@@ -22,7 +22,7 @@ const styles = ({ palette, spacing }) => ({
 /* eslint-enable no-magic-numbers */
 
 class AboutPage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(aboutPageNavigated())
   }
 
