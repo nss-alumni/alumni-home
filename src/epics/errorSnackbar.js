@@ -7,9 +7,9 @@ import {
 import { combineEpics } from 'redux-observable'
 import { isError } from 'utils/actions'
 
-const messageTimeout = 5000
+const defaultTimeout = 5000
 
-const setErrorMesage = (action$, store) =>
+export const setErrorMessage = (action$, store) =>
   action$
     .filter(isError)
     .filter(action => action.meta.error400 || action.meta.error500)
@@ -20,10 +20,14 @@ const setErrorMesage = (action$, store) =>
     )
     .map(setMessage)
 
-const clearErrorMessage = action$ =>
+export const clearErrorMessage = (
+  action$,
+  _store,
+  { snackbarTimeout: messageTimeout = defaultTimeout },
+) =>
   action$
     .ofType(SET_MESSAGE)
     .mapTo(clearMessage())
     .delay(messageTimeout)
 
-export default combineEpics(setErrorMesage, clearErrorMessage)
+export default combineEpics(setErrorMessage, clearErrorMessage)
