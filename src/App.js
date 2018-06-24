@@ -51,7 +51,9 @@ const Site = ({ children, classes, ...props }) => (
 
 const StyledSite = injectSheet(styles)(Site)
 
-const basename = process.env.NODE_ENV === 'development' ? '/' : '/alumni-home'
+const basename = ['development', 'test'].includes(process.env.NODE_ENV)
+  ? '/'
+  : '/alumni-home'
 
 const App = () => (
   <Fragment>
