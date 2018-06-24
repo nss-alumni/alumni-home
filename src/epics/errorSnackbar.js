@@ -23,7 +23,7 @@ export const setErrorMessage = (action$, store) =>
 export const clearErrorMessage = (
   action$,
   _store,
-  { snackbarTimeout: messageTimeout = defaultTimeout },
+  { snackbarTimeout: messageTimeout = defaultTimeout } = {},
 ) =>
   action$
     .ofType(SET_MESSAGE)
