@@ -1,6 +1,6 @@
 import { Event as EventRecord } from 'data/events'
 import { List } from 'immutable'
-import Divider from 'material-ui/Divider'
+import Divider from '@material-ui/core/Divider'
 import Event from 'components/Event'
 import PropTypes from 'utils/propTypes'
 import React from 'react'

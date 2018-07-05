@@ -1,8 +1,10 @@
-import Avatar from 'material-ui/Avatar'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Avatar from '@material-ui/core/Avatar'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import Typography from 'material-ui/Typography'
+import Typography from '@material-ui/core/Typography'
 import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */

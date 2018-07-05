@@ -5,13 +5,13 @@ import { fetchEvents } from 'data/events'
 import { fetchInvolvements } from 'data/involvements'
 import { fetchNewsletters } from 'data/newsletters'
 
-const aboutNavigation = action$ =>
+export const aboutNavigation = action$ =>
   action$
     .ofType(ABOUT_PAGE_NAVIGATED)
     .first()
     .mapTo(fetchAlumni.request())
 
-const homeNavigation = action$ =>
+export const homeNavigation = action$ =>
   action$
     .ofType(HOME_PAGE_NAVIGATED)
     .first()

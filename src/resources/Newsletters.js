@@ -11,10 +11,19 @@ const Newsletters = createResource({
 const withService = buildConnection({ service: Firebase })
 const withResource = buildConnection({ resource: Newsletters })
 
-const base = compose(withService, withResource)
+const base = compose(
+  withService,
+  withResource,
+)
 
 const _getAll = buildConnection({ method: 'get' })
 
 export default {
-  getAll: () => request(compose(base, _getAll)),
+  getAll: () =>
+    request(
+      compose(
+        base,
+        _getAll,
+      ),
+    ),
 }

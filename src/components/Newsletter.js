@@ -1,8 +1,8 @@
 import { Newsletter as NewsletterRecord } from 'data/newsletters'
-import { Typography } from 'material-ui'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import Typography from '@material-ui/core/Typography'
 import injectSheet from 'react-jss'
 
 const styles = _theme => ({

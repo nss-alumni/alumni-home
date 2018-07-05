@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader } from 'material-ui'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import injectSheet from 'react-jss'

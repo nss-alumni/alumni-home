@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Button from 'material-ui/Button'
+import Button from '@material-ui/core/Button'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import injectSheet from 'react-jss'

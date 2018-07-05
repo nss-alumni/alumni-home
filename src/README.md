@@ -15,4 +15,4 @@
 * `index.js` the javascript entry point
 * `root.js` top-levl combined reducer and epic
 * `store.js` the redux store
-* `theme.js` the site's material-ui theme
+* `theme.js` the site's @material-ui/core theme

@@ -1,8 +1,8 @@
-import AppBar from 'material-ui/AppBar'
+import AppBar from '@material-ui/core/AppBar'
 import Logo from 'components/Logo'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import Toolbar from 'material-ui/Toolbar'
+import Toolbar from '@material-ui/core/Toolbar'
 import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */

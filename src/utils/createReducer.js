@@ -31,7 +31,7 @@
  * @returns {boolean} whether or not the operation was successful
  */
 const checkCreateReducerParams = (initState, handlers) => {
-  if (typeof handlers !== 'object') {
+  if (!handlers || typeof handlers !== 'object') {
     throw new Error(`
       createReducer was passed incorrect arguments.
 

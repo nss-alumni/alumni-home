@@ -11,10 +11,19 @@ const Events = createResource({
 const withService = buildConnection({ service: Api })
 const withResource = buildConnection({ resource: Events })
 
-const base = compose(withService, withResource)
+const base = compose(
+  withService,
+  withResource,
+)
 
 const _getAll = buildConnection({ method: 'get' })
 
 export default {
-  getAll: () => request(compose(base, _getAll)),
+  getAll: () =>
+    request(
+      compose(
+        base,
+        _getAll,
+      ),
+    ),
 }

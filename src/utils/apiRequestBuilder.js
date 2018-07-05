@@ -14,6 +14,7 @@ import { pipe } from 'utils/functional'
  * @property {ActionCreator} succeeded - the SUCCEEDED action creator
  * @property {ActionCreator} failed - the FAILED action creator
  * @property {function} epic - the generated epic
+ */
 
 /**
  * Generate a set of types, action creators, and an epic for an api reqeuest.
@@ -70,7 +71,12 @@ export default ({
         return apiFn(...requestParamValues)
           .map(mapResponseDataFn)
           .map(creators.succeeded)
-          .catch(pipe(creators.failed, Observable.of))
+          .catch(
+            pipe(
+              creators.failed,
+              Observable.of,
+            ),
+          )
       })
 
   return {
