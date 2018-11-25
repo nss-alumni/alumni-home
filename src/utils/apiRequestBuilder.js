@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Rx'
 import { creator, type } from 'utils/data'
-import { payload } from 'utils/actions'
 import { pipe } from 'utils/functional'
 
 /**
@@ -22,19 +21,17 @@ import { pipe } from 'utils/functional'
  * @param {Object} params - the set of params for the builder
  * @param {string} params.moduleKey - the data module key for the request
  * @param {string} params.actionBase - the base portion of the types
- * @param {string[]=} params.requestParams - an list of param keys for the api request
- * @param {string[]} params.responseParams - a list of param keys to handle from the respone
- * @param {string} error400 - a message to show for a 400 error
- * @param {string} error500 - a message to show for a 500 error
- * @param {function(...*=):Observable=} apiFn - the request function if building an epic
- * @param {function(*):*=} mapResponseDataFn - a function to map the response data
+ * @param {string[]=} params.requestParams - params for the request action creator
+ * @param {string} params.error400 - a message to show for a 400 error
+ * @param {string} params.error500 - a message to show for a 500 error
+ * @param {function(...*=):Observable=} params.apiFn - the request function if building an epic
+ * @param {function(*):*=} params.mapResponseDataFn - a function to map the response data
  * @returns {ApiRequest} the generated api request object
  */
 export default ({
   moduleKey,
   actionBase,
-  requestParams = [],
-  responseParams,
+  requestParams,
   error400,
   error500,
   apiFn = Observable.empty,
@@ -52,7 +49,7 @@ export default ({
 
   const creators = {
     request: creator(types.REQUEST, requestParams, () => api('init')),
-    succeeded: creator(types.SUCCEEDED, responseParams, () => api('success')),
+    succeeded: creator(types.SUCCEEDED, true, () => api('success')),
     failed: creator(types.FAILED, true, () => ({
       error400,
       error500: error400 || error500,
@@ -63,20 +60,16 @@ export default ({
   const epic = action$ =>
     action$
       .ofType(types.REQUEST)
-      .map(payload)
-      .mergeMap((params = {}) => {
-        const requestParamValues = requestParams.map(p => params[p])
-
-        return apiFn(...requestParamValues)
-          .map(mapResponseDataFn)
-          .map(creators.succeeded)
-          .catch(
-            pipe(
-              creators.failed,
-              Observable.of,
-            ),
-          )
-      })
+      .pluck('payload')
+      .mergeMap(apiFn)
+      .map(mapResponseDataFn)
+      .map(creators.succeeded)
+      .catch(
+        pipe(
+          creators.failed,
+          Observable.of,
+        ),
+      )
 
   return {
     requestKey,

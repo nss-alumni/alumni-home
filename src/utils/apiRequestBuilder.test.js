@@ -6,7 +6,6 @@ const testRequest = apiRequestBuilder({
   moduleKey: 'test',
   actionBase: 'DO',
   requestParams: ['id'],
-  responseParams: ['thing'],
   apiFn: id => Observable.of({ id }),
   mapResponseDataFn: d => ({ ...d, added: 'detail' }),
 })
@@ -54,10 +53,6 @@ test('the created lifecycle actions have the request steps', () => {
 
 test('uses requestParams for the request creator', () => {
   expect(testRequest.request('thingId')).toHaveProperty('payload.id', 'thingId')
-})
-
-test('uses responseParams for the succeeded creator', () => {
-  expect(testRequest.succeeded('data')).toHaveProperty('payload.thing', 'data')
 })
 
 test('results includes its request key', () => {
