@@ -5,13 +5,12 @@ import {
   setMessage,
 } from 'data/snackbarErrorMessage'
 import { combineEpics } from 'redux-observable'
-import { isError } from 'utils/actions'
 
 const defaultTimeout = 5000
 
 export const setErrorMessage = (action$, store) =>
   action$
-    .filter(isError)
+    .filter(a => a.error)
     .filter(action => action.meta.error400 || action.meta.error500)
     .filter(_action => !getSnackbarErrorMessage(store.getState()))
     .map(
