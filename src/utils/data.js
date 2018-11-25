@@ -10,6 +10,19 @@
 export const type = key => name => `${key}/${name}`
 
 /**
+ * Create a function to create an object with positionally set argument labels.
+ *
+ * @param {...string} labels - the labels for the positional arguments
+ * @returns {function(...*):Object} a function that creates an object by
+ * positionally labeling the arguments
+ */
+export const positional = (...labels) => (...values) =>
+  labels.reduce(
+    (payload, label, index) => ({ ...payload, [label]: values[index] }),
+    {},
+  )
+
+/**
  * A function that creates an action
  * @typedef {function(...*):Action} ActionCreator
  * @param {...*} args - values to be handled by the action
@@ -17,66 +30,54 @@ export const type = key => name => `${key}/${name}`
  */
 
 /**
- * A higher order function that adds meta information to an action creator
- *
- * @param {Object} extraMeta - a meta object
- * @returns {ActionCreator} the contextualized action creator
+ * The set of options for an action creator
+ * @typedef {(boolean|function|string[])} creatorParamOption
  */
-export const withMeta = extraMeta => fn => (...args) => {
-  const { meta, ...actionDetails } = fn(...args)
-  return {
-    ...actionDetails,
-    meta: { ...meta, ...extraMeta },
-  }
+
+/**
+ * Get an action param handler based on the option provided
+ *
+ * * a function argument returns itself
+ * * an array returns  the positional with it spread as arguments
+ * * false returns undefined
+ * * default returns an identity function
+ *
+ * @param {creatorParamOption=} option - the option to use to get the handler
+ * @returns {function|undefined} a function to handle a param or undefined if it
+ * should be ignored
+ */
+const handleOption = option => {
+  if (option === false) return undefined
+  if (typeof option === 'function') return option
+  if (Array.isArray(option)) return positional(...option)
+  return v => v
 }
 
 /**
  * Constructs an action creator
  *
  * @param {string} type - an action type
- * @param {string[]} argNames - the names of arguments the creator will expect
- * @param {Object} [context] - the contextual properties of the action
- * @param {Object} context.meta - meta attributes for the action
- * @param {boolean} context.error - a flag if the action represents an error
+ * @param {creatorParamOption=} payloadOption - the option for the payload
+ * @param {creatorParamOption} [metaOption=false] - the option for the meta
  * @returns {ActionCreator} the constructed action creator
  */
-const creatorBuilder = (type, argNames, { meta, error } = {}) => (...args) => {
-  if (argNames.lengh === 0) return { type, payload: null }
+export const creator = (type, payloadOption, metaOption = false) => {
+  const payloadHandler = handleOption(payloadOption)
+  const metaHandler = handleOption(metaOption)
 
-  const payload = error
-    ? args[0]
-    : argNames.reduce((p, name, index) => ({ ...p, [name]: args[index] }), {})
-  return { type, payload, meta, error }
+  return (...params) => {
+    const payload = payloadHandler ? payloadHandler(...params) : undefined
+    const meta = metaHandler ? metaHandler(...params) : undefined
+    const error = payload instanceof Error
+
+    return {
+      type,
+      ...(payload === undefined ? {} : { payload }),
+      ...(meta === undefined ? {} : { meta }),
+      ...(error ? { error } : {}),
+    }
+  }
 }
-
-/**
- * Builds a generic action creator
- *
- * @param {string} type - an action type
- * @param {...*} [argNames] - names for the action creator's arguments
- * @returns {ActionCreator} the constructed action creator
- */
-export const creator = (type, ...argNames) => creatorBuilder(type, argNames)
-
-/**
- * Builds an error action creator
- *
- * @param {string} type - an action type
- * @param {string} error400 - an error message for a 400 error
- * @param {string} error500 - an error message for a 500 error
- * @returns {ActionCreator} the constructed action creator
- */
-export const errorCreator = (type, error400, error500) =>
-  creatorBuilder(type, [], { error: true, meta: { error400, error500 } })
-
-/**
- * A reducer function to replace reducer state with the data in the action
- *
- * @param {string} key - the payload's data key
- * @returns {function(*, Object.<string, *>):*} a function that returns the
- * data at the specified key within the payload
- */
-export const replace = key => (_state, { payload: { [key]: value } }) => value
 
 /**
  * Create a selector that gets the data at key from state.

@@ -1,6 +1,6 @@
 import { Map, Record } from 'immutable'
 import { createSelector } from 'reselect'
-import { get, replace } from 'utils/data'
+import { get } from 'utils/data'
 import AlumniResource from 'resources/Alumni'
 import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
@@ -23,7 +23,7 @@ export const key = 'alumni'
 export const fetchAlumni = apiRequestBuilder({
   moduleKey: key,
   actionBase: 'FETCH_ALUMNI',
-  responseParams: ['alumni'],
+  requestParams: false,
   error400: 'Could not get alumni',
   apiFn: AlumniResource.getAll,
   mapResponseDataFn: data =>
@@ -32,7 +32,7 @@ export const fetchAlumni = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(Map(), {
-  [fetchAlumni.SUCCEEDED]: replace('alumni'),
+  [fetchAlumni.SUCCEEDED]: (_state, { payload: { alumni } }) => alumni,
 })
 
 // SELECTORS

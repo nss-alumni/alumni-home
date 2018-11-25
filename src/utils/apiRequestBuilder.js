@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Rx'
-import { creator, errorCreator, type, withMeta } from 'utils/data'
+import { creator, type } from 'utils/data'
 import { payload } from 'utils/actions'
 import { pipe } from 'utils/functional'
 
@@ -48,17 +48,16 @@ export default ({
   }
 
   const requestKey = modType(actionBase)
-  const api = requestStep => withMeta({ api: { requestKey, requestStep } })
-  // TODO(adam): api should be a pipable function with the creators
-  // const apiCreator = pipe(creator, api)
-  // const apiErrorCreator = pipe(errorCreator, api)
+  const api = requestStep => ({ api: { requestKey, requestStep } })
 
   const creators = {
-    request: api('init')(creator(types.REQUEST, ...requestParams)),
-    succeeded: api('success')(creator(types.SUCCEEDED, ...responseParams)),
-    failed: api('fail')(
-      errorCreator(types.FAILED, error400, error500 || error400),
-    ),
+    request: creator(types.REQUEST, requestParams, () => api('init')),
+    succeeded: creator(types.SUCCEEDED, responseParams, () => api('success')),
+    failed: creator(types.FAILED, true, () => ({
+      error400,
+      error500: error400 || error500,
+      ...api('fail'),
+    })),
   }
 
   const epic = action$ =>

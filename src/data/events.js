@@ -1,5 +1,5 @@
 import { List, Record } from 'immutable'
-import { get, replace } from 'utils/data'
+import { get } from 'utils/data'
 import EventsResource from 'resources/Events'
 import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
@@ -19,7 +19,7 @@ export const key = 'events'
 export const fetchEvents = apiRequestBuilder({
   moduleKey: key,
   actionBase: 'FETCH_EVENTS',
-  responseParams: ['events'],
+  requestParams: false,
   error400: 'Could not get events',
   apiFn: EventsResource.getAll,
   mapResponseDataFn: data => List(data.map(Event)),
@@ -27,7 +27,7 @@ export const fetchEvents = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(List(), {
-  [fetchEvents.SUCCEEDED]: replace('events'),
+  [fetchEvents.SUCCEEDED]: (_state, { payload: { events } }) => events,
 })
 
 // SELECTORS

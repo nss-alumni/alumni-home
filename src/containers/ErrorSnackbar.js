@@ -14,7 +14,7 @@ const styles = ({ palette }) => ({
 })
 
 const mapStateToProps = (state, props) => ({
-  SnackbarContentProps: { className: props.classes.root },
+  ContentProps: { className: props.classes.root },
   message: getSnackbarErrorMessage(state),
   open: !!getSnackbarErrorMessage(state),
 })

@@ -1,6 +1,6 @@
 import { Map, Record } from 'immutable'
 import { createSelector } from 'reselect'
-import { get, replace } from 'utils/data'
+import { get } from 'utils/data'
 import NewslettersResource from 'resources/Newsletters'
 import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
@@ -18,7 +18,7 @@ export const key = 'newsletters'
 export const fetchNewsletters = apiRequestBuilder({
   moduleKey: key,
   actionBase: 'FETCH_NEWSLETTERS',
-  responseParams: ['newsletters'],
+  requestParams: false,
   error400: 'Could not get newsletters',
   apiFn: NewslettersResource.getAll,
   mapResponseDataFn: data =>
@@ -27,7 +27,8 @@ export const fetchNewsletters = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(Map(), {
-  [fetchNewsletters.SUCCEEDED]: replace('newsletters'),
+  [fetchNewsletters.SUCCEEDED]: (_state, { payload: { newsletters } }) =>
+    newsletters,
 })
 
 // SELECTORS
