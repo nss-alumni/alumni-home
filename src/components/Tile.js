@@ -17,7 +17,7 @@ const sheet = ({ palette, spacing: { unit } }) => ({
 
 const Tile = ({ children, classes, title }) => (
   <Paper className={classes.tile}>
-    <Typography variant="display1">{title}</Typography>
+    <Typography variant="h4">{title}</Typography>
     {children}
   </Paper>
 )

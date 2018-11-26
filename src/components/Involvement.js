@@ -5,9 +5,9 @@ import Typography from '@material-ui/core/Typography'
 
 const Involvement = ({ className, involvement }) => (
   <div className={className}>
-    <Typography variant="title">{involvement.title}</Typography>
+    <Typography variant="h6">{involvement.title}</Typography>
     <Typography>{involvement.description}</Typography>
-    <Typography variant="subheading">Contact: {involvement.contact}</Typography>
+    <Typography variant="subtitle1">Contact: {involvement.contact}</Typography>
   </div>
 )
 

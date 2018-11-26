@@ -32,7 +32,7 @@ class AboutPage extends Component {
     return (
       <Fragment>
         <MissionStatement className={classes.statement} />
-        <Typography className={classes.meetBar} variant="title">
+        <Typography className={classes.meetBar} variant="h6">
           MEET THE BOARD
         </Typography>
         <BoardListing />

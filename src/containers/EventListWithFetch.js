@@ -8,10 +8,10 @@ import Typography from '@material-ui/core/Typography'
 
 const EventListFromState = ({ isFetching, events }) => {
   if (isFetching) {
-    return <Typography variant="title">Fetching Events</Typography>
+    return <Typography variant="h6">Fetching Events</Typography>
   }
   if (!events.size) {
-    return <Typography variant="title">No Events Found</Typography>
+    return <Typography variant="h6">No Events Found</Typography>
   }
 
   return <EventList events={events} />

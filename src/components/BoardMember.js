@@ -35,9 +35,9 @@ const BoardMember = ({ className, classes, picture, name, title, contact }) => (
   <Card className={`${classes.card} ${className}`}>
     <CardMedia className={classes.picture} component={Avatar} image={picture} />
     <CardContent className={classes.info}>
-      <Typography variant="headline">{name}</Typography>
-      <Typography variant="body2">{title}</Typography>
-      <Typography variant="body2">{contact}</Typography>
+      <Typography variant="h5">{name}</Typography>
+      <Typography variant="body1">{title}</Typography>
+      <Typography variant="body1">{contact}</Typography>
     </CardContent>
   </Card>
 )

@@ -18,7 +18,7 @@ const dateFormat = 'MMMM Do YYYY h:mm a'
 
 const Event = ({ classes, event }) => (
   <div className={classes.event}>
-    <Typography variant="title">{event.name}</Typography>
+    <Typography variant="h6">{event.name}</Typography>
     <Typography variant="caption">
       {moment(event.startTime).format(dateFormat)}
     </Typography>

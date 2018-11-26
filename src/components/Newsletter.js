@@ -15,9 +15,7 @@ const styles = _theme => ({
 /* eslint-disable react/display-name */
 const nodeRenderers = classes => ({
   paragraph: p => <Typography {...p} />,
-  heading: h => (
-    <Typography className={classes.heading} variant="title" {...h} />
-  ),
+  heading: h => <Typography className={classes.heading} variant="h6" {...h} />,
 })
 /* eslint-enable react/display-name */
 
