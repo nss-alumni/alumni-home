@@ -1,10 +1,9 @@
+import { Snackbar, withStyles } from '@material-ui/core'
 import {
   clearMessage,
   getSnackbarErrorMessage,
 } from 'data/snackbarErrorMessage'
 import { connect } from 'react-redux'
-import { withStyles } from '@material-ui/core'
-import Snackbar from '@material-ui/core/Snackbar'
 
 const styles = ({ palette }) => ({
   root: {

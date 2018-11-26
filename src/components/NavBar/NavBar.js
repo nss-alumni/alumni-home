@@ -1,9 +1,7 @@
-import { withStyles } from '@material-ui/core'
-import AppBar from '@material-ui/core/AppBar'
+import { AppBar, Toolbar, withStyles } from '@material-ui/core'
 import Logo from 'components/Logo'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import Toolbar from '@material-ui/core/Toolbar'
 
 /* eslint-disable no-magic-numbers */
 const styles = ({ spacing, palette }) => ({

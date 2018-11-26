@@ -1,8 +1,10 @@
-import { withStyles } from '@material-ui/core'
-import Avatar from '@material-ui/core/Avatar'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
+import {
+  Avatar,
+  Card,
+  CardContent,
+  CardMedia,
+  withStyles,
+} from '@material-ui/core'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'

@@ -1,6 +1,5 @@
+import { Button, withStyles } from '@material-ui/core'
 import { Event as EventRecord } from 'data/events'
-import { withStyles } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
