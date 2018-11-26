@@ -1,8 +1,8 @@
+import { withStyles } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */
 const sheet = ({ palette, spacing: { unit } }) => ({
@@ -29,4 +29,4 @@ Tile.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-export default injectSheet(sheet)(Tile)
+export default withStyles(sheet)(Tile)

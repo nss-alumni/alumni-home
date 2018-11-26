@@ -37,6 +37,7 @@ export default createReducer(Map(), {
 
 // SELECTORS
 export const getAllAlumni = get(key)
-export const getBoardMembers = createSelector([getAllAlumni], alumni =>
-  alumni.filter(a => a.isBoardMember),
+export const getBoardMembers = createSelector(
+  [getAllAlumni],
+  alumni => alumni.filter(a => a.isBoardMember),
 )

@@ -1,8 +1,8 @@
 import { Involvement as InvolvementRecord } from 'data/involvements'
+import { withStyles } from '@material-ui/core'
 import Involvement from './Involvement'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import injectSheet from 'react-jss'
 
 /* eslint-disable magic-numbers */
 const styles = ({ spacing }) => ({
@@ -41,4 +41,4 @@ InvolvementList.defaultProps = {
   className: undefined,
 }
 
-export default injectSheet(styles)(InvolvementList)
+export default withStyles(styles)(InvolvementList)

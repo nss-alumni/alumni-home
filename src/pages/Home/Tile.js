@@ -1,9 +1,9 @@
+import { withStyles } from '@material-ui/core'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import injectSheet from 'react-jss'
 
 const styles = ({ palette }) => ({
   titleBg: {
@@ -39,4 +39,4 @@ Tile.defaultProps = {
   className: undefined,
 }
 
-export default injectSheet(styles)(Tile)
+export default withStyles(styles)(Tile)

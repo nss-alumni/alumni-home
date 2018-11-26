@@ -1,7 +1,7 @@
+import { withStyles } from '@material-ui/core'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 
 const styles = ({ palette }) => ({
   statement: {
@@ -29,4 +29,4 @@ MissionStatement.defaultProps = {
   className: '',
 }
 
-export default injectSheet(styles)(MissionStatement)
+export default withStyles(styles)(MissionStatement)

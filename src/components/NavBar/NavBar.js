@@ -1,9 +1,9 @@
+import { withStyles } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Logo from 'components/Logo'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Toolbar from '@material-ui/core/Toolbar'
-import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */
 const styles = ({ spacing, palette }) => ({
@@ -44,4 +44,4 @@ NavBar.defaultProps = {
   children: undefined,
 }
 
-export default injectSheet(styles)(NavBar)
+export default withStyles(styles)(NavBar)

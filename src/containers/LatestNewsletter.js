@@ -7,6 +7,6 @@ const mapStateToProps = state => ({
   newsletter: getLatestNewsletter(state),
 })
 
-export default connect(mapStateToProps)(
-  props => (props.newsletter ? <Newsletter {...props} /> : null),
+export default connect(mapStateToProps)(props =>
+  props.newsletter ? <Newsletter {...props} /> : null,
 )

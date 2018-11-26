@@ -1,10 +1,10 @@
 import { Event as EventRecord } from 'data/events'
 import { List } from 'immutable'
+import { withStyles } from '@material-ui/core'
 import Divider from '@material-ui/core/Divider'
 import Event from 'components/Event'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import injectSheet from 'react-jss'
 import moment from 'moment'
 
 /* eslint-disable no-magic-numbers */
@@ -52,4 +52,4 @@ EventList.defaultProps = {
   events: List(),
 }
 
-export default injectSheet(sheet)(EventList)
+export default withStyles(sheet)(EventList)

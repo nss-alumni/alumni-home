@@ -1,11 +1,11 @@
 import { aboutPageNavigated } from 'data/navigation'
 import { connect } from 'react-redux'
+import { withStyles } from '@material-ui/core'
 import BoardListing from 'containers/BoardListingFromState'
 import MissionStatement from 'components/MissionStatement'
 import PropTypes from 'utils/propTypes'
 import React, { Component, Fragment } from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */
 const styles = ({ palette, spacing }) => ({
@@ -46,5 +46,5 @@ AboutPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
 
-const AboutPageStyled = injectSheet(styles)(AboutPage)
+const AboutPageStyled = withStyles(styles)(AboutPage)
 export default connect()(AboutPageStyled)

@@ -1,9 +1,9 @@
 import { Event as EventRecord } from 'data/events'
+import { withStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 import moment from 'moment'
 
 /* eslint-disable no-magic-numbers */
@@ -34,4 +34,4 @@ Event.propTypes = {
   event: PropTypes.instanceOf(EventRecord).isRequired,
 }
 
-export default injectSheet(sheet)(Event)
+export default withStyles(sheet)(Event)
