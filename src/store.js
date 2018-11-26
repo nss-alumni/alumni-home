@@ -7,9 +7,11 @@ import fsaLinter from 'middleware/fsaLinter'
 // NOTE(adam): if the redux extension exists, attach it to the store
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const epicMiddleware = createEpicMiddleware(rootEpic)
+const epicMiddleware = createEpicMiddleware()
 
 export default createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(fsaLinter, errorLogger, epicMiddleware)),
 )
+
+epicMiddleware.run(rootEpic)

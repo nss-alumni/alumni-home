@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx'
+import { of } from 'rxjs'
 import { type } from 'utils/data'
 import apiRequestBuilder from './apiRequestBuilder'
 
@@ -6,7 +6,7 @@ const testRequest = apiRequestBuilder({
   moduleKey: 'test',
   actionBase: 'DO',
   requestParams: ['id'],
-  apiFn: id => Observable.of({ id }),
+  apiFn: id => of({ id }),
   mapResponseDataFn: d => ({ ...d, added: 'detail' }),
 })
 

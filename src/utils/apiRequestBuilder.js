@@ -1,5 +1,7 @@
-import { Observable } from 'rxjs/Rx'
+import { catchError, map, mergeMap, pluck } from 'rxjs/operators'
 import { creator, type } from 'utils/data'
+import { empty, of } from 'rxjs'
+import { ofType } from 'redux-observable'
 import { pipe } from 'utils/functional'
 
 /**
@@ -34,7 +36,7 @@ export default ({
   requestParams,
   error400,
   error500,
-  apiFn = Observable.empty,
+  apiFn = empty,
   mapResponseDataFn = d => d,
 }) => {
   const modType = type(moduleKey)
@@ -58,18 +60,19 @@ export default ({
   }
 
   const epic = action$ =>
-    action$
-      .ofType(types.REQUEST)
-      .pluck('payload')
-      .mergeMap(apiFn)
-      .map(mapResponseDataFn)
-      .map(creators.succeeded)
-      .catch(
+    action$.pipe(
+      ofType(types.REQUEST),
+      pluck('payload'),
+      mergeMap(apiFn),
+      map(mapResponseDataFn),
+      map(creators.succeeded),
+      catchError(
         pipe(
           creators.failed,
-          Observable.of,
+          of,
         ),
-      )
+      ),
+    )
 
   return {
     requestKey,

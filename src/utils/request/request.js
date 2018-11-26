@@ -1,5 +1,6 @@
 import { Record } from 'immutable'
-import { ajax } from 'rxjs/observable/dom/ajax'
+import { ajax } from 'rxjs/ajax'
+import { map } from 'rxjs/operators'
 
 export const Conn = Record({
   service: null,
@@ -29,5 +30,5 @@ export default connOrBuilder => {
       }. Only ${conn.resource.allowedMethods.toJS().join()} are allowed.`,
     )
 
-  return buildRequest(conn).map(({ response }) => response)
+  return buildRequest(conn).pipe(map(({ response }) => response))
 }
