@@ -68,7 +68,7 @@ export const creator = (type, payloadOption, metaOption = false) => {
   return (...params) => {
     const payload = payloadHandler ? payloadHandler(...params) : undefined
     const meta = metaHandler ? metaHandler(...params) : undefined
-    const error = payload instanceof Error
+    const error = params[0] instanceof Error
 
     return {
       type,
