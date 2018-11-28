@@ -50,6 +50,9 @@ const handleOption = option => {
   if (option === false) return undefined
   if (typeof option === 'function') return option
   if (Array.isArray(option)) return positional(...option)
+  if (option !== undefined && option !== true) {
+    console.warn('Unexpected creator option:', option) // eslint-disable-line no-console
+  }
   return v => v
 }
 
