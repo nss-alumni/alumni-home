@@ -1,5 +1,5 @@
 import { Map } from 'immutable'
-import { creator, get, type } from './data'
+import { creator, get, scopedCreator, type } from './data'
 
 test('type creates action type strings', () => {
   const expected = 'test/TYPE'
@@ -9,8 +9,8 @@ test('type creates action type strings', () => {
 
 test("creator's toString returns the action type type", () => {
   const THING = type('test')('THING')
-  const thing = creator(THING)
-  expect(thing.toString()).toEqual(THING)
+  const thingCreator = creator(THING)
+  expect(thingCreator.toString()).toEqual(THING)
 })
 
 test('creator creates an action creator', () => {
@@ -69,6 +69,14 @@ test('creator passes same arguments to payload and meta functions', () => {
 test('creator sets error if the payload is an error', () => {
   const thingCreator = creator('typeString')
   expect(thingCreator(new Error())).toHaveProperty('error', true)
+})
+
+test('scopedCreator combines the key with the type', () => {
+  const key = 'test'
+  const typeName = 'THING'
+  const fullType = type(key)(typeName)
+  const thingCreator = scopedCreator(key)(typeName)
+  expect(thingCreator.toString()).toEqual(fullType)
 })
 
 test("get selects a state's value by a key", () => {

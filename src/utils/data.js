@@ -86,6 +86,17 @@ export const creator = (type, payloadOption, metaOption = false) => {
 }
 
 /**
+ * Scopes an action creator to a key
+ *
+ * @param {string} key - the data module key
+ * @returns {function} a creator that combines its type argument with the key
+ */
+export const scopedCreator = key => (typeName, ...params) => {
+  const fullType = type(key)(typeName)
+  return creator(fullType, ...params)
+}
+
+/**
  * Create a selector that gets the data at key from state.
  *
  * @param {string} key - the data key

@@ -1,16 +1,11 @@
-import { creator, type } from 'utils/data'
+import { scopedCreator } from 'utils/data'
 import createReducer from 'utils/createReducer'
 
-const key = 'snackbarErrorMessage'
-const modType = type(key)
-
-// ACTIONS
-const SET_MESSAGE = modType('SET_MESSAGE')
-const CLEAR_MESSAGE = modType('CLEAR_MESSAGE')
+const scoped = scopedCreator('snackbarErrorMessage')
 
 // ACTION CREATORS
-export const setMessage = creator(SET_MESSAGE)
-export const clearMessage = creator(CLEAR_MESSAGE)
+export const setMessage = scoped('SET_MESSAGE')
+export const clearMessage = scoped('CLEAR_MESSAGE')
 
 // REDUCER
 export default createReducer(null, {
