@@ -65,7 +65,7 @@ export const creator = (type, payloadOption, metaOption = false) => {
   const payloadHandler = handleOption(payloadOption)
   const metaHandler = handleOption(metaOption)
 
-  return (...params) => {
+  const creatorFunction = (...params) => {
     const payload = payloadHandler ? payloadHandler(...params) : undefined
     const meta = metaHandler ? metaHandler(...params) : undefined
     const error = params[0] instanceof Error
@@ -77,6 +77,9 @@ export const creator = (type, payloadOption, metaOption = false) => {
       ...(error ? { error } : {}),
     }
   }
+
+  creatorFunction.toString = () => type
+  return creatorFunction
 }
 
 /**

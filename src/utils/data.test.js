@@ -7,6 +7,12 @@ test('type creates action type strings', () => {
   expect(result).toEqual(expected)
 })
 
+test("creator's toString returns the action type type", () => {
+  const THING = type('test')('THING')
+  const thing = creator(THING)
+  expect(thing.toString()).toEqual(THING)
+})
+
 test('creator creates an action creator', () => {
   const thingCreator = creator('typeString')
   const thingAction = { type: 'typeString' }
