@@ -61,7 +61,7 @@ export default ({
 
   const epic = action$ =>
     action$.pipe(
-      ofType(types.REQUEST),
+      ofType(creators.request),
       pluck('payload'),
       mergeMap(apiFn),
       map(mapResponseDataFn),
@@ -76,7 +76,6 @@ export default ({
 
   return {
     requestKey,
-    ...types,
     ...creators,
     epic,
   }

@@ -1,4 +1,4 @@
-import { ABOUT_PAGE_NAVIGATED, HOME_PAGE_NAVIGATED } from 'data/navigation'
+import { aboutPageNavigated, homePageNavigated } from 'data/navigation'
 import { combineEpics, ofType } from 'redux-observable'
 import { fetchAlumni } from 'data/alumni'
 import { fetchEvents } from 'data/events'
@@ -15,13 +15,13 @@ const requestUntilSuccess = action$ => request =>
   )
 
 export const aboutNavigation = action$ => {
-  const navigation$ = action$.pipe(ofType(ABOUT_PAGE_NAVIGATED))
+  const navigation$ = action$.pipe(ofType(aboutPageNavigated))
 
   return requestUntilSuccess(navigation$)(fetchAlumni)
 }
 
 export const homeNavigation = action$ => {
-  const navigation$ = action$.pipe(ofType(HOME_PAGE_NAVIGATED))
+  const navigation$ = action$.pipe(ofType(homePageNavigated))
 
   const apiCalls = [fetchEvents, fetchInvolvements, fetchNewsletters].map(
     requestUntilSuccess(navigation$),

@@ -32,7 +32,7 @@ export const fetchAlumni = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(Map(), {
-  [fetchAlumni.SUCCEEDED]: (_state, { payload }) => payload,
+  [fetchAlumni.succeeded]: (_state, { payload }) => payload,
 })
 
 // SELECTORS

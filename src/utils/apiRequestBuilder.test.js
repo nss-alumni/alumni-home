@@ -15,12 +15,6 @@ const REQUEST_TYPE = modType('DO')
 const SUCCEEDED_TYPE = modType('DO_SUCCEEDED')
 const FAILED_TYPE = modType('DO_FAILED')
 
-test('creates the lifecycle types', () => {
-  expect(testRequest.REQUEST).toEqual(REQUEST_TYPE)
-  expect(testRequest.SUCCEEDED).toEqual(SUCCEEDED_TYPE)
-  expect(testRequest.FAILED).toEqual(FAILED_TYPE)
-})
-
 test('creates the lifecycle action creators', () => {
   expect(testRequest.request()).toHaveProperty('type', REQUEST_TYPE)
   expect(testRequest.succeeded()).toHaveProperty('type', SUCCEEDED_TYPE)

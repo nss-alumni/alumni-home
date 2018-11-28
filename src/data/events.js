@@ -27,7 +27,7 @@ export const fetchEvents = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(List(), {
-  [fetchEvents.SUCCEEDED]: (_state, { payload }) => payload,
+  [fetchEvents.succeeded]: (_state, { payload }) => payload,
 })
 
 // SELECTORS

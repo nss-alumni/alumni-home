@@ -1,5 +1,4 @@
 import {
-  SET_MESSAGE,
   clearMessage,
   getSnackbarErrorMessage,
   setMessage,
@@ -27,7 +26,7 @@ export const clearErrorMessage = (
   { snackbarTimeout: messageTimeout = defaultTimeout } = {},
 ) =>
   action$.pipe(
-    ofType(SET_MESSAGE),
+    ofType(setMessage),
     mapTo(clearMessage()),
     delay(messageTimeout),
   )

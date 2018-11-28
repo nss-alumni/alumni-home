@@ -27,7 +27,7 @@ export const fetchNewsletters = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(Map(), {
-  [fetchNewsletters.SUCCEEDED]: (_state, { payload }) => payload,
+  [fetchNewsletters.succeeded]: (_state, { payload }) => payload,
 })
 
 // SELECTORS

@@ -27,7 +27,7 @@ export const fetchInvolvements = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(Map(), {
-  [fetchInvolvements.SUCCEEDED]: (_state, { payload }) => payload,
+  [fetchInvolvements.succeeded]: (_state, { payload }) => payload,
 })
 
 // SELECTORS
