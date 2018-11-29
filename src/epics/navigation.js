@@ -4,30 +4,36 @@ import { fetchAlumni } from 'data/alumni'
 import { fetchEvents } from 'data/events'
 import { fetchInvolvements } from 'data/involvements'
 import { fetchNewsletters } from 'data/newsletters'
-import { mapTo, takeUntil } from 'rxjs/operators'
+import { map, takeUntil } from 'rxjs/operators'
 import { merge } from 'rxjs'
 
-// TODO(adam): this could be generalized with rxjs
-const requestUntilSuccess = action$ => request =>
-  action$.pipe(
-    mapTo(request.request()),
-    takeUntil(action$.pipe(ofType(request.SUCCEEDED))),
+const makeRequest = request => source$ => source$.pipe(map(request.request))
+
+const requestUntilSuccess = (request, action$) => navigated$ =>
+  navigated$.pipe(
+    makeRequest(request),
+    takeUntil(action$.pipe(ofType(request.succeeded))),
   )
 
-export const aboutNavigation = action$ => {
-  const navigation$ = action$.pipe(ofType(aboutPageNavigated))
-
-  return requestUntilSuccess(navigation$)(fetchAlumni)
-}
+export const aboutNavigation = action$ =>
+  action$.pipe(
+    ofType(aboutPageNavigated),
+    map(fetchAlumni.request),
+    takeUntil(action$.pipe(ofType(fetchAlumni.succeeded))),
+  )
 
 export const homeNavigation = action$ => {
   const navigation$ = action$.pipe(ofType(homePageNavigated))
 
-  const apiCalls = [fetchEvents, fetchInvolvements, fetchNewsletters].map(
-    requestUntilSuccess(navigation$),
+  const events$ = navigation$.pipe(requestUntilSuccess(fetchEvents, action$))
+  const involvements$ = navigation$.pipe(
+    requestUntilSuccess(fetchInvolvements, action$),
+  )
+  const newsletters$ = navigation$.pipe(
+    requestUntilSuccess(fetchNewsletters, action$),
   )
 
-  return merge(...apiCalls)
+  return merge(events$, involvements$, newsletters$)
 }
 
 export default combineEpics(aboutNavigation, homeNavigation)
