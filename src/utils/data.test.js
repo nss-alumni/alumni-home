@@ -46,15 +46,6 @@ test('creator accepts an array for positional payload property arguments', () =>
   expect(thingCreator('a message', 2)).toEqual(thingAction)
 })
 
-test('creator takes parameters for the payload', () => {
-  const thingCreator = creator('typeString', ['param1', 'param2'])
-  const thingAction = {
-    type: 'typeString',
-    payload: { param1: 'value1', param2: 'value2' },
-  }
-  expect(thingCreator('value1', 'value2')).toEqual(thingAction)
-})
-
 test('creator does not add a meta property by default', () => {
   const thingCreator = creator('typeString')
   expect(thingCreator()).not.toHaveProperty('meta')
