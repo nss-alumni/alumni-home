@@ -55,7 +55,7 @@ test('creator takes parameters for the payload', () => {
   expect(thingCreator('value1', 'value2')).toEqual(thingAction)
 })
 
-test('creator does add a meta property by default', () => {
+test('creator does not add a meta property by default', () => {
   const thingCreator = creator('typeString')
   expect(thingCreator()).not.toHaveProperty('meta')
 })
