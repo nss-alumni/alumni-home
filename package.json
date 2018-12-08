@@ -55,5 +55,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "engines": {
+    "yarn": "Please use npm for consistency"
+  }
 }
