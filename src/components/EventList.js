@@ -1,54 +1,39 @@
-import { Divider, withStyles } from '@material-ui/core'
 import { Event as EventRecord } from 'data/events'
-import { List } from 'immutable'
+import { List as IList } from 'immutable'
+import { List, ListItem } from '@material-ui/core'
 import Event from 'components/Event'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import moment from 'moment'
 
-/* eslint-disable no-magic-numbers */
-const sheet = ({ spacing: { unit } }) => ({
-  divider: {
-    margin: `${1 * unit} ${0.5 * unit}`,
-  },
-})
-/* eslint-enable no-magic-numbers */
-
 const timeSort = (e1, e2) => e1.startTime.isAfter(e2.startTime)
 
 const eventCount = 5
 
-const EventList = ({ classes, events }) => (
-  <div>
+const EventList = ({ events }) => (
+  <List dense>
     {events
       .map(event => event.set('startTime', moment(event.startTime)))
       .sort(timeSort)
       .take(eventCount)
-      .reduce(
-        (resultList, event, i, initalList) =>
-          [
-            ...resultList,
-            <Event event={event} key={`${event.startTime}-${event.name}`} />,
-          ].concat(
-            i < initalList.size - 1 ? (
-              <Divider
-                className={classes.divider}
-                key={`${event.startTime}-${event.name}-divider`}
-              />
-            ) : null,
-          ),
-        [],
-      )}
-  </div>
+      .map((event, index) => (
+        <ListItem
+          dense
+          divider={index < events.size - 1}
+          key={`${event.startTime}-${event.name}`}
+        >
+          <Event event={event} />
+        </ListItem>
+      ))}
+  </List>
 )
 
 EventList.propTypes = {
-  classes: PropTypes.object.isRequired,
   events: PropTypes.listOf(PropTypes.instanceOf(EventRecord)),
 }
 
 EventList.defaultProps = {
-  events: List(),
+  events: IList(),
 }
 
-export default withStyles(sheet)(EventList)
+export default EventList
