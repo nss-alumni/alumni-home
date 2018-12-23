@@ -90,7 +90,7 @@ A single `epic` may be exported for api requests or combined related epics.
 
 ### API Requests
 
-For api requests, the `apiRequestBuilder` function creates an object with the actions, creators, and an epic surrounding the lifecycle of the request:
+For api requests, the `ApiRequest` function creates an object with the actions, creators, and an epic surrounding the lifecycle of the request:
 
 * `requestKey` - the key used to track the request
 * `REQUEST` - the type to begin the request
@@ -102,7 +102,7 @@ For api requests, the `apiRequestBuilder` function creates an object with the ac
 * `epic` - the generated epic
 
 ```javascript
-export const fetchUsers = apiRequestBuilder({
+export const fetchUsers = ApiRequest({
   moduleKey: 'users',
   actionBase: 'FETCH_USERS',
   error400: 'Could not get users',

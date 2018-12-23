@@ -1,7 +1,7 @@
 import { Map, Record } from 'immutable'
 import { get } from 'utils/data'
+import ApiRequest from 'utils/ApiRequest'
 import InvolvementsResource from 'resources/Involvements'
-import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -15,7 +15,7 @@ export const Involvement = Record({
 // KEY
 export const key = 'involvements'
 
-export const fetchInvolvements = apiRequestBuilder({
+export const fetchInvolvements = ApiRequest({
   moduleKey: key,
   actionBase: 'FETCH_INVOLVEMENTS',
   requestParams: false,

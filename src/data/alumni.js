@@ -2,7 +2,7 @@ import { Map, Record } from 'immutable'
 import { createSelector } from 'reselect'
 import { get } from 'utils/data'
 import AlumniResource from 'resources/Alumni'
-import apiRequestBuilder from 'utils/apiRequestBuilder'
+import ApiRequest from 'utils/ApiRequest'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -20,7 +20,7 @@ export const Alumni = Record({
 // KEY
 export const key = 'alumni'
 
-export const fetchAlumni = apiRequestBuilder({
+export const fetchAlumni = ApiRequest({
   moduleKey: key,
   actionBase: 'FETCH_ALUMNI',
   requestParams: false,

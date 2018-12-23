@@ -1,8 +1,8 @@
 import { of } from 'rxjs'
 import { type } from 'utils/data'
-import apiRequestBuilder from './apiRequestBuilder'
+import ApiRequest from './ApiRequest'
 
-const testRequest = apiRequestBuilder({
+const testRequest = ApiRequest({
   moduleKey: 'test',
   actionBase: 'DO',
   requestParams: ['id'],

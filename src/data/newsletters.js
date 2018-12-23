@@ -1,8 +1,8 @@
 import { Map, Record } from 'immutable'
 import { createSelector } from 'reselect'
 import { get } from 'utils/data'
+import ApiRequest from 'utils/ApiRequest'
 import NewslettersResource from 'resources/Newsletters'
-import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -15,7 +15,7 @@ export const Newsletter = Record({
 // KEY
 export const key = 'newsletters'
 
-export const fetchNewsletters = apiRequestBuilder({
+export const fetchNewsletters = ApiRequest({
   moduleKey: key,
   actionBase: 'FETCH_NEWSLETTERS',
   requestParams: false,

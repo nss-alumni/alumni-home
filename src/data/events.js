@@ -1,7 +1,7 @@
 import { List, Record } from 'immutable'
 import { get } from 'utils/data'
+import ApiRequest from 'utils/ApiRequest'
 import EventsResource from 'resources/Events'
-import apiRequestBuilder from 'utils/apiRequestBuilder'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -16,7 +16,7 @@ export const Event = Record({
 // KEY
 export const key = 'events'
 
-export const fetchEvents = apiRequestBuilder({
+export const fetchEvents = ApiRequest({
   moduleKey: key,
   actionBase: 'FETCH_EVENTS',
   requestParams: false,
