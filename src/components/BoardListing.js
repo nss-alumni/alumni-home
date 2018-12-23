@@ -39,7 +39,7 @@ const BoardListing = ({ classes, boardMembers }) => {
 }
 
 BoardListing.propTypes = {
-  boardMembers: PropTypes.mapOf(PropTypes.instanceOf(Alumni)).isRequired,
+  boardMembers: PropTypes.mapOf(Alumni).isRequired,
   classes: PropTypes.object.isRequired,
 }
 
