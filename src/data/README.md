@@ -17,36 +17,44 @@ export const User = Record({
 ```
 
 
-### Actions
+### Actions and Action Creators
 
-The data's exported action names should be defined as SCREAMING_SNAKES with the values being a string of the module name with the action name. Including the module name prevents naming collisions across data modules.
+To reduce boilerplate code, the `creator` and `scopedCreator` utility functions enacapsulates both action and action creator definitions.
 
-```javascript
-export const FETCH_USERS = 'users/FETCH_USERS'
-export const FETCH_USERS_SUCCEEDED = 'users/FETCH_USERS_SUCCEEDED'
-export const FETCH_USERS_FAILED = 'users/FETCH_USERS_FAILED'
-```
+Payload and meta options may be passed to define how they are constructed based on the resulting creator's arguments.
 
+* `false` - Leave the payload undefined
+* a function - Accepts the arguments given to the creator, and the resulting value becomes the payload
+* an array - Create a function that returns an object with positionally matched keys from the array and values as given to the function
+* Any other value results in an identity function for the payload's value
 
-### Action Creators
-
-Actions should have matching action creators to facilitate the usage of creating the actions with the [flux standard action](https://github.com/redux-utilities/flux-standard-action) structure.
+`scopedCreator` is a higher-order function to allow specifying a prefix key for the created actions. The resulting function takes the same arguments as `creator` and returns an action creator. Generally, `scopedCreator` should be used to provide the data module key to associate the actions with the specific data module.
 
 ```javascript
-export const fetchUsers = () => ({ type: FETCH_USERS })
-export const fetchUsersSucceeded = users => ({
-  type: FETCH_USERS_SUCCEEDED,
-  payload: users,
-})
-export const fetchUsersFailed = error => ({
-  type: FETCH_USERS_FAILED,
-  payload: error,
-  error: true,
-  meta: {
-    message: 'Could not get users.',
-  },
-})
+const scoped = scopedCreator('users')
+
+export const fetchUsers = scoped('FETCH_USERS', false)
+export const fetchUsersSucceeded = scoped('FETCH_USERS_SUCCEEDED')
+export const fetchUsersFailed = scoped(
+  'FETCH_USERS_FAILED',
+  true,
+  () => ({ message: 'Could not get users.' })
+)
 ```
+
+is equivalent to
+
+```javascript
+export const fetchUsers = creator('users/FETCH_USERS', false)
+export const fetchUsersSucceeded = creator('users/FETCH_USERS_SUCCEEDED')
+export const fetchUsersFailed = creator(
+  'users/FETCH_USERS_FAILED',
+  true,
+  () => ({ message: 'Could not get users.' })
+)
+```
+
+The resulting action creators have their `toString` methods defined to return the action type, allowing them to be used for matches in epics and reducers.
 
 
 ### Reducer
@@ -57,7 +65,7 @@ The default export of data modules should be the reducer created with the `creat
 import createReducer from 'utils/createReducer'
 
 export default createReducer(Map(), {
-  [FETCH_USERS_SUCCEEDED]: (_state, { payload: users }) => users,
+  [fetchUsersSucceeded]: (_state, { payload: users }) => users,
 })
 ```
 
@@ -78,20 +86,28 @@ export const getUsersWithShortNames = createSelector([ getAllUsers ], users =>
 
 ### Epics
 
-API logic relating to the data should be defined as epics and using the relevant resource. Usually, a funciton to appropriately convert the data from the api is useful.
+A single `epic` may be exported for api requests or combined related epics.
+
+### API Requests
+
+For api requests, the `apiRequestBuilder` function creates an object with the actions, creators, and an epic surrounding the lifecycle of the request:
+
+* `requestKey` - the key used to track the request
+* `REQUEST` - the type to begin the request
+* `SUCCEEDED` - the type for a successful request
+* `FAILED` - the type for a failed request
+* `request` - the REQUEST action creator
+* `succeeded` - the SUCCEEDED action creator
+* `failed` - the FAILED action creator
+* `epic` - the generated epic
 
 ```javascript
-import { Observable } from 'rxjs'
-import UsersResource from 'resources/Users'
-
-const mapData = data =>
-  Map(Object.entries(data).map(([k, v]) => [k, Users(v)]))
-
-export const fetchUsersEpic = action$ =>
-  action$.ofType(FETCH_USERS).mergeMap(() =>
-    UsersResource.getAll()
-      .map(mapData)
-      .map(fetchUsersSucceeded)
-      .catch(e => Observable.of(fetchUsersFailed(e))),
-  )
+export const fetchUsers = apiRequestBuilder({
+  moduleKey: 'users',
+  actionBase: 'FETCH_USERS',
+  error400: 'Could not get users',
+  apiFn: UsersResource.getAll,
+  mapResponseDataFn: data =>
+    Map(Object.entries(data).map(([k, v]) => [k, Users(v)])),
+})
 ```
