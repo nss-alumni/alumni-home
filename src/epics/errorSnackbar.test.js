@@ -1,9 +1,9 @@
 import { ActionsObservable } from 'redux-observable'
 import { Map } from 'immutable'
-// TODO(adam): fix the need to import Observable here
-import { Observable } from 'rxjs/Rx' // eslint-disable-line no-unused-vars
 import { clearErrorMessage, setErrorMessage } from './errorSnackbar'
 import { clearMessage, setMessage } from 'data/snackbarErrorMessage'
+import { of } from 'rxjs'
+import { tap } from 'rxjs/operators'
 
 const error400 = '400 error happened'
 const error500 = '500 error happened'
@@ -22,16 +22,16 @@ const error500Action$ = ActionsObservable.of({
   payload: { status: 500 },
 })
 
-const store = { getState: () => Map() }
+const state$ = of(Map())
 
 /* eslint-disable no-console */
 test('sets the message on error actions with meta messages', done => {
-  setErrorMessage(error400Action$, store)
-    .do(action => expect(action).toEqual(setMessage(error400)))
+  setErrorMessage(error400Action$, state$)
+    .pipe(tap(action => expect(action).toEqual(setMessage(error400))))
     .subscribe(undefined, console.error, done)
 
-  setErrorMessage(error500Action$, store)
-    .do(action => expect(action).toEqual(setMessage(error500)))
+  setErrorMessage(error500Action$, state$)
+    .pipe(tap(action => expect(action).toEqual(setMessage(error500))))
     .subscribe(undefined, console.error, done)
 })
 
@@ -39,6 +39,6 @@ test('clears the message after the timeout', done => {
   const errorMessageSet$ = ActionsObservable.of(setMessage())
 
   clearErrorMessage(errorMessageSet$, undefined, { snackbarTimeout: 0 })
-    .do(action => expect(action).toEqual(clearMessage()))
+    .pipe(tap(action => expect(action).toEqual(clearMessage())))
     .subscribe(undefined, console.error, done)
 })

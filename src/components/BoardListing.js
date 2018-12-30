@@ -1,8 +1,8 @@
 import { Alumni } from 'data/alumni'
+import { withStyles } from '@material-ui/core'
 import BoardMember from 'components/BoardMember'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */
 const styles = ({ spacing }) => ({
@@ -39,8 +39,8 @@ const BoardListing = ({ classes, boardMembers }) => {
 }
 
 BoardListing.propTypes = {
-  boardMembers: PropTypes.mapOf(PropTypes.instanceOf(Alumni)).isRequired,
+  boardMembers: PropTypes.mapOf(Alumni).isRequired,
   classes: PropTypes.object.isRequired,
 }
 
-export default injectSheet(styles)(BoardListing)
+export default withStyles(styles)(BoardListing)

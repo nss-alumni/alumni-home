@@ -1,16 +1,21 @@
-import { MuiThemeProvider } from '@material-ui/core/styles'
+import { MuiThemeProvider, jssPreset } from '@material-ui/core/styles'
 import { NavButton } from 'components/NavBar'
 import { Provider as ReduxProvider } from 'react-redux'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { create } from 'jss'
+import { withStyles } from '@material-ui/core'
 import AboutPage from 'pages/About'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import ErrorSnackbar from 'containers/ErrorSnackbar'
 import HomePage from 'pages/Home'
+import JssProvider from 'react-jss/lib/JssProvider'
 import React, { Fragment } from 'react'
 import SiteLayout from 'layouts/Site'
-import injectSheet, { ThemeProvider } from 'react-jss'
+import jssExpand from 'jss-expand'
 import store from 'store'
 import theme from './theme'
+
+const jss = create({ plugins: [...jssPreset().plugins, jssExpand()] })
 
 /* eslint-disable react/prop-types */
 
@@ -49,7 +54,7 @@ const Site = ({ children, classes, ...props }) => (
   </SiteLayout>
 )
 
-const StyledSite = injectSheet(styles)(Site)
+const StyledSite = withStyles(styles)(Site)
 
 const basename = ['development', 'test'].includes(process.env.NODE_ENV)
   ? '/'
@@ -59,7 +64,7 @@ const App = () => (
   <Fragment>
     <CssBaseline />
     <ReduxProvider store={store}>
-      <ThemeProvider theme={theme}>
+      <JssProvider jss={jss}>
         <MuiThemeProvider theme={theme}>
           <Router basename={basename}>
             <StyledSite navButtons={<RoutedNavButtons />}>
@@ -70,7 +75,7 @@ const App = () => (
             </StyledSite>
           </Router>
         </MuiThemeProvider>
-      </ThemeProvider>
+      </JssProvider>
     </ReduxProvider>
   </Fragment>
 )

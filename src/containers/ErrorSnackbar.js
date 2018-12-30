@@ -1,10 +1,9 @@
+import { Snackbar, withStyles } from '@material-ui/core'
 import {
   clearMessage,
   getSnackbarErrorMessage,
 } from 'data/snackbarErrorMessage'
 import { connect } from 'react-redux'
-import Snackbar from '@material-ui/core/Snackbar'
-import injectSheet from 'react-jss'
 
 const styles = ({ palette }) => ({
   root: {
@@ -14,7 +13,7 @@ const styles = ({ palette }) => ({
 })
 
 const mapStateToProps = (state, props) => ({
-  SnackbarContentProps: { className: props.classes.root },
+  ContentProps: { className: props.classes.root },
   message: getSnackbarErrorMessage(state),
   open: !!getSnackbarErrorMessage(state),
 })
@@ -28,4 +27,4 @@ const ErrorConnectedSnackbar = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(Snackbar)
-export default injectSheet(styles)(ErrorConnectedSnackbar)
+export default withStyles(styles)(ErrorConnectedSnackbar)

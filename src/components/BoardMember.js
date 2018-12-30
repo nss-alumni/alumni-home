@@ -1,11 +1,13 @@
-import Avatar from '@material-ui/core/Avatar'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
+import {
+  Avatar,
+  Card,
+  CardContent,
+  CardMedia,
+  withStyles,
+} from '@material-ui/core'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */
 const styles = ({ shadows, spacing }) => ({
@@ -33,9 +35,9 @@ const BoardMember = ({ className, classes, picture, name, title, contact }) => (
   <Card className={`${classes.card} ${className}`}>
     <CardMedia className={classes.picture} component={Avatar} image={picture} />
     <CardContent className={classes.info}>
-      <Typography variant="headline">{name}</Typography>
-      <Typography variant="body2">{title}</Typography>
-      <Typography variant="body2">{contact}</Typography>
+      <Typography variant="h5">{name}</Typography>
+      <Typography variant="body1">{title}</Typography>
+      <Typography variant="body1">{contact}</Typography>
     </CardContent>
   </Card>
 )
@@ -53,4 +55,4 @@ BoardMember.defaultProps = {
   className: '',
 }
 
-export default injectSheet(styles)(BoardMember)
+export default withStyles(styles)(BoardMember)

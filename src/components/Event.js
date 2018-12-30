@@ -1,9 +1,8 @@
+import { Button, withStyles } from '@material-ui/core'
 import { Event as EventRecord } from 'data/events'
-import Button from '@material-ui/core/Button'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 import moment from 'moment'
 
 /* eslint-disable no-magic-numbers */
@@ -19,7 +18,7 @@ const dateFormat = 'MMMM Do YYYY h:mm a'
 
 const Event = ({ classes, event }) => (
   <div className={classes.event}>
-    <Typography variant="title">{event.name}</Typography>
+    <Typography variant="h6">{event.name}</Typography>
     <Typography variant="caption">
       {moment(event.startTime).format(dateFormat)}
     </Typography>
@@ -34,4 +33,4 @@ Event.propTypes = {
   event: PropTypes.instanceOf(EventRecord).isRequired,
 }
 
-export default injectSheet(sheet)(Event)
+export default withStyles(sheet)(Event)

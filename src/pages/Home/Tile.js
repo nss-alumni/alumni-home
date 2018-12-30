@@ -1,30 +1,44 @@
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardHeader from '@material-ui/core/CardHeader'
+import { Card, CardContent, CardHeader, withStyles } from '@material-ui/core'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import injectSheet from 'react-jss'
 
-const styles = ({ palette }) => ({
-  titleBg: {
+const styles = ({ palette, spacing }) => ({
+  title: {
     background: palette.primary.main,
+    paddingLeft: spacing.unit * 2,
+    paddingRight: spacing.unit * 2,
   },
   titleText: {
     color: palette.getContrastText(palette.primary.main),
+  },
+  card: {
+    borderRadius: 2,
+  },
+  content: {
+    paddingLeft: spacing.unit * 2,
+    paddingRight: spacing.unit * 2,
   },
 })
 
 const classOverrides = classes => ({
   title: {
-    root: classes.titleBg,
+    root: classes.title,
     title: classes.titleText,
+  },
+  card: {
+    root: classes.card,
+  },
+  content: {
+    root: classes.content,
   },
 })
 
 const Tile = ({ title, children, className, classes }) => (
-  <Card className={className}>
+  <Card className={className} classes={classOverrides(classes).card}>
     <CardHeader classes={classOverrides(classes).title} title={title} />
-    <CardContent>{children}</CardContent>
+    <CardContent classes={classOverrides(classes).content}>
+      {children}
+    </CardContent>
   </Card>
 )
 
@@ -39,4 +53,4 @@ Tile.defaultProps = {
   className: undefined,
 }
 
-export default injectSheet(styles)(Tile)
+export default withStyles(styles)(Tile)

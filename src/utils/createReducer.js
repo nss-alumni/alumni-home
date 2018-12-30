@@ -60,7 +60,7 @@ const defaultHandler = state => state
  * handling functions for the reducer
  * @returns {function(*, Action):*} the reducer function. It applies matching
  * incoming actions to the reducer state, returning the updated state.
-*/
+ */
 const createReducer = (initState, handlers) => {
   checkCreateReducerParams(initState, handlers)
 

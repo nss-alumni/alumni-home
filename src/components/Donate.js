@@ -1,7 +1,7 @@
+import { withStyles } from '@material-ui/core'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 import venmoLogo from 'images/venmo.png'
 
 const sheet = ({ spacing: { unit } }) => ({
@@ -20,7 +20,7 @@ VenmoLink.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-const VenmoLinkStyled = injectSheet(sheet)(VenmoLink)
+const VenmoLinkStyled = withStyles(sheet)(VenmoLink)
 
 /* eslint-disable react/no-unescaped-entities */
 const Donate = () => (

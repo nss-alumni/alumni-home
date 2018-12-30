@@ -1,8 +1,8 @@
 import { Map, Record } from 'immutable'
 import { createSelector } from 'reselect'
-import { get, replace } from 'utils/data'
+import { get } from 'utils/data'
 import AlumniResource from 'resources/Alumni'
-import apiRequestBuilder from 'utils/apiRequestBuilder'
+import ApiRequest from 'utils/ApiRequest'
 import createReducer from 'utils/createReducer'
 
 // RECORD
@@ -20,10 +20,10 @@ export const Alumni = Record({
 // KEY
 export const key = 'alumni'
 
-export const fetchAlumni = apiRequestBuilder({
+export const fetchAlumni = ApiRequest({
   moduleKey: key,
   actionBase: 'FETCH_ALUMNI',
-  responseParams: ['alumni'],
+  requestParams: false,
   error400: 'Could not get alumni',
   apiFn: AlumniResource.getAll,
   mapResponseDataFn: data =>
@@ -32,11 +32,12 @@ export const fetchAlumni = apiRequestBuilder({
 
 // REDUCER
 export default createReducer(Map(), {
-  [fetchAlumni.SUCCEEDED]: replace('alumni'),
+  [fetchAlumni.succeeded]: (_state, { payload }) => payload,
 })
 
 // SELECTORS
 export const getAllAlumni = get(key)
-export const getBoardMembers = createSelector([getAllAlumni], alumni =>
-  alumni.filter(a => a.isBoardMember),
+export const getBoardMembers = createSelector(
+  [getAllAlumni],
+  alumni => alumni.filter(a => a.isBoardMember),
 )

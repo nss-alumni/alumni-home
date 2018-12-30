@@ -1,7 +1,7 @@
+import { withStyles } from '@material-ui/core'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 
 const styles = ({ palette }) => ({
   statement: {
@@ -11,10 +11,7 @@ const styles = ({ palette }) => ({
 })
 
 const MissionStatement = ({ className, classes }) => (
-  <Typography
-    className={`${classes.statement} ${className}`}
-    variant="headline"
-  >
+  <Typography className={`${classes.statement} ${className}`} variant="h5">
     Our mission: To support NSS alumni post graduation through mentorship
     opportunities, continued education, and sense of community.
   </Typography>
@@ -29,4 +26,4 @@ MissionStatement.defaultProps = {
   className: '',
 }
 
-export default injectSheet(styles)(MissionStatement)
+export default withStyles(styles)(MissionStatement)

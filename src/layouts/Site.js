@@ -1,7 +1,7 @@
+import { withStyles } from '@material-ui/core'
 import NavBar from 'components/NavBar'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import injectSheet from 'react-jss'
 
 /* eslint-disable no-magic-numbers */
 const styles = ({ spacing }) => ({
@@ -29,4 +29,4 @@ Site.defaultProps = {
   navButtons: undefined,
 }
 
-export default injectSheet(styles)(Site)
+export default withStyles(styles)(Site)

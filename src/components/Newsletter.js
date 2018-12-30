@@ -1,9 +1,9 @@
 import { Newsletter as NewsletterRecord } from 'data/newsletters'
+import { withStyles } from '@material-ui/core'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss'
 
 const styles = _theme => ({
   heading: {
@@ -15,9 +15,7 @@ const styles = _theme => ({
 /* eslint-disable react/display-name */
 const nodeRenderers = classes => ({
   paragraph: p => <Typography {...p} />,
-  heading: h => (
-    <Typography className={classes.heading} variant="title" {...h} />
-  ),
+  heading: h => <Typography className={classes.heading} variant="h6" {...h} />,
 })
 /* eslint-enable react/display-name */
 
@@ -40,4 +38,4 @@ Newsletter.defaultProps = {
   className: undefined,
 }
 
-export default injectSheet(styles)(Newsletter)
+export default withStyles(styles)(Newsletter)

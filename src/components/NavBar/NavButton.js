@@ -1,8 +1,7 @@
+import { Button, withStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import Button from '@material-ui/core/Button'
 import PropTypes from 'utils/propTypes'
 import React from 'react'
-import injectSheet from 'react-jss'
 
 const styles = _theme => ({
   buttonText: {
@@ -38,4 +37,4 @@ NavButton.defaultProps = {
   to: undefined,
 }
 
-export default injectSheet(styles)(NavButton)
+export default withStyles(styles)(NavButton)
