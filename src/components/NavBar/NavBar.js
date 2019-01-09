@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, withStyles } from '@material-ui/core'
 import Logo from 'components/Logo'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 /* eslint-disable no-magic-numbers */
@@ -36,10 +36,6 @@ const NavBar = ({ classes, children }) => (
 NavBar.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-}
-
-NavBar.defaultProps = {
-  children: undefined,
 }
 
 export default withStyles(styles)(NavBar)

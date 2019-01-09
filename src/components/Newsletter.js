@@ -1,6 +1,5 @@
-import { Newsletter as NewsletterRecord } from 'data/newsletters'
 import { withStyles } from '@material-ui/core'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import Typography from '@material-ui/core/Typography'
@@ -31,11 +30,13 @@ const Newsletter = ({ className, classes, newsletter }) => (
 Newsletter.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  newsletter: PropTypes.instanceOf(NewsletterRecord).isRequired,
+  newsletter: PropTypes.shape({
+    body: PropTypes.string,
+  }).isRequired,
 }
 
 Newsletter.defaultProps = {
-  className: undefined,
+  className: '',
 }
 
 export default withStyles(styles)(Newsletter)

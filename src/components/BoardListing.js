@@ -1,10 +1,8 @@
-import { Alumni } from 'data/alumni'
 import { withStyles } from '@material-ui/core'
 import BoardMember from 'components/BoardMember'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 
-/* eslint-disable no-magic-numbers */
 const styles = ({ spacing }) => ({
   container: {
     display: 'flex',
@@ -16,30 +14,33 @@ const styles = ({ spacing }) => ({
     flex: '1 1 25%',
   },
 })
-/* eslint-enable no-magic-numbers */
 
 const nameSort = (a, b) => a.name.localeCompare(b.name)
 
-const BoardListing = ({ classes, boardMembers }) => {
-  const memberCards = boardMembers
-    .toIndexedSeq()
-    .sort(nameSort)
-    .map(m => (
-      <BoardMember
-        className={classes.member}
-        contact={m.email}
-        key={m.email}
-        name={m.name}
-        picture={m.imageUrl}
-        title={m.title}
-      />
-    ))
-
-  return <div className={classes.container}>{memberCards}</div>
-}
+const BoardListing = ({ classes, boardMembers }) => (
+  <div className={classes.container}>
+    {Object.values(boardMembers)
+      .sort(nameSort)
+      .map(m => (
+        <BoardMember
+          className={classes.member}
+          contact={m.email}
+          key={m.email}
+          name={m.name}
+          picture={m.imageUrl}
+          title={m.title}
+        />
+      ))}
+  </div>
+)
 
 BoardListing.propTypes = {
-  boardMembers: PropTypes.mapOf(Alumni).isRequired,
+  boardMembers: PropTypes.shape({
+    email: PropTypes.string,
+    imageUrl: PropTypes.string,
+    name: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
   classes: PropTypes.object.isRequired,
 }
 

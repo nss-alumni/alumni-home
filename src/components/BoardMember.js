@@ -5,7 +5,7 @@ import {
   CardMedia,
   withStyles,
 } from '@material-ui/core'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 

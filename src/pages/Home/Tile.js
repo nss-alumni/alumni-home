@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, withStyles } from '@material-ui/core'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const styles = ({ palette, spacing }) => ({
@@ -43,14 +43,14 @@ const Tile = ({ title, children, className, classes }) => (
 )
 
 Tile.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
 }
 
 Tile.defaultProps = {
-  className: undefined,
+  className: '',
 }
 
 export default withStyles(styles)(Tile)

@@ -1,10 +1,8 @@
-import { Involvement as InvolvementRecord } from 'data/involvements'
 import { withStyles } from '@material-ui/core'
 import Involvement from './Involvement'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 
-/* eslint-disable magic-numbers */
 const styles = ({ spacing }) => ({
   container: {
     '& > :not(:first-child)': {
@@ -15,30 +13,23 @@ const styles = ({ spacing }) => ({
     },
   },
 })
-/* eslint-enable magic-numbers */
 
-const InvolvementList = ({ className, classes, involvements }) => {
-  const involvmentElements = involvements
-    .toIndexedSeq()
-    .map(i => (
+const InvolvementList = ({ className, classes, involvements }) => (
+  <div className={`${classes.container} ${className}`}>
+    {Object.values(involvements).map(i => (
       <Involvement className={classes.involvement} involvement={i} key={i.id} />
-    ))
-
-  return (
-    <div className={`${classes.container} ${className}`}>
-      {involvmentElements}
-    </div>
-  )
-}
+    ))}
+  </div>
+)
 
 InvolvementList.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  involvements: PropTypes.iterableOf(InvolvementRecord).isRequired,
+  involvements: PropTypes.object.isRequired,
 }
 
 InvolvementList.defaultProps = {
-  className: undefined,
+  className: '',
 }
 
 export default withStyles(styles)(InvolvementList)

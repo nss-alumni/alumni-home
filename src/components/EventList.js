@@ -1,8 +1,6 @@
-import { Event as EventRecord } from 'data/events'
-import { List as IList } from 'immutable'
 import { List, ListItem } from '@material-ui/core'
 import Event from 'components/Event'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 import moment from 'moment'
 
@@ -13,9 +11,9 @@ const eventCount = 5
 const EventList = ({ events }) => (
   <List dense>
     {events
-      .map(event => event.set('startTime', moment(event.startTime)))
+      .map(event => ({ ...event, startTime: moment(event.startTime) }))
       .sort(timeSort)
-      .take(eventCount)
+      .filter((_event, index) => index < eventCount)
       .map((event, index) => (
         <ListItem
           dense
@@ -29,11 +27,11 @@ const EventList = ({ events }) => (
 )
 
 EventList.propTypes = {
-  events: PropTypes.listOf(PropTypes.instanceOf(EventRecord)),
+  events: PropTypes.array,
 }
 
 EventList.defaultProps = {
-  events: IList(),
+  events: [],
 }
 
 export default EventList

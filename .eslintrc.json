@@ -51,7 +51,6 @@
     "one-var": ["error", "never"],
     "spaced-comment": "warn",
     // ECMAScript 6
-    "arrow-body-style": "error",
     "no-duplicate-imports": "error",
     "no-var": "error",
     "object-shorthand": ["warn", "always", {
@@ -67,14 +66,12 @@
     // React
     "react/default-props-match-prop-types": "error",
     "react/no-array-index-key": "warn",
-    "react/no-did-mount-set-state": ["error", "disallow-in-func"],
     "react/no-did-update-set-state": ["error", "disallow-in-func"],
     "react/no-redundant-should-component-update": "warn",
     "react/no-unused-prop-types": "warn",
     "react/no-will-update-set-state": ["error", "disallow-in-func"],
     "react/prefer-es6-class": "warn",
     "react/prefer-stateless-function": "warn",
-    "react/require-default-props": "warn",
     "react/self-closing-comp": "warn",
     "react/sort-comp": "warn",
     "react/sort-prop-types": "warn",

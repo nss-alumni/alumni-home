@@ -2,7 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 
 export default createMuiTheme({
-  // NOTE(adam): needed suppress typography warning
+  // NOTE(adam): needed to suppress typography warning
   typography: {
     useNextVariants: true,
   },

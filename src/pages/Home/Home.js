@@ -1,13 +1,16 @@
-import { connect } from 'react-redux'
-import { homePageNavigated } from 'data/navigation'
-import { withStyles } from '@material-ui/core'
-import EventsTile from './EventsTile'
-import InvolvementTile from './InvolvementTile'
-import NewsletterTile from './NewsletterTile'
-import PropTypes from 'utils/propTypes'
-import React, { Component } from 'react'
+import * as Events from 'resources/Events'
+import * as Involvements from 'resources/Involvements'
+import * as Newsletters from 'resources/Newsletters'
+import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
+import { Typography, withStyles } from '@material-ui/core'
+import EventList from 'components/EventList'
+import InvolvementList from 'components/InvolvementList'
+import Newsletter from 'components/Newsletter'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Tile from './Tile'
+import moment from 'moment'
 
-/* eslint-disable no-magic-numbers */
 const styles = ({ spacing }) => ({
   container: {
     display: 'flex',
@@ -29,36 +32,79 @@ const styles = ({ spacing }) => ({
     margin: spacing.unit * 2,
   },
 })
-/* eslint-enable no-magic-numbers */
 
-class AboutPage extends Component {
+/* eslint-disable react/prop-types */
+const EventListWithStatus = ({ events }) => {
+  if (!events) {
+    return <Typography variant="h6">Fetching Events</Typography>
+  }
+  if (!events.length) {
+    return <Typography variant="h6">No Events Found</Typography>
+  }
+
+  return <EventList events={events} />
+}
+/* eslint-enable react/prop-types */
+
+const newsletterDate = newsletter =>
+  newsletter ? moment(newsletter.sentDate).format('MMMM YYYY') : ''
+
+class HomePage extends React.Component {
+  static contextType = ErrorSnackbarContext
+
+  state = {
+    involvements: {},
+    newsletters: {},
+    events: null,
+  }
+
   componentDidMount() {
-    this.props.dispatch(homePageNavigated())
+    Involvements.getAll()
+      .then(({ data: involvements }) => this.setState({ involvements }))
+      .catch(() => this.context.addMessage('Could not get involvements'))
+
+    Newsletters.getAll()
+      .then(({ data: newsletters }) => this.setState({ newsletters }))
+      .catch(() => this.context.addMessage('Could not get newsletters'))
+
+    Events.getAll()
+      .then(({ data: events }) => this.setState({ events }))
+      .catch(() => this.context.addMessage('Could not get events'))
   }
 
   render() {
     const { classes } = this.props
+    const { involvements, newsletters, events } = this.state
+
+    const latestNewsletter = Object.values(newsletters)[0]
 
     return (
       <div className={classes.container}>
         <div className={classes.group}>
-          <InvolvementTile className={classes.tile} />
+          <Tile className={classes.tile} title="Get Involved">
+            <InvolvementList involvements={involvements} />
+          </Tile>
         </div>
         <div className={classes.group}>
-          <NewsletterTile className={classes.tile} />
+          <Tile
+            className={classes.tile}
+            title={`Newsletter: ${newsletterDate(latestNewsletter)}`}
+          >
+            {latestNewsletter && <Newsletter newsletter={latestNewsletter} />}
+          </Tile>
         </div>
         <div className={classes.sideGroup}>
-          <EventsTile className={classes.sideTile} />
+          <Tile className={classes.sideTile} title="Upcoming Events">
+            <EventListWithStatus events={events} />
+          </Tile>
         </div>
       </div>
     )
   }
 }
 
-AboutPage.propTypes = {
+HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
 }
 
-const AboutPageStyled = withStyles(styles)(AboutPage)
-export default connect()(AboutPageStyled)
+export default withStyles(styles)(HomePage)
