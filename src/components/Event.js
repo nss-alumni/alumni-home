@@ -1,12 +1,11 @@
 import { Button, withStyles } from '@material-ui/core'
-import { Event as EventRecord } from 'data/events'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import moment from 'moment'
 
 /* eslint-disable no-magic-numbers */
-const sheet = ({ spacing: { unit } }) => ({
+const styles = ({ spacing: { unit } }) => ({
   event: {
     marginBottom: 1.5 * unit,
     marginTop: 1 * unit,
@@ -30,7 +29,11 @@ const Event = ({ classes, event }) => (
 
 Event.propTypes = {
   classes: PropTypes.object.isRequired,
-  event: PropTypes.instanceOf(EventRecord).isRequired,
+  event: PropTypes.shape({
+    name: PropTypes.string,
+    link: PropTypes.string,
+    startTime: PropTypes.string,
+  }).isRequired,
 }
 
-export default withStyles(sheet)(Event)
+export default withStyles(styles)(Event)

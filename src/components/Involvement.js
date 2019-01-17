@@ -1,5 +1,4 @@
-import { Involvement as InvolvementRecord } from 'data/involvements'
-import PropTypes from 'utils/propTypes'
+import PropTypes from 'prop-types'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
@@ -13,11 +12,15 @@ const Involvement = ({ className, involvement }) => (
 
 Involvement.propTypes = {
   className: PropTypes.string,
-  involvement: PropTypes.instanceOf(InvolvementRecord).isRequired,
+  involvement: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    contact: PropTypes.string,
+  }).isRequired,
 }
 
 Involvement.defaultProps = {
-  className: undefined,
+  className: '',
 }
 
 export default Involvement
