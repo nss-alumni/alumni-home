@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core'
 import BoardListing from 'components/BoardListing'
 import MissionStatement from 'components/MissionStatement'
 import PropTypes from 'prop-types'
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 
 const entriesIntoObject = (obj, [key, value]) => ({ ...obj, [key]: value })
@@ -28,33 +28,24 @@ const styles = ({ palette, spacing }) => ({
   },
 })
 
-class AboutPage extends React.Component {
-  static contextType = ErrorSnackbarContext
-
-  state = {
-    boardMembers: {},
-  }
-
-  componentDidMount() {
+const AboutPage = ({ classes }) => {
+  const { addMessage } = useContext(ErrorSnackbarContext)
+  const [boardMembers, setBoardMembers] = useState({})
+  useEffect(() => {
     getBoardMembers()
-      .then(boardMembers => this.setState({ boardMembers }))
-      .catch(() => this.context.addMessage('Could not get board members'))
-  }
+      .then(setBoardMembers)
+      .catch(() => addMessage('Could not get board members'))
+  }, [])
 
-  render() {
-    const { classes } = this.props
-    const { boardMembers } = this.state
-
-    return (
-      <Fragment>
-        <MissionStatement className={classes.statement} />
-        <Typography className={classes.meetBar} variant="h6">
-          MEET THE BOARD
-        </Typography>
-        <BoardListing boardMembers={boardMembers} />
-      </Fragment>
-    )
-  }
+  return (
+    <Fragment>
+      <MissionStatement className={classes.statement} />
+      <Typography className={classes.meetBar} variant="h6">
+        MEET THE BOARD
+      </Typography>
+      <BoardListing boardMembers={boardMembers} />
+    </Fragment>
+  )
 }
 
 AboutPage.propTypes = {
