@@ -1,6 +1,6 @@
 import { Snackbar, withStyles } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const ErrorSnackbarContext = React.createContext()
 
@@ -13,57 +13,36 @@ const styles = ({ palette }) => ({
   },
 })
 
-class ErrorSnackbar extends React.Component {
-  state = {
-    messages: [],
+const ErrorSnackbar = ({ children, classes }) => {
+  const [messages, setMessages] = useState([])
+
+  const addMessage = message => setMessages([...messages, message])
+  const removeMessage = () => {
+    const [, ...remainingMessages] = messages
+    setMessages(remainingMessages)
   }
 
-  // NOTE(adam): not in state because not related to rendering
-  timeout = null
+  useEffect(
+    () => {
+      if (messages.length) {
+        const timeout = setTimeout(removeMessage, defaultTimeout)
+        return () => clearTimeout(timeout)
+      }
+    },
+    [messages],
+  )
 
-  createTimeout = () => {
-    if (this.state.messages.length) {
-      this.timeout = setTimeout(this.removeMessage, defaultTimeout)
-    }
-  }
-
-  addMessage = message =>
-    this.setState(
-      ({ messages }) => ({ messages: [...messages, message] }),
-      this.createTimeout,
-    )
-
-  removeMessage = () => {
-    if (this.timeout) clearTimeout(this.timeout)
-
-    this.setState(
-      ({ messages: [_message, ...remainingMessages] }) => ({
-        messages: remainingMessages,
-      }),
-      this.createTimeout,
-    )
-  }
-
-  contextProps = {
-    addMessage: this.addMessage,
-  }
-
-  render() {
-    const { children, classes } = this.props
-    const { messages } = this.state
-
-    return (
-      <ErrorSnackbarContext.Provider value={this.contextProps}>
-        {children}
-        <Snackbar
-          ContentProps={{ className: classes.root }}
-          message={messages[0]}
-          onClose={this.removeMessage}
-          open={!!messages.length}
-        />
-      </ErrorSnackbarContext.Provider>
-    )
-  }
+  return (
+    <ErrorSnackbarContext.Provider value={{ addMessage }}>
+      {children}
+      <Snackbar
+        ContentProps={{ className: classes.root }}
+        message={messages[0]}
+        onClose={removeMessage}
+        open={!!messages.length}
+      />
+    </ErrorSnackbarContext.Provider>
+  )
 }
 
 ErrorSnackbar.propTypes = {
