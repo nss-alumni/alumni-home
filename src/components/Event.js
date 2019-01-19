@@ -32,7 +32,7 @@ Event.propTypes = {
   event: PropTypes.shape({
     name: PropTypes.string,
     link: PropTypes.string,
-    startTime: PropTypes.string,
+    startTime: PropTypes.instanceOf(moment),
   }).isRequired,
 }
 
