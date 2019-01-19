@@ -8,9 +8,9 @@ import React from 'react'
 
 /* eslint-disable no-magic-numbers */
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  body: {
+  container: {
     backgroundColor: palette.background.default,
-    height: '100vh',
+    minHeight: '100vh',
   },
   activeButton: {
     color: palette.secondary.main,
