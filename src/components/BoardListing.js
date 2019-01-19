@@ -1,9 +1,9 @@
-import { withStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import BoardMember from 'components/BoardMember'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const styles = ({ spacing }) => ({
+const useStyles = makeStyles(({ spacing }) => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -13,26 +13,29 @@ const styles = ({ spacing }) => ({
   member: {
     flex: '1 1 25%',
   },
-})
+}))
 
 const nameSort = (a, b) => a.name.localeCompare(b.name)
 
-const BoardListing = ({ classes, boardMembers }) => (
-  <div className={classes.container}>
-    {Object.values(boardMembers)
-      .sort(nameSort)
-      .map(m => (
-        <BoardMember
-          className={classes.member}
-          contact={m.email}
-          key={m.email}
-          name={m.name}
-          picture={m.imageUrl}
-          title={m.title}
-        />
-      ))}
-  </div>
-)
+const BoardListing = ({ boardMembers }) => {
+  const classes = useStyles()
+  return (
+    <div className={classes.container}>
+      {Object.values(boardMembers)
+        .sort(nameSort)
+        .map(m => (
+          <BoardMember
+            className={classes.member}
+            contact={m.email}
+            key={m.email}
+            name={m.name}
+            picture={m.imageUrl}
+            title={m.title}
+          />
+        ))}
+    </div>
+  )
+}
 
 BoardListing.propTypes = {
   boardMembers: PropTypes.shape({
@@ -41,7 +44,6 @@ BoardListing.propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
   }).isRequired,
-  classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(BoardListing)
+export default BoardListing

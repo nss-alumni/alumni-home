@@ -1,9 +1,9 @@
-import { withStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import Involvement from './Involvement'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const styles = ({ spacing }) => ({
+const useStyles = makeStyles(({ spacing }) => ({
   container: {
     '& > :not(:first-child)': {
       marginTop: 2 * spacing.unit,
@@ -12,19 +12,26 @@ const styles = ({ spacing }) => ({
       marginBottom: 2 * spacing.unit,
     },
   },
-})
+}))
 
-const InvolvementList = ({ className, classes, involvements }) => (
-  <div className={`${classes.container} ${className}`}>
-    {Object.values(involvements).map(i => (
-      <Involvement className={classes.involvement} involvement={i} key={i.id} />
-    ))}
-  </div>
-)
+const InvolvementList = ({ className, involvements }) => {
+  const classes = useStyles()
+
+  return (
+    <div className={`${classes.container} ${className}`}>
+      {Object.values(involvements).map(i => (
+        <Involvement
+          className={classes.involvement}
+          involvement={i}
+          key={i.id}
+        />
+      ))}
+    </div>
+  )
+}
 
 InvolvementList.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   involvements: PropTypes.object.isRequired,
 }
 
@@ -32,4 +39,4 @@ InvolvementList.defaultProps = {
   className: '',
 }
 
-export default withStyles(styles)(InvolvementList)
+export default InvolvementList

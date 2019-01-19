@@ -1,10 +1,10 @@
-import { withStyles } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import Typography from '@material-ui/core/Typography'
 
-const styles = _theme => ({
+const useStyles = makeStyles({
   heading: {
     marginTop: '.5rem',
     marginBottom: '.3rem',
@@ -18,18 +18,21 @@ const nodeRenderers = classes => ({
 })
 /* eslint-enable react/display-name */
 
-const Newsletter = ({ className, classes, newsletter }) => (
-  <div className={className}>
-    <ReactMarkdown
-      renderers={nodeRenderers(classes)}
-      source={newsletter.body}
-    />
-  </div>
-)
+const Newsletter = ({ className, newsletter }) => {
+  const classes = useStyles()
+
+  return (
+    <div className={className}>
+      <ReactMarkdown
+        renderers={nodeRenderers(classes)}
+        source={newsletter.body}
+      />
+    </div>
+  )
+}
 
 Newsletter.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   newsletter: PropTypes.shape({
     body: PropTypes.string,
   }).isRequired,
@@ -39,4 +42,4 @@ Newsletter.defaultProps = {
   className: '',
 }
 
-export default withStyles(styles)(Newsletter)
+export default Newsletter

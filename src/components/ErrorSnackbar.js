@@ -1,4 +1,5 @@
-import { Snackbar, withStyles } from '@material-ui/core'
+import { Snackbar } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
@@ -6,14 +7,14 @@ export const ErrorSnackbarContext = React.createContext()
 
 const defaultTimeout = 5000
 
-const styles = ({ palette }) => ({
+const useStyles = makeStyles(({ palette }) => ({
   root: {
     backgroundColor: palette.error.dark,
     color: palette.getContrastText(palette.error.dark),
   },
-})
+}))
 
-const ErrorSnackbar = ({ children, classes }) => {
+const ErrorSnackbar = ({ children }) => {
   const [messages, setMessages] = useState([])
 
   const addMessage = message => setMessages([...messages, message])
@@ -32,6 +33,8 @@ const ErrorSnackbar = ({ children, classes }) => {
     [messages],
   )
 
+  const classes = useStyles()
+
   return (
     <ErrorSnackbarContext.Provider value={{ addMessage }}>
       {children}
@@ -47,11 +50,10 @@ const ErrorSnackbar = ({ children, classes }) => {
 
 ErrorSnackbar.propTypes = {
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
 }
 
 ErrorSnackbar.defaultProps = {
   children: null,
 }
 
-export default withStyles(styles)(ErrorSnackbar)
+export default ErrorSnackbar

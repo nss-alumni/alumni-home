@@ -1,25 +1,30 @@
-import { Button, withStyles } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const styles = _theme => ({
+const useStyles = makeStyles({
   buttonText: {
     textTransform: 'initial',
   },
 })
 
-const NavButton = ({ active, href, location, to, classes, ...props }) => (
-  <Button
-    classes={{ label: classes.buttonText }}
-    color={location && location.pathname === to ? 'primary' : 'inherit'}
-    component={href ? undefined : Link}
-    href={href}
-    location={location}
-    to={to}
-    {...props}
-  />
-)
+const NavButton = ({ active, href, location, to, ...props }) => {
+  const classes = useStyles()
+
+  return (
+    <Button
+      classes={{ label: classes.buttonText }}
+      color={location && location.pathname === to ? 'primary' : 'inherit'}
+      component={href ? undefined : Link}
+      href={href}
+      location={location}
+      to={to}
+      {...props}
+    />
+  )
+}
 
 const destinationValidation = props => {
   const providedProps = Object.keys(props)
@@ -41,7 +46,6 @@ const destinationValidation = props => {
 // NOTE(adam): if href, we don't need location and to. This should be enforceable
 NavButton.propTypes = {
   active: PropTypes.any,
-  classes: PropTypes.object.isRequired,
   destinationValidation,
   href: PropTypes.string,
   location: PropTypes.object,
@@ -52,4 +56,4 @@ NavButton.defaultProps = {
   active: false,
 }
 
-export default withStyles(styles)(NavButton)
+export default NavButton

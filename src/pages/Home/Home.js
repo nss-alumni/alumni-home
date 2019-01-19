@@ -2,16 +2,16 @@ import * as Events from 'resources/Events'
 import * as Involvements from 'resources/Involvements'
 import * as Newsletters from 'resources/Newsletters'
 import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
-import { Typography, withStyles } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import EventList from 'components/EventList'
 import InvolvementList from 'components/InvolvementList'
 import Newsletter from 'components/Newsletter'
-import PropTypes from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import Tile from './Tile'
 import moment from 'moment'
 
-const styles = ({ spacing }) => ({
+const useStyles = makeStyles(({ spacing }) => ({
   container: {
     display: 'flex',
   },
@@ -31,7 +31,7 @@ const styles = ({ spacing }) => ({
   sideTile: {
     margin: spacing.unit * 2,
   },
-})
+}))
 
 /* eslint-disable react/prop-types */
 const EventListWithStatus = ({ events }) => {
@@ -51,7 +51,7 @@ const newsletterDate = newsletter =>
 
 const byDescendingSentDate = (n1, n2) => n2.sentDate.localeCompare(n1.sentDate)
 
-const HomePage = ({ classes }) => {
+const HomePage = () => {
   const { addMessage } = useContext(ErrorSnackbarContext)
 
   const [involvements, setInvolvements] = useState({})
@@ -81,6 +81,8 @@ const HomePage = ({ classes }) => {
       .catch(() => addMessage('Could not get events'))
   }, [])
 
+  const classes = useStyles()
+
   return (
     <div className={classes.container}>
       <div className={classes.group}>
@@ -105,8 +107,4 @@ const HomePage = ({ classes }) => {
   )
 }
 
-HomePage.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(HomePage)
+export default HomePage

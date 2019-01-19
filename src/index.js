@@ -1,9 +1,10 @@
-import { MuiThemeProvider, jssPreset } from '@material-ui/core/styles'
+import './bootstrap'
+import { StylesProvider, ThemeProvider } from '@material-ui/styles'
 import { create } from 'jss'
+import { jssPreset } from '@material-ui/core/styles'
 import { unregister } from './registerServiceWorker'
 import App from './App'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import JssProvider from 'react-jss/lib/JssProvider'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import jssExpand from 'jss-expand'
@@ -14,11 +15,11 @@ const jss = create({ plugins: [...jssPreset().plugins, jssExpand()] })
 const CompleteApp = () => (
   <Fragment>
     <CssBaseline />
-    <JssProvider jss={jss}>
-      <MuiThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
+      <ThemeProvider theme={theme}>
         <App />
-      </MuiThemeProvider>
-    </JssProvider>
+      </ThemeProvider>
+    </StylesProvider>
   </Fragment>
 )
 

@@ -1,9 +1,8 @@
 import * as Alumni from 'resources/Alumni'
 import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
-import { withStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import BoardListing from 'components/BoardListing'
 import MissionStatement from 'components/MissionStatement'
-import PropTypes from 'prop-types'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 
@@ -16,7 +15,7 @@ const getBoardMembers = () =>
     .then(alumni => alumni.filter(([_id, a]) => a.isBoardMember))
     .then(boardMembers => boardMembers.reduce(entriesIntoObject, {}))
 
-const styles = ({ palette, spacing }) => ({
+const useStyles = makeStyles(({ palette, spacing }) => ({
   statement: {
     padding: spacing.unit * 2,
   },
@@ -26,9 +25,9 @@ const styles = ({ palette, spacing }) => ({
     textAlign: 'center',
     padding: spacing.unit,
   },
-})
+}))
 
-const AboutPage = ({ classes }) => {
+const AboutPage = () => {
   const { addMessage } = useContext(ErrorSnackbarContext)
   const [boardMembers, setBoardMembers] = useState({})
   useEffect(() => {
@@ -36,6 +35,8 @@ const AboutPage = ({ classes }) => {
       .then(setBoardMembers)
       .catch(() => addMessage('Could not get board members'))
   }, [])
+
+  const classes = useStyles()
 
   return (
     <Fragment>
@@ -48,8 +49,4 @@ const AboutPage = ({ classes }) => {
   )
 }
 
-AboutPage.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(AboutPage)
+export default AboutPage

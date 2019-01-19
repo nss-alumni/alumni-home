@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, withStyles } from '@material-ui/core'
+import { Card, CardContent, CardHeader } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const styles = ({ palette, spacing }) => ({
+const useStyles = makeStyles(({ palette, spacing }) => ({
   title: {
     background: palette.primary.main,
     paddingLeft: spacing.unit * 2,
@@ -18,7 +19,7 @@ const styles = ({ palette, spacing }) => ({
     paddingLeft: spacing.unit * 2,
     paddingRight: spacing.unit * 2,
   },
-})
+}))
 
 const classOverrides = classes => ({
   title: {
@@ -33,19 +34,22 @@ const classOverrides = classes => ({
   },
 })
 
-const Tile = ({ title, children, className, classes }) => (
-  <Card className={className} classes={classOverrides(classes).card}>
-    <CardHeader classes={classOverrides(classes).title} title={title} />
-    <CardContent classes={classOverrides(classes).content}>
-      {children}
-    </CardContent>
-  </Card>
-)
+const Tile = ({ title, children, className }) => {
+  const classes = useStyles()
+
+  return (
+    <Card className={className} classes={classOverrides(classes).card}>
+      <CardHeader classes={classOverrides(classes).title} title={title} />
+      <CardContent classes={classOverrides(classes).content}>
+        {children}
+      </CardContent>
+    </Card>
+  )
+}
 
 Tile.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
 }
 
@@ -53,4 +57,4 @@ Tile.defaultProps = {
   className: '',
 }
 
-export default withStyles(styles)(Tile)
+export default Tile
