@@ -7,7 +7,7 @@ import EventList from 'components/EventList'
 import InvolvementList from 'components/InvolvementList'
 import Newsletter from 'components/Newsletter'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Tile from './Tile'
 import moment from 'moment'
 
@@ -49,58 +49,60 @@ const EventListWithStatus = ({ events }) => {
 const newsletterDate = newsletter =>
   newsletter ? moment(newsletter.sentDate).format('MMMM YYYY') : ''
 
-class HomePage extends React.Component {
-  static contextType = ErrorSnackbarContext
+const byDescendingSentDate = (n1, n2) => n2.sentDate.localeCompare(n1.sentDate)
 
-  state = {
-    involvements: {},
-    newsletters: {},
-    events: null,
-  }
+const HomePage = ({ classes }) => {
+  const { addMessage } = useContext(ErrorSnackbarContext)
 
-  componentDidMount() {
+  const [involvements, setInvolvements] = useState({})
+  useEffect(() => {
     Involvements.getAll()
-      .then(({ data: involvements }) => this.setState({ involvements }))
-      .catch(() => this.context.addMessage('Could not get involvements'))
+      .then(({ data }) => data)
+      .then(setInvolvements)
+      .catch(() => addMessage('Could not get involvements'))
+  }, [])
 
+  const [latestNewsletter, setLatestNewsletter] = useState({})
+  useEffect(() => {
     Newsletters.getAll()
-      .then(({ data: newsletters }) => this.setState({ newsletters }))
-      .catch(() => this.context.addMessage('Could not get newsletters'))
+      .then(({ data }) => data)
+      .then(Object.values)
+      .then(newsletters => newsletters.sort(byDescendingSentDate))
+      .then(newsletters => newsletters[0])
+      .then(setLatestNewsletter)
+      .catch(() => addMessage('Could not get newsletters'))
+  }, [])
 
+  const [events, setEvents] = useState(null)
+  useEffect(() => {
     Events.getAll()
-      .then(({ data: events }) => this.setState({ events }))
-      .catch(() => this.context.addMessage('Could not get events'))
-  }
+      .then(({ data }) => data)
+      .then(setEvents)
+      .catch(() => addMessage('Could not get events'))
+  }, [])
 
-  render() {
-    const { classes } = this.props
-    const { involvements, newsletters, events } = this.state
-
-    const latestNewsletter = Object.values(newsletters)[0]
-
-    return (
-      <div className={classes.container}>
-        <div className={classes.group}>
-          <Tile className={classes.tile} title="Get Involved">
-            <InvolvementList involvements={involvements} />
-          </Tile>
-        </div>
-        <div className={classes.group}>
-          <Tile
-            className={classes.tile}
-            title={`Newsletter: ${newsletterDate(latestNewsletter)}`}
-          >
-            {latestNewsletter && <Newsletter newsletter={latestNewsletter} />}
-          </Tile>
-        </div>
-        <div className={classes.sideGroup}>
-          <Tile className={classes.sideTile} title="Upcoming Events">
-            <EventListWithStatus events={events} />
-          </Tile>
-        </div>
+  return (
+    <div className={classes.container}>
+      <div className={classes.group}>
+        <Tile className={classes.tile} title="Get Involved">
+          <InvolvementList involvements={involvements} />
+        </Tile>
       </div>
-    )
-  }
+      <div className={classes.group}>
+        <Tile
+          className={classes.tile}
+          title={`Newsletter: ${newsletterDate(latestNewsletter)}`}
+        >
+          {latestNewsletter && <Newsletter newsletter={latestNewsletter} />}
+        </Tile>
+      </div>
+      <div className={classes.sideGroup}>
+        <Tile className={classes.sideTile} title="Upcoming Events">
+          <EventListWithStatus events={events} />
+        </Tile>
+      </div>
+    </div>
+  )
 }
 
 HomePage.propTypes = {
