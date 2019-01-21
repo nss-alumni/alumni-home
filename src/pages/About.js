@@ -1,9 +1,9 @@
 import * as Alumni from 'resources/Alumni'
-import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
 import { makeStyles } from '@material-ui/styles'
+import { useSimpleFetch } from 'hooks'
 import BoardListing from 'components/BoardListing'
 import MissionStatement from 'components/MissionStatement'
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
@@ -19,13 +19,10 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
 }))
 
 const AboutPage = () => {
-  const { addMessage } = useContext(ErrorSnackbarContext)
-  const [boardMembers, setBoardMembers] = useState({})
-  useEffect(() => {
-    Alumni.getBoardMembers()
-      .then(setBoardMembers)
-      .catch(() => addMessage('Could not get board members'))
-  }, [])
+  const [boardMembers] = useSimpleFetch(Alumni.getBoardMembers, {
+    errorMessage: 'Could not get board members',
+    defaultValue: {},
+  })
 
   const classes = useStyles()
 

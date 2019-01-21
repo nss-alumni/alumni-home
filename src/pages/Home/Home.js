@@ -1,13 +1,13 @@
 import * as Events from 'resources/Events'
 import * as Involvements from 'resources/Involvements'
 import * as Newsletters from 'resources/Newsletters'
-import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { useSimpleFetch } from 'hooks'
 import EventList from 'components/EventList'
 import InvolvementList from 'components/InvolvementList'
 import Newsletter from 'components/Newsletter'
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import Tile from './Tile'
 import moment from 'moment'
 
@@ -50,28 +50,19 @@ const newsletterDate = newsletter =>
   newsletter ? moment(newsletter.sentDate).format('MMMM YYYY') : ''
 
 const HomePage = () => {
-  const { addMessage } = useContext(ErrorSnackbarContext)
+  const [involvements] = useSimpleFetch(Involvements.getAll, {
+    errorMessage: 'Could not get involvements',
+    defaultValue: {},
+  })
 
-  const [involvements, setInvolvements] = useState({})
-  useEffect(() => {
-    Involvements.getAll()
-      .then(setInvolvements)
-      .catch(() => addMessage('Could not get involvements'))
-  }, [])
+  const [latestNewsletter] = useSimpleFetch(Newsletters.getLatest, {
+    errorMessage: 'Could not get newsletters',
+    defaultValue: {},
+  })
 
-  const [latestNewsletter, setLatestNewsletter] = useState({})
-  useEffect(() => {
-    Newsletters.getLatest()
-      .then(setLatestNewsletter)
-      .catch(() => addMessage('Could not get newsletters'))
-  }, [])
-
-  const [events, setEvents] = useState(null)
-  useEffect(() => {
-    Events.getAll()
-      .then(setEvents)
-      .catch(() => addMessage('Could not get events'))
-  }, [])
+  const [events] = useSimpleFetch(Events.getAll, {
+    errorMessage: 'Could not get events',
+  })
 
   const classes = useStyles()
 
