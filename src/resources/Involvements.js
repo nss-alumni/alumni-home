@@ -9,4 +9,5 @@ import { Firebase } from 'services'
 }
 */
 
-export const getAll = () => Firebase.get('get-involved.json')
+export const getAll = ({ cancelToken } = {}) =>
+  Firebase.get('get-involved.json', { cancelToken })

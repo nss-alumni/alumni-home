@@ -10,4 +10,5 @@ import { Api } from 'services'
 }
 */
 
-export const getAll = () => Api.get('events')
+export const getAll = ({ cancelToken } = {}) =>
+  Api.get('events', { cancelToken })
