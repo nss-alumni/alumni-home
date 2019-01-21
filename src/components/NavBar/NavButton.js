@@ -26,6 +26,7 @@ const NavButton = ({ active, href, location, to, ...props }) => {
   )
 }
 
+// NOTE(adam): if href, we don't need location and to, and vice-versa
 const destinationValidation = props => {
   const providedProps = Object.keys(props)
   const hasHref = providedProps.includes('href')
@@ -43,7 +44,6 @@ const destinationValidation = props => {
   }
 }
 
-// NOTE(adam): if href, we don't need location and to. This should be enforceable
 NavButton.propTypes = {
   active: PropTypes.any,
   destinationValidation,
