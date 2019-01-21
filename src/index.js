@@ -12,7 +12,7 @@ import theme from './theme'
 
 const jss = create({ plugins: [...jssPreset().plugins, jssExpand()] })
 
-const CompleteApp = () => (
+export const CompleteApp = () => (
   <Fragment>
     <CssBaseline />
     <StylesProvider jss={jss}>
@@ -23,7 +23,9 @@ const CompleteApp = () => (
   </Fragment>
 )
 
-ReactDOM.render(<CompleteApp />, document.getElementById('root'))
+if (process.env.NODE_ENV !== 'test') {
+  ReactDOM.render(<CompleteApp />, document.getElementById('root'))
+}
 
 // registerServiceWorker()
 unregister()
