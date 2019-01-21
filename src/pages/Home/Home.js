@@ -49,8 +49,6 @@ const EventListWithStatus = ({ events }) => {
 const newsletterDate = newsletter =>
   newsletter ? moment(newsletter.sentDate).format('MMMM YYYY') : ''
 
-const byDescendingSentDate = (n1, n2) => n2.sentDate.localeCompare(n1.sentDate)
-
 const HomePage = () => {
   const { addMessage } = useContext(ErrorSnackbarContext)
 
@@ -63,10 +61,7 @@ const HomePage = () => {
 
   const [latestNewsletter, setLatestNewsletter] = useState({})
   useEffect(() => {
-    Newsletters.getAll()
-      .then(Object.values)
-      .then(newsletters => newsletters.sort(byDescendingSentDate))
-      .then(newsletters => newsletters[0])
+    Newsletters.getLatest()
       .then(setLatestNewsletter)
       .catch(() => addMessage('Could not get newsletters'))
   }, [])
