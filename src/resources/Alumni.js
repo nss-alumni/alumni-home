@@ -1,4 +1,5 @@
 import { Firebase } from 'services'
+import { entriesIntoObject } from 'utils'
 
 /*
 {
@@ -13,4 +14,11 @@ import { Firebase } from 'services'
 }
 */
 
-export const getAll = () => Firebase.get('alumni.json')
+export const getAll = ({ cancelToken } = {}) =>
+  Firebase.get('alumni.json', { cancelToken })
+
+export const getBoardMembers = ({ cancelToken } = {}) =>
+  getAll({ cancelToken })
+    .then(Object.entries)
+    .then(alumni => alumni.filter(([_id, a]) => a.isBoardMember))
+    .then(boardMembers => boardMembers.reduce(entriesIntoObject, {}))

@@ -1,6 +1,6 @@
+import { Typography } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
 
 const Involvement = ({ className, involvement }) => (
   <div className={className}>

@@ -1,22 +1,12 @@
 import * as Alumni from 'resources/Alumni'
-import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
-import { withStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+import { useSimpleFetch } from 'hooks'
 import BoardListing from 'components/BoardListing'
 import MissionStatement from 'components/MissionStatement'
-import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 import Typography from '@material-ui/core/Typography'
 
-const entriesIntoObject = (obj, [key, value]) => ({ ...obj, [key]: value })
-
-const getBoardMembers = () =>
-  Alumni.getAll()
-    .then(({ data }) => data)
-    .then(Object.entries)
-    .then(alumni => alumni.filter(([_id, a]) => a.isBoardMember))
-    .then(boardMembers => boardMembers.reduce(entriesIntoObject, {}))
-
-const styles = ({ palette, spacing }) => ({
+const useStyles = makeStyles(({ palette, spacing }) => ({
   statement: {
     padding: spacing.unit * 2,
   },
@@ -26,39 +16,25 @@ const styles = ({ palette, spacing }) => ({
     textAlign: 'center',
     padding: spacing.unit,
   },
-})
+}))
 
-class AboutPage extends React.Component {
-  static contextType = ErrorSnackbarContext
+const AboutPage = () => {
+  const [boardMembers] = useSimpleFetch(Alumni.getBoardMembers, {
+    errorMessage: 'Could not get board members',
+    defaultValue: {},
+  })
 
-  state = {
-    boardMembers: {},
-  }
+  const classes = useStyles()
 
-  componentDidMount() {
-    getBoardMembers()
-      .then(boardMembers => this.setState({ boardMembers }))
-      .catch(() => this.context.addMessage('Could not get board members'))
-  }
-
-  render() {
-    const { classes } = this.props
-    const { boardMembers } = this.state
-
-    return (
-      <Fragment>
-        <MissionStatement className={classes.statement} />
-        <Typography className={classes.meetBar} variant="h6">
-          MEET THE BOARD
-        </Typography>
-        <BoardListing boardMembers={boardMembers} />
-      </Fragment>
-    )
-  }
+  return (
+    <Fragment>
+      <MissionStatement className={classes.statement} />
+      <Typography className={classes.meetBar} variant="h6">
+        MEET THE BOARD
+      </Typography>
+      <BoardListing boardMembers={boardMembers} />
+    </Fragment>
+  )
 }
 
-AboutPage.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(AboutPage)
+export default AboutPage

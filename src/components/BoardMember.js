@@ -3,14 +3,14 @@ import {
   Card,
   CardContent,
   CardMedia,
-  withStyles,
+  Typography,
 } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
 
 /* eslint-disable no-magic-numbers */
-const styles = ({ shadows, spacing }) => ({
+const useStyles = makeStyles(({ shadows, spacing }) => ({
   card: {
     flex: 1,
     display: 'flex',
@@ -28,23 +28,30 @@ const styles = ({ shadows, spacing }) => ({
   info: {
     textAlign: 'center',
   },
-})
+}))
 /* eslint-enable no-magic-numbers */
 
-const BoardMember = ({ className, classes, picture, name, title, contact }) => (
-  <Card className={`${classes.card} ${className}`}>
-    <CardMedia className={classes.picture} component={Avatar} image={picture} />
-    <CardContent className={classes.info}>
-      <Typography variant="h5">{name}</Typography>
-      <Typography variant="body1">{title}</Typography>
-      <Typography variant="body1">{contact}</Typography>
-    </CardContent>
-  </Card>
-)
+const BoardMember = ({ className, picture, name, title, contact }) => {
+  const classes = useStyles()
+
+  return (
+    <Card className={`${classes.card} ${className}`}>
+      <CardMedia
+        className={classes.picture}
+        component={Avatar}
+        image={picture}
+      />
+      <CardContent className={classes.info}>
+        <Typography variant="h5">{name}</Typography>
+        <Typography variant="body1">{title}</Typography>
+        <Typography variant="body1">{contact}</Typography>
+      </CardContent>
+    </Card>
+  )
+}
 
 BoardMember.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   contact: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
@@ -55,4 +62,4 @@ BoardMember.defaultProps = {
   className: '',
 }
 
-export default withStyles(styles)(BoardMember)
+export default BoardMember

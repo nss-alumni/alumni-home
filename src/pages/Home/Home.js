@@ -1,17 +1,17 @@
 import * as Events from 'resources/Events'
 import * as Involvements from 'resources/Involvements'
 import * as Newsletters from 'resources/Newsletters'
-import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
-import { Typography, withStyles } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+import { useSimpleFetch } from 'hooks'
 import EventList from 'components/EventList'
 import InvolvementList from 'components/InvolvementList'
 import Newsletter from 'components/Newsletter'
-import PropTypes from 'prop-types'
 import React from 'react'
 import Tile from './Tile'
 import moment from 'moment'
 
-const styles = ({ spacing }) => ({
+const useStyles = makeStyles(({ spacing }) => ({
   container: {
     display: 'flex',
   },
@@ -31,7 +31,7 @@ const styles = ({ spacing }) => ({
   sideTile: {
     margin: spacing.unit * 2,
   },
-})
+}))
 
 /* eslint-disable react/prop-types */
 const EventListWithStatus = ({ events }) => {
@@ -49,62 +49,45 @@ const EventListWithStatus = ({ events }) => {
 const newsletterDate = newsletter =>
   newsletter ? moment(newsletter.sentDate).format('MMMM YYYY') : ''
 
-class HomePage extends React.Component {
-  static contextType = ErrorSnackbarContext
+const HomePage = () => {
+  const [involvements] = useSimpleFetch(Involvements.getAll, {
+    errorMessage: 'Could not get involvements',
+    defaultValue: {},
+  })
 
-  state = {
-    involvements: {},
-    newsletters: {},
-    events: null,
-  }
+  const [latestNewsletter] = useSimpleFetch(Newsletters.getLatest, {
+    errorMessage: 'Could not get newsletters',
+    defaultValue: {},
+  })
 
-  componentDidMount() {
-    Involvements.getAll()
-      .then(({ data: involvements }) => this.setState({ involvements }))
-      .catch(() => this.context.addMessage('Could not get involvements'))
+  const [events] = useSimpleFetch(Events.getAll, {
+    errorMessage: 'Could not get events',
+  })
 
-    Newsletters.getAll()
-      .then(({ data: newsletters }) => this.setState({ newsletters }))
-      .catch(() => this.context.addMessage('Could not get newsletters'))
+  const classes = useStyles()
 
-    Events.getAll()
-      .then(({ data: events }) => this.setState({ events }))
-      .catch(() => this.context.addMessage('Could not get events'))
-  }
-
-  render() {
-    const { classes } = this.props
-    const { involvements, newsletters, events } = this.state
-
-    const latestNewsletter = Object.values(newsletters)[0]
-
-    return (
-      <div className={classes.container}>
-        <div className={classes.group}>
-          <Tile className={classes.tile} title="Get Involved">
-            <InvolvementList involvements={involvements} />
-          </Tile>
-        </div>
-        <div className={classes.group}>
-          <Tile
-            className={classes.tile}
-            title={`Newsletter: ${newsletterDate(latestNewsletter)}`}
-          >
-            {latestNewsletter && <Newsletter newsletter={latestNewsletter} />}
-          </Tile>
-        </div>
-        <div className={classes.sideGroup}>
-          <Tile className={classes.sideTile} title="Upcoming Events">
-            <EventListWithStatus events={events} />
-          </Tile>
-        </div>
+  return (
+    <div className={classes.container}>
+      <div className={classes.group}>
+        <Tile className={classes.tile} title="Get Involved">
+          <InvolvementList involvements={involvements} />
+        </Tile>
       </div>
-    )
-  }
+      <div className={classes.group}>
+        <Tile
+          className={classes.tile}
+          title={`Newsletter: ${newsletterDate(latestNewsletter)}`}
+        >
+          {latestNewsletter && <Newsletter newsletter={latestNewsletter} />}
+        </Tile>
+      </div>
+      <div className={classes.sideGroup}>
+        <Tile className={classes.sideTile} title="Upcoming Events">
+          <EventListWithStatus events={events} />
+        </Tile>
+      </div>
+    </div>
+  )
 }
 
-HomePage.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(HomePage)
+export default HomePage
