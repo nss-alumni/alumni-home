@@ -1,12 +1,11 @@
 import * as Alumni from 'resources/Alumni'
 import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
+import { entriesIntoObject } from 'utils'
 import { makeStyles } from '@material-ui/styles'
 import BoardListing from 'components/BoardListing'
 import MissionStatement from 'components/MissionStatement'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import Typography from '@material-ui/core/Typography'
-
-const entriesIntoObject = (obj, [key, value]) => ({ ...obj, [key]: value })
 
 const getBoardMembers = () =>
   Alumni.getAll()
