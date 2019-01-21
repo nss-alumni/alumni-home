@@ -35,14 +35,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix .",
-    "checkout-master-branch": "git checkout master",
-    "create-deploy-branch": "git checkout -b deploy",
-    "add-build-directory": "sed -i '' 's|/build|#/build|' .gitignore",
-    "commit-build-directory": "git add -A && git commit -m 'add build files'",
-    "create-build": "npm run build && npm run add-build-directory && npm run commit-build-directory",
-    "push-deploy": "git push origin `git subtree split --prefix=build`:gh-pages --force",
-    "delete-deploy-branch": "npm run checkout-master-branch && git branch -D deploy",
-    "deploy": "npm run checkout-master-branch && git pull && npm run create-deploy-branch && npm run create-build && npm run push-deploy && npm run delete-deploy-branch"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
