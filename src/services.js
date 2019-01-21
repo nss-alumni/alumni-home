@@ -22,7 +22,7 @@ const logError = error => {
 /* eslint-enable no-console */
 
 const interceptors = [
-  response => response,
+  ({ data }) => data,
   error => logError(error) || Promise.reject(error),
 ]
 

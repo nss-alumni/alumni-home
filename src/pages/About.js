@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography'
 
 const getBoardMembers = () =>
   Alumni.getAll()
-    .then(({ data }) => data)
     .then(Object.entries)
     .then(alumni => alumni.filter(([_id, a]) => a.isBoardMember))
     .then(boardMembers => boardMembers.reduce(entriesIntoObject, {}))

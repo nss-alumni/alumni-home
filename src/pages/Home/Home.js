@@ -57,7 +57,6 @@ const HomePage = () => {
   const [involvements, setInvolvements] = useState({})
   useEffect(() => {
     Involvements.getAll()
-      .then(({ data }) => data)
       .then(setInvolvements)
       .catch(() => addMessage('Could not get involvements'))
   }, [])
@@ -65,7 +64,6 @@ const HomePage = () => {
   const [latestNewsletter, setLatestNewsletter] = useState({})
   useEffect(() => {
     Newsletters.getAll()
-      .then(({ data }) => data)
       .then(Object.values)
       .then(newsletters => newsletters.sort(byDescendingSentDate))
       .then(newsletters => newsletters[0])
@@ -76,7 +74,6 @@ const HomePage = () => {
   const [events, setEvents] = useState(null)
   useEffect(() => {
     Events.getAll()
-      .then(({ data }) => data)
       .then(setEvents)
       .catch(() => addMessage('Could not get events'))
   }, [])
