@@ -53,8 +53,8 @@ const App = () => {
           <Route component={Nav} />
           <div className={classes.content}>
             <Switch>
+              <Route component={HomePage} exact path="/" />
               <Route component={AboutPage} path="/about" />
-              <Route component={HomePage} path="/" />
             </Switch>
           </div>
         </div>
