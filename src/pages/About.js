@@ -1,17 +1,10 @@
 import * as Alumni from 'resources/Alumni'
 import { ErrorSnackbarContext } from 'components/ErrorSnackbar'
-import { entriesIntoObject } from 'utils'
 import { makeStyles } from '@material-ui/styles'
 import BoardListing from 'components/BoardListing'
 import MissionStatement from 'components/MissionStatement'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import Typography from '@material-ui/core/Typography'
-
-const getBoardMembers = () =>
-  Alumni.getAll()
-    .then(Object.entries)
-    .then(alumni => alumni.filter(([_id, a]) => a.isBoardMember))
-    .then(boardMembers => boardMembers.reduce(entriesIntoObject, {}))
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   statement: {
@@ -29,7 +22,7 @@ const AboutPage = () => {
   const { addMessage } = useContext(ErrorSnackbarContext)
   const [boardMembers, setBoardMembers] = useState({})
   useEffect(() => {
-    getBoardMembers()
+    Alumni.getBoardMembers()
       .then(setBoardMembers)
       .catch(() => addMessage('Could not get board members'))
   }, [])
